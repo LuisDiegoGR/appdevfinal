@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:appdevfinal/pantalla_siguiente.dart'; // Importa el archivo Dart al que quieres redirigir
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const Text(
-              'Rehabilitación Pediátrica',
+              'Rehabilitación Medica',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
