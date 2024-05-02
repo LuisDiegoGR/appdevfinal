@@ -1,4 +1,5 @@
 import 'package:appdevfinal/InicioApp.dart';
+import 'package:appdevfinal/Personalinfo.dart';
 import 'package:flutter/material.dart';
 
 class TerceraPag extends StatefulWidget {
@@ -37,6 +38,9 @@ class _TerceraPagState extends State<TerceraPag> {
                 TextButton.icon(
                   onPressed: () {
                     // Lógica para la pantalla de Información Personal
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => Personalinfo()),
+                    );
                   },
                   icon:Icon(Icons.person, color: Colors.black),
                   style: TextButton.styleFrom(
