@@ -1,3 +1,4 @@
+import 'package:appdevfinal/CreateAcc.dart';
 import 'package:flutter/material.dart';
 import 'package:appdevfinal/InicioApp.dart';
 
@@ -63,7 +64,11 @@ class PantallaSiguiente extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (constext) => CreateAccn())
+                      );
+                    },
                     child: Text(
                       'Create account',
                       style: TextStyle(
