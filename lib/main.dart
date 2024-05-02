@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const Text(
-              'Rehabilitación Medica',
+              'Rehabilitacion Pediatrica osi osi',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
