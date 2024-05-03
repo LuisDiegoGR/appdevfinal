@@ -32,21 +32,96 @@ class _PersonalinfoState extends State<Personalinfo> {
               backgroundImage: AssetImage('assets/images/Perfil.jpg'),
             ),
             SizedBox(height: 20),
-            Container(
-              width: 400,
-              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-              decoration: BoxDecoration(
-                color: Color(0xFFE6E6E6),
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: TextField(
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  hintText: 'Edit your name',
-                  prefixIcon: Icon(Icons.person_2, color: Colors.black),
-                  border: InputBorder.none,
+            Column(
+              children: [
+                TextButton.icon(
+                  onPressed: () {
+                    //coment
+                  },
+                  icon:Icon(Icons.person, color: Colors.black),
+                  style: TextButton.styleFrom(
+                    backgroundColor: Color(0xFFE6E6E6),
+                    foregroundColor: Colors.black,
+                    padding: EdgeInsets.only(top: 17, bottom: 17, left: 120, right: 120),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  label: Text(
+                    'Luis Diego',
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 18,
+                    ),
+                  ),
                 ),
-              ),
+                SizedBox(height: 30),
+                TextButton.icon(
+                  onPressed: () {
+                    //coment
+                  },
+                  icon:Icon(Icons.person, color: Colors.black),
+                  style: TextButton.styleFrom(
+                    backgroundColor: Color(0xFFE6E6E6),
+                    foregroundColor: Colors.black,
+                    padding: EdgeInsets.only(top: 17, bottom: 17, left: 100, right: 100),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  label: Text(
+                    'Ticante Corona',
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 30),
+                TextButton.icon(
+                  onPressed: () {
+                    //coment
+                  },
+                  icon:Icon(Icons.email, color: Colors.black),
+                  style: TextButton.styleFrom(
+                    backgroundColor: Color(0xFFE6E6E6),
+                    foregroundColor: Colors.black,
+                    padding: EdgeInsets.only(top: 17, bottom: 17, left: 35, right: 35),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  label: Text(
+                    'Luisdiegoticante@hotmail.com',
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 30),
+                TextButton.icon(
+                  onPressed: () {
+                    //coment
+                  },
+                  icon:Icon(Icons.location_city, color: Colors.black),
+                  style: TextButton.styleFrom(
+                    backgroundColor: Color(0xFFE6E6E6),
+                    foregroundColor: Colors.black,
+                    padding: EdgeInsets.only(top: 17, bottom: 17, left: 80, right: 80),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  label: Text(
+                    'Blvd. Acozac num 3',
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ],
             ),
             const Spacer(),
           ],

@@ -1,5 +1,6 @@
 import 'package:appdevfinal/InicioApp.dart';
 import 'package:appdevfinal/Personalinfo.dart';
+import 'package:appdevfinal/Notification.dart';
 import 'package:flutter/material.dart';
 
 class TerceraPag extends StatefulWidget {
@@ -18,7 +19,7 @@ class _TerceraPagState extends State<TerceraPag> {
           icon: Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => InicioApp()),
+              MaterialPageRoute(builder: (context) => const InicioApp()),
             );
           },
         ),
@@ -62,7 +63,9 @@ class _TerceraPagState extends State<TerceraPag> {
                 SizedBox(height: 25),
                 TextButton.icon(
                   onPressed: () {
-                    // Lógica para la pantalla de Notificaciones
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => NotificationPage()),
+                    );
                   },
                   icon: Icon(Icons.notifications, color: Colors.black),
                   style: TextButton.styleFrom(
