@@ -11,9 +11,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomePage(),
-      routes: {
-        '/siguiente': (context) => PantallaSiguiente(), // Configura la ruta para redirigir al siguiente archivo Dart
-      },
     );
   }
 }

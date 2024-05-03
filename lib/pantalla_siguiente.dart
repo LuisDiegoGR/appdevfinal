@@ -120,4 +120,3 @@ class PantallaSiguiente extends StatelessWidget {
     );
   }
 }
-
