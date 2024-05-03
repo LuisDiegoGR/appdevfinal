@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:appdevfinal/InicioApp.dart';
+import 'package:appdevfinal/forgot_password_screen.dart'; // Importa la nueva pantalla
+import 'package:flutter/material.dart';
 
 class PantallaSiguiente extends StatelessWidget {
   const PantallaSiguiente({Key? key}) : super(key: key);
@@ -74,7 +75,12 @@ class PantallaSiguiente extends StatelessWidget {
                   ),
                   const SizedBox(width: 20),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // Aquí irá la lógica para la pantalla de recuperar contraseña
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => ForgotPasswordScreen()),
+                      );
+                    },
                     child: Text(
                       'Forgot Password?',
                       style: TextStyle(
@@ -114,3 +120,4 @@ class PantallaSiguiente extends StatelessWidget {
     );
   }
 }
+
