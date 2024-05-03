@@ -1,3 +1,4 @@
+import 'package:appdevfinal/CreateAcc.dart';
 import 'package:appdevfinal/InicioApp.dart';
 import 'package:appdevfinal/forgot_password_screen.dart'; // Importa la nueva pantalla
 import 'package:flutter/material.dart';
@@ -64,7 +65,11 @@ class PantallaSiguiente extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => CreateAccn())
+                      );
+                    },
                     child: Text(
                       'Create account',
                       style: TextStyle(
