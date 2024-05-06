@@ -104,11 +104,11 @@ class _Informacion1State extends State<Informacion1> {
               duration: Duration(milliseconds: 500),
               child: Row(
                 children: [
-                  Icon(Icons.arrow_forward, color: Colors.white),
+                  Icon(Icons.arrow_forward, color: Colors.black),
                   SizedBox(width: 8),
                   Text(
                     'Desliza para ver más',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.black),
                   ),
                 ],
               ),
