@@ -53,7 +53,7 @@ class _InicioAppState extends State<InicioApp> {
                     ),
                     child: const Center(
                       child: Text(
-                        'Agendar cita',
+                        'Consultar Especialista',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -71,7 +71,7 @@ class _InicioAppState extends State<InicioApp> {
                         // Acción del botón
                       },
                       child: Text(
-                        'Empezar',
+                        'Ir',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 16,

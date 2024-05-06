@@ -1,7 +1,45 @@
 import 'package:flutter/material.dart';
 
-class Informacion1 extends StatelessWidget {
+class Informacion1 extends StatefulWidget {
   const Informacion1({Key? key}) : super(key: key);
+
+  @override
+  State<Informacion1> createState() => _Informacion1State();
+}
+
+class _Informacion1State extends State<Informacion1> {
+  final PageController _pageController = PageController();
+  final List<String> _imageUrls = [
+    'assets/images/estimulacion.png',
+    'assets/images/embarazo.png',
+    'assets/images/niña.png',
+    'assets/images/foro.png',
+  ];
+
+  final List<String> _titles = [
+    'Estimulación Temprana',
+    'Embarazo de Alto Riesgo',
+    'Alteraciones en el Desarrollo',
+    'Foro de Discusión',
+  ];
+
+  double _currentPage = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController.addListener(() {
+      setState(() {
+        _currentPage = _pageController.page!;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -9,250 +47,74 @@ class Informacion1 extends StatelessWidget {
       appBar: AppBar(
         title: Text('Información'),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Primer contenedor con imagen delante
-              Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50),
-                    child: Container(
-                      width: 350,
-                      height: 150, // Reducimos la altura a 150
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'Estimulación',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      padding: EdgeInsets.only(left: 40),
-                    ),
-                  ),
-                  Positioned(
-                    top: 100,
-                    left: 128,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Acción del botón
-                      },
-                      child: Text(
-                        'Empezar',
+      body: Stack(
+        children: [
+          PageView.builder(
+            controller: _pageController,
+            itemCount: _imageUrls.length,
+            itemBuilder: (context, index) {
+              final image = _imageUrls[index];
+              final title = _titles[index];
+              final pageOffset = (index - _currentPage).abs();
+              final scale = 1 - (pageOffset * 0.3).clamp(0.0, 0.3);
+
+              return Center(
+                child: Transform.scale(
+                  scale: scale,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        title,
                         style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      SizedBox(height: 30),
+                      Image.asset(
+                        image,
+                        width: 300,
+                        height: 300,
                       ),
-                    ),
-                  ),
-                  Container(
-                    child: Image.asset(
-                      'assets/images/estimulacion.png',
-                      width: 130,
-                      height: 290,
-                      alignment: Alignment.centerRight,
-                    ),
-                    padding: EdgeInsets.only(left: 26),
-                  ),
-                ],
-              ),
-              SizedBox(height: 30),
-              // Segundo contenedor con imagen delante
-              Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50),
-                    child: Container(
-                      width: 350,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: const Center(
+                      SizedBox(height: 30),
+                      ElevatedButton(
+                        onPressed: () {
+                          // Acción del botón
+                        },
                         child: Text(
-                          'Embarazo',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          'Ver Información',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                  Positioned(
-                    top: 100,
-                    left: 128,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Acción del botón
-                      },
-                      child: Text(
-                        'Empezar',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Image.asset(
-                      'assets/images/embarazo.png',
-                      width: 130,
-                      height: 290,
-                      alignment: Alignment.centerRight,
-                    ),
-                    padding: EdgeInsets.only(left: 26),
-                  ),
-                ],
-              ),
-              SizedBox(height: 30),
-              // Tercer contenedor con imagen delante
-              Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50),
-                    child: Container(
-                      width: 350,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'Niña',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 100,
-                    left: 128,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Acción del botón
-                      },
-                      child: Text(
-                        'Empezar',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Image.asset(
-                      'assets/images/niña.png',
-                      width: 130,
-                      height: 290,
-                      alignment: Alignment.centerRight,
-                    ),
-                    padding: EdgeInsets.only(left: 26),
-                  ),
-                ],
-              ),
-              SizedBox(height: 30),
-              // Cuarto contenedor con imagen delante
-              Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50),
-                    child: Container(
-                      width: 350,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'Foro',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 100,
-                    left: 128,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Acción del botón
-                      },
-                      child: Text(
-                        'Empezar',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Image.asset(
-                      'assets/images/foro.png',
-                      width: 130,
-                      height: 290,
-                      alignment: Alignment.centerRight,
-                    ),
-                    padding: EdgeInsets.only(left: 26),
-                  ),
-                ],
-              ),
-            ],
+                ),
+              );
+            },
           ),
-        ),
+          Positioned(
+            bottom: 20,
+            left: 20,
+            child: AnimatedOpacity(
+              opacity: _currentPage < (_imageUrls.length - 1) ? 1.0 : 0.0,
+              duration: Duration(milliseconds: 500),
+              child: Row(
+                children: [
+                  Icon(Icons.arrow_forward, color: Colors.black),
+                  SizedBox(width: 8),
+                  Text(
+                    'Desliza para ver más',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
