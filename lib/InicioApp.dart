@@ -1,48 +1,44 @@
+import 'package:appdevfinal/TerceraPage.dart';
 import 'package:appdevfinal/main.dart';
 import 'package:flutter/material.dart';
-import 'package:appdevfinal/TerceraPage.dart';
+
+import 'informacion1.dart';
 
 class InicioApp extends StatefulWidget {
-  const InicioApp({super.key});
+  const InicioApp({Key? key}) : super(key: key);
 
   @override
   State<InicioApp> createState() => _InicioAppState();
 }
 
 class _InicioAppState extends State<InicioApp> {
-   @override
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-appBar: AppBar(
-  leading: IconButton(
-    icon: Icon(Icons.account_circle),
-    iconSize: 40.0,
-    onPressed: () {
-      //Accion a realizar
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.account_circle),
+            iconSize: 40.0,
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
+            },
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.settings),
+              iconSize: 40.0,
+              onPressed: () {
                 Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => HomePage()),
-          );
-    },
-  ),
-  actions: [
-    IconButton(
-      icon: Icon(Icons.settings),
-      iconSize: 40.0,
-      onPressed: () {
-        //paso a seguir
-          Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const TerceraPag()),
-          );
-      },
-    )
-  ],
-),
-
-
-
-
+                  MaterialPageRoute(builder: (context) => const TerceraPag()),
+                );
+              },
+            )
+          ],
+        ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -52,7 +48,7 @@ appBar: AppBar(
                 children: [
                   Container(
                     width: 350,
-                    height: 200,
+                    height: 150, // Reducimos la altura a 150
                     decoration: BoxDecoration(
                       color: Colors.black,
                       borderRadius: BorderRadius.circular(30),
@@ -70,7 +66,7 @@ appBar: AppBar(
                     padding: EdgeInsets.only(left: 40),
                   ),
                   Positioned(
-                    top: 120, // Ajusta la posición vertical del botón
+                    top: 100, // Ajusta la posición vertical del botón
                     left: 128, // Ajusta la posición horizontal del botón
                     child: ElevatedButton(
                       onPressed: () {
@@ -94,12 +90,10 @@ appBar: AppBar(
                   ),
                   Container(
                     child: Image.asset(
-                                        
-                    'assets/images/DocGirl.png',
-                    width: 130,
-                    height: 290,
-                    alignment: Alignment.centerRight,
-                  
+                      'assets/images/DocGirl.png',
+                      width: 130,
+                      height: 290,
+                      alignment: Alignment.centerRight,
                     ),
                     padding: EdgeInsets.only(left: 26),
                   ),
@@ -111,7 +105,7 @@ appBar: AppBar(
                 children: [
                   Container(
                     width: 350,
-                    height: 200,
+                    height: 150, // Reducimos la altura a 150
                     decoration: BoxDecoration(
                       color: Colors.black,
                       borderRadius: BorderRadius.circular(30),
@@ -128,11 +122,14 @@ appBar: AppBar(
                     ),
                   ),
                   Positioned(
-                    top: 120, // Ajusta la posición vertical del botón
+                    top: 100, // Ajusta la posición vertical del botón
                     left: 110, // Ajusta la posición horizontal del botón
                     child: ElevatedButton(
                       onPressed: () {
                         // Acción del botón
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => Informacion1()),
+                        );
                       },
                       child: Text(
                         'Empezar',
@@ -152,12 +149,10 @@ appBar: AppBar(
                   ),
                   Container(
                     child: Image.asset(
-                                        
-                    'assets/images/DocMan.png',
-                    width: 130,
-                    height: 290,
-                    alignment: Alignment.centerRight,
-                  
+                      'assets/images/DocMan.png',
+                      width: 130,
+                      height: 290,
+                      alignment: Alignment.centerRight,
                     ),
                     padding: EdgeInsets.only(left: 230),
                   ),
