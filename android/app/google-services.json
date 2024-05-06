@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "796355511021",
-    "project_id": "appdevfinal-ce7e0",
-    "storage_bucket": "appdevfinal-ce7e0.appspot.com"
+    "project_number": "740916737730",
+    "project_id": "apphraei",
+    "storage_bucket": "apphraei.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:796355511021:android:3c7f416c9fe7375b2082e4",
+        "mobilesdk_app_id": "1:740916737730:android:89a5dde970d7091d35ad5b",
         "android_client_info": {
           "package_name": "com.example.appdevfinal"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDFql2M0q4y_wKOXmG_ahxMaQ8mKvAABRM"
+          "current_key": "AIzaSyAi-CYSt4nns6Ds2gdJVjR0WMeGmAqN7Po"
         }
       ],
       "services": {

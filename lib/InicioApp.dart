@@ -1,5 +1,4 @@
 import 'package:appdevfinal/TerceraPage.dart';
-import 'package:appdevfinal/main.dart';
 import 'package:flutter/material.dart';
 
 import 'informacion1.dart';

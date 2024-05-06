@@ -6,11 +6,11 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: const FirebaseOptions(
-      apiKey: 'AIzaSyDFql2M0q4y_wKOXmG_ahxMaQ8mKvAABRM',
-      authDomain: 'appdevfinal-ce7e0.web.app',
-      projectId: 'appdevfinal-ce7e0',
-      appId: '1:796355511021:android:3c7f416c9fe7375b2082e4',
-      messagingSenderId: '796355511021',
+      apiKey: 'AIzaSyAi-CYSt4nns6Ds2gdJVjR0WMeGmAqN7Po',
+      authDomain: 'apphraei.web.app',
+      projectId: 'apphraei',
+      appId: '1:740916737730:android:89a5dde970d7091d35ad5b',
+      messagingSenderId: '740916737730',
     ),
   );
   runApp(MyApp());
