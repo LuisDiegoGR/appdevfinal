@@ -2,9 +2,36 @@ import 'package:appdevfinal/CreateAcc.dart';
 import 'package:appdevfinal/InicioApp.dart';
 import 'package:appdevfinal/forgot_password_screen.dart'; // Importa la nueva pantalla
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class PantallaSiguiente extends StatelessWidget {
-  const PantallaSiguiente({Key? key}) : super(key: key);
+class PantallaSiguiente extends StatefulWidget {
+  const PantallaSiguiente({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _PantallaSiguiente createState() => _PantallaSiguiente();
+}
+
+class _PantallaSiguiente extends State<PantallaSiguiente> {
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  static Future<User?> loginUsingEmailPassword({required String email, required String password}) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(email: email, password: password);
+      user = userCredential.user;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "user-not-found"){
+        print("No user found for that email");
+      }
+    } catch (e) {
+      print("Error: $e");
+    }
+    return user;
+  }  
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +62,11 @@ class PantallaSiguiente extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: TextField(
+                  controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     hintText: 'name@example.com',
-                    prefixIcon: const Icon(Icons.mail, color: Colors.black),
+                    prefixIcon: Icon(Icons.mail, color: Colors.black),
                     border: InputBorder.none,
                   ),
                 ),
@@ -53,6 +81,7 @@ class PantallaSiguiente extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: TextField(
+                  controller: _passwordController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     hintText: 'Password',
@@ -105,10 +134,17 @@ class PantallaSiguiente extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0),
                 ),
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const InicioApp()),
+                onPressed: () async {
+                  User? user = await loginUsingEmailPassword(
+                    email: _emailController.text,
+                    password: _passwordController.text,      
                   );
+                  print(user);
+                  if (user != null) {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => const InicioApp()),
+                  );
+                  }
                 },
                 child: const Text(
                   'Comenzar',

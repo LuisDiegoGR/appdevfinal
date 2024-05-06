@@ -1,16 +1,43 @@
 import 'package:appdevfinal/pantalla_siguiente.dart'; // Importa el archivo Dart al que quieres redirigir
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: 'AIzaSyDFql2M0q4y_wKOXmG_ahxMaQ8mKvAABRM',
+      authDomain: 'appdevfinal-ce7e0.web.app',
+      projectId: 'appdevfinal-ce7e0',
+      appId: '1:796355511021:android:3c7f416c9fe7375b2082e4',
+      messagingSenderId: '796355511021',
+    ),
+  );
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  @override
+  const MyApp({super.key});
+
+@override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
+    return FutureBuilder(
+      // Inicializa Firebase antes de ejecutar la aplicación
+      future: Firebase.initializeApp(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const MaterialApp(
+            // Muestra un indicador de carga mientras Firebase se inicializa
+            home: Scaffold(body: Center(child: CircularProgressIndicator())),
+          );
+        } else {
+          // Una vez que Firebase se ha inicializado correctamente, muestra la pantalla de inicio de sesión
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: HomePage(),
+          );
+        }
+      },
     );
   }
 }

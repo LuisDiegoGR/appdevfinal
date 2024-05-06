@@ -22,9 +22,7 @@ class _InicioAppState extends State<InicioApp> {
             icon: Icon(Icons.account_circle),
             iconSize: 40.0,
             onPressed: () {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
+              //HOLA
             },
           ),
           actions: [
