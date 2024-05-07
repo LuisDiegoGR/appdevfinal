@@ -33,6 +33,69 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
     return user;
   }  
 
+  void ContinueDart(BuildContext context) {
+    String password = _passwordController.text.trim();
+
+    if(password.isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Porfavor, ingresa una contraseña',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 16.0
+          ),
+          ),
+          backgroundColor: Color(0xFF145647),
+        ),
+      );
+    } else if (password.length <6){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('La contraseña debe contener 6 caracteres',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 16.0
+          ),
+          ),
+          backgroundColor: Color(0xFF145647),
+        )
+      );
+    }
+  }
+
+  void ContinueDart2(BuildContext context){
+    String email = _emailController.text.trim();
+
+    if(email.isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Porfavor, ingrese un correo',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 16.0
+            ),
+          ),
+          backgroundColor: Color(0xFF145647),
+        ),
+      );
+    } else if (!email.contains("@") || !email.contains(".com")){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Correo invalido falta @ o .com',
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 16.0
+        ),
+         ),
+         backgroundColor: Color(0xFF145647),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +145,8 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                 ),
                 child: TextField(
                   controller: _passwordController,
-                  keyboardType: TextInputType.emailAddress,
+                  keyboardType: TextInputType.text,
+                  obscureText: true,
                   decoration: InputDecoration(
                     hintText: 'Password',
                     prefixIcon: const Icon(Icons.lock, color: Colors.black),
@@ -145,6 +209,8 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                       MaterialPageRoute(builder: (context) => const InicioApp()),
                   );
                   }
+                  ContinueDart2(context);
+                  ContinueDart(context);
                 },
                 child: const Text(
                   'Comenzar',

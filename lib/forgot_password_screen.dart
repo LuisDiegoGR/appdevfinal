@@ -1,70 +1,84 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class ForgotPasswordScreen extends StatelessWidget {
-  const ForgotPasswordScreen({Key? key}) : super(key: key);
+class ForgotPasswordScreen extends StatefulWidget {
+  @override
+  _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
+}
+
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  bool _isLoading = false;
+
+  void _resetPassword() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      try {
+        await FirebaseAuth.instance.sendPasswordResetEmail(email: _emailController.text.trim());
+        _showSuccessMessage("Se ha enviado un correo electrónico para restablecer tu contraseña.");
+      } catch (error) {
+        _showErrorMessage("Error al enviar el correo electrónico para restablecer la contraseña. Por favor, inténtalo de nuevo más tarde.");
+      }
+
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  void _showSuccessMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.green,
+      ),
+    );
+  }
+
+  void _showErrorMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Forgot Password'),
+        title: Text('Restablecer Contraseña'),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
+      body: Padding(
+        padding: EdgeInsets.all(20.0),
+        child: Form(
+          key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Forgot Your Password?',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Container(
-                width: 400, // Ancho deseado del TextField
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 203, 203, 203),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: TextField(
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    hintText: 'Enter your email',
-                    prefixIcon: const Icon(Icons.mail, color: Colors.black),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  // Aquí irá la lógica para enviar el correo de recuperación de contraseña
-                  // Puedes implementar la lógica aquí para enviar un correo al usuario
+            children: <Widget>[
+              TextFormField(
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(labelText: 'Correo Electrónico'),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Por favor, ingresa tu correo electrónico.';
+                  }
+                  return null;
                 },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF145647)), // Color de fondo del botón
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                  ),
-                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                    EdgeInsets.symmetric(vertical: 15.0, horizontal: 100.0),
-                  ),
-                ),
-                child: Text(
-                  'Send Reset Email',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    color: Colors.white,
-                  ),
-                ),
               ),
+              SizedBox(height: 20.0),
+              _isLoading
+                  ? CircularProgressIndicator()
+                  : ElevatedButton(
+                      onPressed: _resetPassword,
+                      child: Text('Restablecer Contraseña'),
+                    ),
             ],
           ),
         ),
