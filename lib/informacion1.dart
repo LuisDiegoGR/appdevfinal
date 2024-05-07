@@ -1,3 +1,7 @@
+import 'package:appdevfinal/page_alteraciones.dart';
+import 'package:appdevfinal/page_embarazo.dart';
+import 'package:appdevfinal/page_estimulacion.dart';
+import 'package:appdevfinal/page_foro.dart';
 import 'package:flutter/material.dart';
 
 class Informacion1 extends StatefulWidget {
@@ -21,6 +25,13 @@ class _Informacion1State extends State<Informacion1> {
     'Embarazo de Alto Riesgo',
     'Alteraciones en el Desarrollo',
     'Foro de Discusión',
+  ];
+
+  final List<Widget> _pages = [
+    PageEstimulacion(),
+    PageEmbarazo(),
+    PageAlteraciones(),
+    PageForo(),
   ];
 
   double _currentPage = 0.0;
@@ -86,7 +97,11 @@ class _Informacion1State extends State<Informacion1> {
                           fillColor: Color(0xFF145647),
                           elevation: 0.0,
                           onPressed: () {
-                            // Acción del botón
+                            // Navegar a la página correspondiente
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => _pages[index]),
+                            );
                           },
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
