@@ -24,6 +24,7 @@ class _Informacion1State extends State<Informacion1> {
   ];
 
   double _currentPage = 0.0;
+  bool _showText = true;
 
   @override
   void initState() {
@@ -31,6 +32,7 @@ class _Informacion1State extends State<Informacion1> {
     _pageController.addListener(() {
       setState(() {
         _currentPage = _pageController.page!;
+        _showText = _currentPage < (_imageUrls.length - 1);
       });
     });
   }
@@ -78,16 +80,21 @@ class _Informacion1State extends State<Informacion1> {
                         height: 300,
                       ),
                       SizedBox(height: 30),
-                      ElevatedButton(
-                        onPressed: () {
-                          // Acción del botón
-                        },
-                        child: Text(
-                          'Ver Información',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      SizedBox(
+                        width: 200, // Ancho moderado del botón
+                        child: RawMaterialButton(
+                          fillColor: Color(0xFF145647),
+                          elevation: 0.0,
+                          onPressed: () {
+                            // Acción del botón
+                          },
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          child: Text(
+                            'Comenzar',
+                            style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                     ],
@@ -97,19 +104,22 @@ class _Informacion1State extends State<Informacion1> {
             },
           ),
           Positioned(
-            bottom: 20,
+            bottom: 20, // Ajustamos la posición para que esté debajo del botón
             left: 20,
             child: AnimatedOpacity(
-              opacity: _currentPage < (_imageUrls.length - 1) ? 1.0 : 0.0,
+              opacity: _showText ? 1.0 : 0.0,
               duration: Duration(milliseconds: 500),
               child: Row(
                 children: [
-                  Icon(Icons.arrow_forward, color: Colors.black),
-                  SizedBox(width: 8),
                   Text(
                     'Desliza para ver más',
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
+                  Icon(Icons.arrow_forward, color: Colors.black), // Flecha hacia la derecha
                 ],
               ),
             ),
