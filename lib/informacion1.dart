@@ -93,9 +93,7 @@ class _Informacion1State extends State<Informacion1> {
                       SizedBox(height: 30),
                       SizedBox(
                         width: 200, // Ancho moderado del botón
-                        child: RawMaterialButton(
-                          fillColor: Color(0xFF145647),
-                          elevation: 0.0,
+                        child: ElevatedButton(
                           onPressed: () {
                             // Navegar a la página correspondiente
                             Navigator.push(
@@ -103,8 +101,11 @@ class _Informacion1State extends State<Informacion1> {
                               MaterialPageRoute(builder: (context) => _pages[index]),
                             );
                           },
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromRGBO(20, 86, 71, 1),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
                           ),
                           child: Text(
                             'Comenzar',
@@ -129,12 +130,12 @@ class _Informacion1State extends State<Informacion1> {
                   Text(
                     'Desliza para ver más',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Color.fromARGB(255, 201, 222, 202),
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                     ),
                   ),
-                  Icon(Icons.arrow_forward, color: Colors.black), // Flecha hacia la derecha
+                  Icon(Icons.arrow_forward, color: Color.fromARGB(255, 201, 222, 202)), // Flecha hacia la derecha
                 ],
               ),
             ),
