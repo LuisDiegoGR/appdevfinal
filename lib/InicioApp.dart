@@ -1,6 +1,7 @@
 import 'package:appdevfinal/TerceraPage.dart';
 import 'package:flutter/material.dart';
 
+import 'consultar_especialista.dart';
 import 'informacion1.dart';
 
 class InicioApp extends StatefulWidget {
@@ -67,7 +68,10 @@ class _InicioAppState extends State<InicioApp> {
                     left: 128, // Ajusta la posición horizontal del botón
                     child: ElevatedButton(
                       onPressed: () {
-                        // Acción del botón
+                        // Navegar a la página ConsultarEspecialista
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => ConsultarEspecialista()),
+                        );
                       },
                       child: Text(
                         'Ir',

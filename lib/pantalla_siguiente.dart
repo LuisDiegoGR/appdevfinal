@@ -1,8 +1,8 @@
 import 'package:appdevfinal/CreateAcc.dart';
 import 'package:appdevfinal/InicioApp.dart';
 import 'package:appdevfinal/forgot_password_screen.dart'; // Importa la nueva pantalla
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class PantallaSiguiente extends StatefulWidget {
   const PantallaSiguiente({super.key});
@@ -31,7 +31,7 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
       print("Error: $e");
     }
     return user;
-  }  
+  }
 
   void ContinueDart(BuildContext context) {
     String password = _passwordController.text.trim();
@@ -89,8 +89,8 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
           fontWeight: FontWeight.bold,
           fontSize: 16.0
         ),
-         ),
-         backgroundColor: Color(0xFF145647),
+        ),
+        backgroundColor: Color(0xFF145647),
         ),
       );
     }
@@ -201,7 +201,7 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                 onPressed: () async {
                   User? user = await loginUsingEmailPassword(
                     email: _emailController.text,
-                    password: _passwordController.text,      
+                    password: _passwordController.text,
                   );
                   print(user);
                   if (user != null) {
