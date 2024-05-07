@@ -42,7 +42,7 @@ class _AnimatedTextState extends State<AnimatedText>
   void initState() {
     super.initState();
     _controller =
-        AnimationController(duration: Duration(seconds: 1), vsync: this);
+        AnimationController(duration: Duration(seconds: 2), vsync: this);
     _animation = Tween<double>(begin: 18, end: 24).animate(_controller)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
@@ -61,16 +61,19 @@ class _AnimatedTextState extends State<AnimatedText>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (context, child) {
-        return Text(
-          '¡Disculpe las molestias, estamos en mantenimiento!',
-          style: TextStyle(fontSize: _animation.value, color: const Color.fromARGB(255, 176, 38, 28)),
-          textAlign: TextAlign.center,
-        );
-      },
-    );
-  }
-}
+Widget build(BuildContext context) {
+  return AnimatedBuilder(
+    animation: _animation,
+    builder: (context, child) {
+      return Text(
+        '¡Disculpe las molestias, estamos en mantenimiento!',
+        style: TextStyle(
+          fontSize: _animation.value,
+          color: const Color.fromARGB(255, 176, 38, 28),
+          fontWeight: FontWeight.bold, // Agregar negritas al texto
+        ),
+        textAlign: TextAlign.center,
+      );
+    },
+  );
+}}
