@@ -1,16 +1,12 @@
-import 'package:appdevfinal/TerceraPage.dart';
 import 'package:flutter/material.dart';
 
+import 'TerceraPage.dart';
+import 'consultar_especialista.dart';
 import 'informacion1.dart';
 
-class InicioApp extends StatefulWidget {
+class InicioApp extends StatelessWidget {
   const InicioApp({Key? key}) : super(key: key);
 
-  @override
-  State<InicioApp> createState() => _InicioAppState();
-}
-
-class _InicioAppState extends State<InicioApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,7 +17,7 @@ class _InicioAppState extends State<InicioApp> {
             icon: Icon(Icons.account_circle),
             iconSize: 40.0,
             onPressed: () {
-              //HOLA
+              // Acción al presionar el botón del perfil
             },
           ),
           actions: [
@@ -67,7 +63,10 @@ class _InicioAppState extends State<InicioApp> {
                     left: 128, // Ajusta la posición horizontal del botón
                     child: ElevatedButton(
                       onPressed: () {
-                        // Acción del botón
+                        // Navegar a la página ConsultarEspecialista
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => ConsultarEspecialista()),
+                        );
                       },
                       child: Text(
                         'Ir',
@@ -123,7 +122,7 @@ class _InicioAppState extends State<InicioApp> {
                     left: 110, // Ajusta la posición horizontal del botón
                     child: ElevatedButton(
                       onPressed: () {
-                        // Acción del botón
+                        // Navegar a la página Informacion1
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) => Informacion1()),
                         );
