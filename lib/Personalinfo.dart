@@ -1,14 +1,21 @@
 import 'package:appdevfinal/TerceraPage.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Personalinfo extends StatefulWidget {
-  const Personalinfo({super.key});
-
   @override
-  State<Personalinfo> createState() => _PersonalinfoState();
+  _PersonalinfoState createState() => _PersonalinfoState();
 }
 
 class _PersonalinfoState extends State<Personalinfo> {
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _lastNameController = TextEditingController();
+  TextEditingController _addressController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
+
+  String _userId = FirebaseAuth.instance.currentUser!.uid;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,116 +23,100 @@ class _PersonalinfoState extends State<Personalinfo> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
+            //coment
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => TerceraPag())
             );
           },
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Spacer(),
-            CircleAvatar(
-              radius: 100,
-              backgroundImage: AssetImage('assets/images/Perfil.jpg'),
-            ),
-            SizedBox(height: 20),
-            Column(
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('users')
+            .doc(_userId) // Filtra por el ID del usuario actual
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+          }
+
+          var userData = snapshot.data!.data();
+
+          return ListTile(
+            title: Text('${userData?['name']} ${userData?['lastName']}'),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextButton.icon(
-                  onPressed: () {
-                    //coment
-                  },
-                  icon:Icon(Icons.person, color: Colors.black),
-                  style: TextButton.styleFrom(
-                    backgroundColor: Color(0xFFE6E6E6),
-                    foregroundColor: Colors.black,
-                    padding: EdgeInsets.only(top: 17, bottom: 17, left: 120, right: 120),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  label: Text(
-                    'Luis Diego',
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 30),
-                TextButton.icon(
-                  onPressed: () {
-                    //coment
-                  },
-                  icon:Icon(Icons.person, color: Colors.black),
-                  style: TextButton.styleFrom(
-                    backgroundColor: Color(0xFFE6E6E6),
-                    foregroundColor: Colors.black,
-                    padding: EdgeInsets.only(top: 17, bottom: 17, left: 100, right: 100),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  label: Text(
-                    'Ticante Corona',
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 30),
-                TextButton.icon(
-                  onPressed: () {
-                    //coment
-                  },
-                  icon:Icon(Icons.email, color: Colors.black),
-                  style: TextButton.styleFrom(
-                    backgroundColor: Color(0xFFE6E6E6),
-                    foregroundColor: Colors.black,
-                    padding: EdgeInsets.only(top: 17, bottom: 17, left: 35, right: 35),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  label: Text(
-                    'Luisdiegoticante@hotmail.com',
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 30),
-                TextButton.icon(
-                  onPressed: () {
-                    //coment
-                  },
-                  icon:Icon(Icons.location_city, color: Colors.black),
-                  style: TextButton.styleFrom(
-                    backgroundColor: Color(0xFFE6E6E6),
-                    foregroundColor: Colors.black,
-                    padding: EdgeInsets.only(top: 17, bottom: 17, left: 80, right: 80),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  label: Text(
-                    'Blvd. Acozac num 3',
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
+                Text('Dirección: ${userData?['address']}'),
+                Text('Teléfono: ${userData?['phone']}'),
               ],
             ),
-            const Spacer(),
-          ],
-        ),
+            trailing: ElevatedButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Editar Información Personal'),
+                      content: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            TextField(
+                              controller: _nameController,
+                              decoration: InputDecoration(labelText: 'Nombre'),
+                              onChanged: (value) {
+                                // Aquí actualizas el nombre mientras el usuario escribe
+                              },
+                            ),
+                            TextField(
+                              controller: _lastNameController,
+                              decoration: InputDecoration(labelText: 'Apellido'),
+                            ),
+                            TextField(
+                              controller: _addressController,
+                              decoration: InputDecoration(labelText: 'Dirección'),
+                            ),
+                            TextField(
+                              controller: _phoneController,
+                              decoration: InputDecoration(labelText: 'Teléfono'),
+                            ),
+                            SizedBox(height: 20),
+                            ElevatedButton(
+                              onPressed: () async {
+                                // Obtener los nuevos valores de los campos
+                                String newName = _nameController.text;
+                                String newLastName =
+                                    _lastNameController.text;
+                                String newAddress = _addressController.text;
+                                String newPhone = _phoneController.text;
+
+                                // Actualizar los campos en Firestore
+                                await FirebaseFirestore.instance
+                                    .collection('users')
+                                    .doc(_userId) // Actualiza el documento del usuario actual
+                                    .update({
+                                  'name': newName,
+                                  'lastName': newLastName,
+                                  'address': newAddress,
+                                  'phone': newPhone,
+                                });
+
+                                Navigator.pop(context);
+                              },
+                              child: Text('Guardar Cambios'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+              child: Text('Editar'),
+            ),
+          );
+        },
       ),
     );
   }

@@ -1,11 +1,21 @@
+import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'TerceraPage.dart';
 import 'consultar_especialista.dart';
 import 'informacion1.dart';
 
-class InicioApp extends StatelessWidget {
+
+class InicioApp extends StatefulWidget {
   const InicioApp({Key? key}) : super(key: key);
+
+  @override
+  _InicioAppState createState() => _InicioAppState();
+}
+class _InicioAppState extends State<InicioApp> {
+  File? _image;
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +23,13 @@ class InicioApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.account_circle),
-            iconSize: 40.0,
-            onPressed: () {
-              // Acción al presionar el botón del perfil
-            },
+          leading: CircleAvatar(
+            radius: 10.0,
+                backgroundImage: _image != null
+      ? FileImage(_image!)
+      : (FirebaseAuth.instance.currentUser?.photoURL != null
+          ? NetworkImage(FirebaseAuth.instance.currentUser!.photoURL!)
+          : const AssetImage('assets/default_profile_image.jpg') as ImageProvider),
           ),
           actions: [
             IconButton(

@@ -1,16 +1,63 @@
-import 'package:appdevfinal/InicioApp.dart';
-import 'package:appdevfinal/Personalinfo.dart';
+import 'dart:io';
+
 import 'package:appdevfinal/Notification.dart';
+import 'package:appdevfinal/Personalinfo.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:appdevfinal/InicioApp.dart'; // Importa tus archivos según sea necesario
 
 class TerceraPag extends StatefulWidget {
-  const TerceraPag ({super.key});
+  const TerceraPag ({Key? key});
 
   @override
   State<TerceraPag> createState() => _TerceraPagState();
 }
 
 class _TerceraPagState extends State<TerceraPag> {
+ final ImagePicker _picker = ImagePicker();
+ File? _image;
+
+Future<void> _getImage() async {
+  final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+  setState(() {
+    if (pickedFile != null) {
+      _image = File(pickedFile.path);
+    } else {
+      print('No image selected.');
+    }
+  });
+}
+
+  Future<void> _uploadImage() async {
+    try {
+      if (_image != null) {
+        Reference ref = FirebaseStorage.instance.ref().child('uploads/${FirebaseAuth.instance.currentUser!.uid}.jpg');
+        UploadTask uploadTask = ref.putFile(_image!);
+        TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
+        
+      
+        String imageURL = await taskSnapshot.ref.getDownloadURL();
+
+        User? user = FirebaseAuth.instance.currentUser;
+        // ignore: deprecated_member_use
+        await user?.updateProfile(photoURL: imageURL);
+
+    
+        setState(() {
+          
+        });
+
+        print('Image uploaded successfully.');
+      } else {
+        print('No image selected.');
+      }
+    } catch (e) {
+      print('Error uploading image: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,107 +76,41 @@ class _TerceraPagState extends State<TerceraPag> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Spacer(),
-            CircleAvatar(
-              radius: 100,
-              backgroundImage: AssetImage('assets/images/Perfil.jpg'), // Cambia 'assets/user_profile_image.jpg' por la ruta de tu imagen de perfil
+              CircleAvatar(
+              radius: 80,
+              backgroundImage: _image != null
+                  ? FileImage(_image!)
+                  : (FirebaseAuth.instance.currentUser?.photoURL != null
+                      ? NetworkImage(FirebaseAuth.instance.currentUser!.photoURL!)
+                      : const AssetImage('assets/default_profile_image.jpg') as ImageProvider),
             ),
             SizedBox(height: 20), // Espacio en blanco
-            Column(
-              children: [
-                TextButton.icon(
-                  onPressed: () {
-                    // Lógica para la pantalla de Información Personal
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => Personalinfo()),
-                    );
-                  },
-                  icon:Icon(Icons.person, color: Colors.black),
-                  style: TextButton.styleFrom(
-                    backgroundColor: Color(0xFFE6E6E6),
-                    foregroundColor: Colors.black,
-                    padding: EdgeInsets.only(top: 17, bottom: 17, left: 90, right: 90),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  label: Text(
-                    'Personal Information',
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 25),
-                TextButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => NotificationPage()),
-                    );
-                  },
-                  icon: Icon(Icons.notifications, color: Colors.black),
-                  style: TextButton.styleFrom(
-                    backgroundColor: Color(0xFFE6E6E6),
-                    foregroundColor: Colors.black,
-                    padding: EdgeInsets.only(top: 17, bottom: 17, left: 120, right: 120),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  label: const Text(
-                    'Notifications',
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 18,
-                    ), 
-                  ),
-                ),
-                SizedBox(height: 25),
-                TextButton.icon(
-                  onPressed: () {
-
-                    // Lógica para la pantalla de Citas
-                  },
-                  icon: Icon(Icons.calendar_month, color: Colors.black),
-                  style: TextButton.styleFrom(
-                    backgroundColor: Color(0xFFE6E6E6),
-                    foregroundColor: Colors.black,
-                    padding: EdgeInsets.only(top: 17, bottom: 17, left: 150, right: 150),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  label: Text(
-                    'Citas',
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 25),
-                TextButton.icon(
-                  onPressed: () {
-                    // Lógica para la pantalla de About
-                  },
-                  icon: Icon(Icons.info, color: Colors.black),
-                  style: TextButton.styleFrom(
-                    backgroundColor: Color(0xFFE6E6E6),
-                    foregroundColor: Colors.black,
-                    padding: EdgeInsets.only(top: 17, bottom: 17, left: 146, right: 146),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  label: Text(
-                    'About',
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-              ],
+            ElevatedButton(
+              onPressed: _getImage,
+              child: Text('Select Image'),
+            ),
+            SizedBox(height: 20), // Espacio en blanco
+            ElevatedButton(
+              onPressed: _uploadImage,
+              child: Text('Upload Image to Firebase'),
+            ),
+            SizedBox(height: 20.0),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => Personalinfo()),
+                );
+              },
+              child: Text('Informacion Personal'),
+            ),
+            SizedBox(height: 20.0),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => NotificationPage()),
+                );
+              },
+              child: Text('Notificaciones'),
             ),
             Spacer(),
           ],
