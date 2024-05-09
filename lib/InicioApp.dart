@@ -13,10 +13,11 @@ class InicioApp extends StatefulWidget {
   @override
   _InicioAppState createState() => _InicioAppState();
 }
-<<<<<<< HEAD
+
 class _InicioAppState extends State<InicioApp> {
   File? _image;
-=======
+  bool _firstImageVisible = false;
+  bool _secondImageVisible = false;
 
   @override
   void initState() {
@@ -34,12 +35,10 @@ class _InicioAppState extends State<InicioApp> {
       _secondImageVisible = true;
     });
   }
->>>>>>> b43aee368dd5236608e1497eaa980be9b0305167
 
   @override
   Widget build(BuildContext context) {
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+      return Scaffold(
         appBar: AppBar(
           leading: CircleAvatar(
             radius: 10.0,
@@ -96,8 +95,7 @@ class _InicioAppState extends State<InicioApp> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 
   Widget _buildAnimatedContainer(BuildContext context, String imagePath, String text, Function() onPressed, Alignment alignment) {
