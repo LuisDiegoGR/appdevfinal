@@ -11,7 +11,7 @@ Future<void> main() async {
       projectId: 'apphraei',
       appId: '1:740916737730:android:89a5dde970d7091d35ad5b',
       messagingSenderId: '740916737730',
-      storageBucket: 'gs://apphraei.appspot.com/uploads',
+      storageBucket: 'gs://apphraei.appspot.com',
     ),
   );
   runApp(MyApp());

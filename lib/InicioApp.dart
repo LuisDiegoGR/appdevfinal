@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'TerceraPage.dart';
 import 'consultar_especialista.dart';
 import 'informacion1.dart';
@@ -17,7 +15,6 @@ class InicioApp extends StatefulWidget {
 class _InicioAppState extends State<InicioApp> {
   File? _image;
   bool _firstImageVisible = false;
-  bool _secondImageVisible = false;
 
   @override
   void initState() {
@@ -32,7 +29,6 @@ class _InicioAppState extends State<InicioApp> {
     });
     await Future.delayed(Duration(milliseconds: 500)); // Esperar un momento antes de animar la segunda imagen
     setState(() {
-      _secondImageVisible = true;
     });
   }
 
@@ -46,7 +42,7 @@ class _InicioAppState extends State<InicioApp> {
       ? FileImage(_image!)
       : (FirebaseAuth.instance.currentUser?.photoURL != null
           ? NetworkImage(FirebaseAuth.instance.currentUser!.photoURL!)
-          : const AssetImage('assets/default_profile_image.jpg') as ImageProvider),
+          : const AssetImage('assets/images/Placeholder.jpg') as ImageProvider),
           ),
           actions: [
             IconButton(

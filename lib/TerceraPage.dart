@@ -30,33 +30,33 @@ Future<void> _getImage() async {
   });
 }
 
-  Future<void> _uploadImage() async {
-    try {
-      if (_image != null) {
-        Reference ref = FirebaseStorage.instance.ref().child('uploads/${FirebaseAuth.instance.currentUser!.uid}.jpg');
-        UploadTask uploadTask = ref.putFile(_image!);
-        TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
-        
+Future<void> _uploadImage() async {
+  try {
+    if (_image != null) {
+      Reference ref = FirebaseStorage.instance.ref().child('SubirImage/${FirebaseAuth.instance.currentUser!.uid}.jpg');
+      UploadTask uploadTask = ref.putFile(_image!);
       
-        String imageURL = await taskSnapshot.ref.getDownloadURL();
-
-        User? user = FirebaseAuth.instance.currentUser;
-        // ignore: deprecated_member_use
-        await user?.updateProfile(photoURL: imageURL);
-
-    
-        setState(() {
-          
-        });
-
-        print('Image uploaded successfully.');
-      } else {
-        print('No image selected.');
-      }
-    } catch (e) {
-      print('Error uploading image: $e');
+      uploadTask.whenComplete(() async {
+        try {
+          String imageURL = await ref.getDownloadURL();
+          User? user = FirebaseAuth.instance.currentUser;
+          await user?.updatePhotoURL(imageURL);
+          setState(() {
+            // Actualiza el estado si es necesario
+          });
+          print('Image uploaded successfully.');
+        } catch (e) {
+          print('Error getting download URL: $e');
+        }
+      });
+    } else {
+      print('No image selected.');
     }
+  } catch (e) {
+    print('Error uploading image: $e');
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -82,35 +82,87 @@ Future<void> _getImage() async {
                   ? FileImage(_image!)
                   : (FirebaseAuth.instance.currentUser?.photoURL != null
                       ? NetworkImage(FirebaseAuth.instance.currentUser!.photoURL!)
-                      : const AssetImage('assets/default_profile_image.jpg') as ImageProvider),
+                      : const AssetImage('assets/images/Placeholder.jpg') as ImageProvider),
             ),
             SizedBox(height: 20), // Espacio en blanco
-            ElevatedButton(
+            RawMaterialButton(
+              fillColor: Color(0xFF145647),
+              elevation: 0.0,
+              padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 130.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
+              ),
               onPressed: _getImage,
-              child: Text('Select Image'),
+              child: Text(
+                'Select Image',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Roboto',
+                  fontSize: 15,
+                ),
+              ),
             ),
             SizedBox(height: 20), // Espacio en blanco
-            ElevatedButton(
+            RawMaterialButton(
+              fillColor: Color(0xFF145647),
+              elevation: 0.0,
+              padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 90.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
+              ),
               onPressed: _uploadImage,
-              child: Text('Upload Image to Firebase'),
+              child: Text(
+                'Upload Image to Firebase',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Roboto',
+                  fontSize: 15,
+                ),
+                ),
             ),
             SizedBox(height: 20.0),
-            ElevatedButton(
+            RawMaterialButton(
+              fillColor: Color(0xFF145647),
+              elevation: 0.0,
+              padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 105.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
+              ),
               onPressed: () {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => Personalinfo()),
                 );
               },
-              child: Text('Informacion Personal'),
+              child: Text(
+                'Informacion Personal',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Roboto',
+                  fontSize: 15,
+                ),
+                ),
             ),
             SizedBox(height: 20.0),
-            ElevatedButton(
+            RawMaterialButton(
+              fillColor: Color(0xFF145647),
+              elevation: 0.0,
+              padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 130.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
+              ),
               onPressed: () {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => NotificationPage()),
                 );
               },
-              child: Text('Notificaciones'),
+              child: Text(
+                'Notificaciones',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Roboto',
+                  fontSize: 15,
+                ),
+                ),
             ),
             Spacer(),
           ],
