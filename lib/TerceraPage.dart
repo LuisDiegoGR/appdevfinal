@@ -130,7 +130,7 @@ Future<void> _uploadImage() async {
               ),
               onPressed: () {
                 Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => Personalinfo()),
+                  MaterialPageRoute(builder: (context) => PersonalInfo()),
                 );
               },
               child: Text(

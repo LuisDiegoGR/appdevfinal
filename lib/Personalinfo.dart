@@ -3,18 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class Personalinfo extends StatefulWidget {
+class PersonalInfo extends StatefulWidget {
   @override
-  _PersonalinfoState createState() => _PersonalinfoState();
+  _PersonalInfoState createState() => _PersonalInfoState();
 }
 
-class _PersonalinfoState extends State<Personalinfo> {
+class _PersonalInfoState extends State<PersonalInfo> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _lastNameController = TextEditingController();
   TextEditingController _addressController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
 
-  String _userId = FirebaseAuth.instance.currentUser!.uid;
+  late String _userId;
+
+  @override
+  void initState() {
+    super.initState();
+    _userId = FirebaseAuth.instance.currentUser!.uid;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +29,8 @@ class _PersonalinfoState extends State<Personalinfo> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            //coment
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => TerceraPag())
+              MaterialPageRoute(builder: (context) => TerceraPag()),
             );
           },
         ),
@@ -33,22 +38,25 @@ class _PersonalinfoState extends State<Personalinfo> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('users')
-            .doc(_userId) // Filtra por el ID del usuario actual
+            .doc(_userId)
             .snapshots(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return CircularProgressIndicator();
+        builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (!snapshot.hasData || !snapshot.data!.exists) {
+            return Center(child: Text('No data found'));
           }
 
-          var userData = snapshot.data!.data();
+          var userData = snapshot.data!.data() as Map<String, dynamic>;
 
           return ListTile(
-            title: Text('${userData?['name']} ${userData?['lastName']}'),
+            title: Text('${userData['name']} ${userData['lastName']}'),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Dirección: ${userData?['address']}'),
-                Text('Teléfono: ${userData?['phone']}'),
+                Text('Dirección: ${userData['address']}'),
+                Text('Teléfono: ${userData['phone']}'),
               ],
             ),
             trailing: ElevatedButton(
@@ -63,22 +71,23 @@ class _PersonalinfoState extends State<Personalinfo> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             TextField(
-                              controller: _nameController,
+                              controller: _nameController
+                                ..text = userData['name'],
                               decoration: InputDecoration(labelText: 'Nombre'),
-                              onChanged: (value) {
-                                // Aquí actualizas el nombre mientras el usuario escribe
-                              },
                             ),
                             TextField(
-                              controller: _lastNameController,
+                              controller: _lastNameController
+                                ..text = userData['lastName'],
                               decoration: InputDecoration(labelText: 'Apellido'),
                             ),
                             TextField(
-                              controller: _addressController,
+                              controller: _addressController
+                                ..text = userData['address'],
                               decoration: InputDecoration(labelText: 'Dirección'),
                             ),
                             TextField(
-                              controller: _phoneController,
+                              controller: _phoneController
+                                ..text = userData['phone'],
                               decoration: InputDecoration(labelText: 'Teléfono'),
                             ),
                             SizedBox(height: 20),
@@ -86,15 +95,14 @@ class _PersonalinfoState extends State<Personalinfo> {
                               onPressed: () async {
                                 // Obtener los nuevos valores de los campos
                                 String newName = _nameController.text;
-                                String newLastName =
-                                    _lastNameController.text;
+                                String newLastName = _lastNameController.text;
                                 String newAddress = _addressController.text;
                                 String newPhone = _phoneController.text;
 
                                 // Actualizar los campos en Firestore
                                 await FirebaseFirestore.instance
                                     .collection('users')
-                                    .doc(_userId) // Actualiza el documento del usuario actual
+                                    .doc(_userId)
                                     .update({
                                   'name': newName,
                                   'lastName': newLastName,
@@ -113,7 +121,12 @@ class _PersonalinfoState extends State<Personalinfo> {
                   },
                 );
               },
-              child: Text('Editar'),
+              child: Text('Editar',
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+              ),
             ),
           );
         },
