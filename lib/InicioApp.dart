@@ -36,13 +36,18 @@ class _InicioAppState extends State<InicioApp> {
   Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          leading: CircleAvatar(
-            radius: 10.0,
+          leading: Row(
+          children: [
+            Spacer(),
+          CircleAvatar(
+            radius: 22.0,
                 backgroundImage: _image != null
       ? FileImage(_image!)
       : (FirebaseAuth.instance.currentUser?.photoURL != null
           ? NetworkImage(FirebaseAuth.instance.currentUser!.photoURL!)
           : const AssetImage('assets/images/Placeholder.jpg') as ImageProvider),
+          ),
+          ],
           ),
           actions: [
             IconButton(

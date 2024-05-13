@@ -51,12 +51,30 @@ class _PersonalInfoState extends State<PersonalInfo> {
           var userData = snapshot.data!.data() as Map<String, dynamic>;
 
           return ListTile(
-            title: Text('${userData['name']} ${userData['lastName']}'),
+            title: Text('${userData['name']} ${userData['lastName']}',
+            style: TextStyle(
+              color: Colors.black,
+              fontFamily: 'Roboto',
+              fontSize: 20,
+            ),
+            ),
             subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text('Dirección: ${userData['address']}'),
-                Text('Teléfono: ${userData['phone']}'),
+                Text('Dirección: ${userData['address']}',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: 'Roboto',
+                  fontSize: 20,
+                ),
+                ),
+                Text('Teléfono: ${userData['phone']}',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: 'Roboto',
+                  fontSize: 20,
+                ),
+                ),
               ],
             ),
             trailing: ElevatedButton(
@@ -121,11 +139,18 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   },
                 );
               },
-              child: Text('Editar',
+              child: const Text('Editar',
               style: TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF145647)),
+                padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.symmetric(vertical: 12, horizontal: 16)),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                )
               ),
             ),
           );
