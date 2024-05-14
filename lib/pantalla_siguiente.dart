@@ -1,8 +1,10 @@
 import 'package:appdevfinal/CreateAcc.dart';
 import 'package:appdevfinal/InicioApp.dart';
+import 'package:appdevfinal/InicioAppAdmin.dart';
 import 'package:appdevfinal/forgot_password_screen.dart'; // Importa la nueva pantalla
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PantallaSiguiente extends StatefulWidget {
   const PantallaSiguiente({super.key});
@@ -198,20 +200,45 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0),
                 ),
-                onPressed: () async {
-                  User? user = await loginUsingEmailPassword(
-                    email: _emailController.text,
-                    password: _passwordController.text,
-                  );
-                  print(user);
-                  if (user != null) {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => const InicioApp()),
-                  );
-                  }
-                  ContinueDart2(context);
-                  ContinueDart(context);
-                },
+  onPressed: () async {
+  User? user = await loginUsingEmailPassword(
+    email: _emailController.text,
+    password: _passwordController.text,
+  );
+  if (user != null) {
+    // Usuario autenticado correctamente, ahora verificamos su rol
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        // El documento del usuario existe, ahora verificamos su rol
+        String? role = (documentSnapshot.data() as Map<String, dynamic>)['role'];
+
+        if (role == 'admin') {
+          // Si el usuario es un administrador, navegamos a la pantalla de administrador
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => AdminPage()),
+          );
+        } else if (role == 'patient') {
+          // Si el usuario es un paciente, navegamos a la pantalla de paciente
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => InicioApp()),
+          );
+        }
+      } else {
+        print('El documento del usuario no existe');
+      }
+    }).catchError((error) {
+      print('Error al obtener el rol del usuario: $error');
+    });
+  }
+  // Aquí puedes mantener la lógica existente para mostrar mensajes de error si las credenciales son incorrectas
+  ContinueDart2(context);
+  ContinueDart(context);
+},
+
                 child: const Text(
                   'Comenzar',
                   style: TextStyle(
