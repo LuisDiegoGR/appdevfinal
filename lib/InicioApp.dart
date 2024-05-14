@@ -1,6 +1,8 @@
 import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 import 'TerceraPage.dart';
 import 'consultar_especialista.dart';
 import 'informacion1.dart';
@@ -28,40 +30,38 @@ class _InicioAppState extends State<InicioApp> {
       _firstImageVisible = true;
     });
     await Future.delayed(Duration(milliseconds: 500)); // Esperar un momento antes de animar la segunda imagen
-    setState(() {
-    });
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-      return Scaffold(
-        appBar: AppBar(
-          leading: Row(
-          children: [
-            Spacer(),
-          CircleAvatar(
+    return Scaffold(
+      appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CircleAvatar(
             radius: 22.0,
-                backgroundImage: _image != null
-      ? FileImage(_image!)
-      : (FirebaseAuth.instance.currentUser?.photoURL != null
-          ? NetworkImage(FirebaseAuth.instance.currentUser!.photoURL!)
-          : const AssetImage('assets/images/Placeholder.jpg') as ImageProvider),
+            backgroundImage: _image != null
+                ? FileImage(_image!)
+                : (FirebaseAuth.instance.currentUser?.photoURL != null
+                    ? NetworkImage(FirebaseAuth.instance.currentUser!.photoURL!)
+                    : const AssetImage('assets/images/Placeholder.jpg') as ImageProvider),
           ),
-          ],
-          ),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.settings),
-              iconSize: 40.0,
-              onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const TerceraPag()),
-                );
-              },
-            )
-          ],
         ),
-        body: SingleChildScrollView(
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings),
+            iconSize: 30.0,
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => const TerceraPag()),
+              );
+            },
+          )
+        ],
+      ),
+      body: Center(
+        child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -70,7 +70,7 @@ class _InicioAppState extends State<InicioApp> {
               _buildAnimatedContainer(
                 context,
                 'assets/images/DocGirl.png',
-                'Consultar Especialista',
+                'CONSULTAR ESPECIALISTA',
                 () {
                   // Navegar a la página ConsultarEspecialista
                   Navigator.of(context).push(
@@ -84,7 +84,7 @@ class _InicioAppState extends State<InicioApp> {
               _buildAnimatedContainer(
                 context,
                 'assets/images/DocMan.png',
-                'Informacion Pediatrica',
+                'INFORMACION PEDIATRICA',
                 () {
                   // Navegar a la página Informacion1
                   Navigator.of(context).push(
@@ -96,7 +96,8 @@ class _InicioAppState extends State<InicioApp> {
             ],
           ),
         ),
-      );
+      ),
+    );
   }
 
   Widget _buildAnimatedContainer(BuildContext context, String imagePath, String text, Function() onPressed, Alignment alignment) {
@@ -110,51 +111,57 @@ class _InicioAppState extends State<InicioApp> {
           child: child,
         );
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              text,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Roboto',
-              ),
-            ),
-            SizedBox(height: 20),
-            AnimatedOpacity(
-              opacity: _firstImageVisible ? 1.0 : 0.0,
-              duration: Duration(milliseconds: 500),
-              child: SizedBox(
-                height: 300,
-                width: 300,
-                child: Image.asset(
-                  imagePath,
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: onPressed,
-              child: Text(
-                'Ir',
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                text,
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 16,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Roboto',
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 20),
+              AnimatedOpacity(
+                opacity: _firstImageVisible ? 1.0 : 0.0,
+                duration: Duration(milliseconds: 500),
+                child: SizedBox(
+                  height: 300,
+                  width: 300,
+                  child: Image.asset(
+                    imagePath,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+              SizedBox(height: 20), // Mayor espacio entre imagen y botón
+              ElevatedButton(
+                onPressed: onPressed,
+                child: Text(
+                  'IR',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromRGBO(20, 86, 71, 1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
