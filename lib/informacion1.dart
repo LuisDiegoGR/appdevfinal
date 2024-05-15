@@ -35,7 +35,6 @@ class _Informacion1State extends State<Informacion1> {
   ];
 
   double _currentPage = 0.0;
-  bool _showText = true;
 
   @override
   void initState() {
@@ -43,7 +42,6 @@ class _Informacion1State extends State<Informacion1> {
     _pageController.addListener(() {
       setState(() {
         _currentPage = _pageController.page!;
-        _showText = _currentPage < (_imageUrls.length - 1);
       });
     });
   }

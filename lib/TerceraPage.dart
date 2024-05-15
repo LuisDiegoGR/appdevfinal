@@ -1,6 +1,5 @@
 import 'dart:io';
-
-import 'package:appdevfinal/About.dart';
+import 'package:appdevfinal/Citas.dart';
 import 'package:appdevfinal/Notification.dart';
 import 'package:appdevfinal/Personalinfo.dart';
 import 'package:flutter/material.dart';
@@ -175,7 +174,7 @@ Future<void> _uploadImage() async {
               ),
               onPressed: () {
                 Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => About()),
+                  MaterialPageRoute(builder: (context) => Citas()),
                 );
               },
               child: Text(
