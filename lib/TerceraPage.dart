@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:appdevfinal/About.dart';
 import 'package:appdevfinal/Notification.dart';
 import 'package:appdevfinal/Personalinfo.dart';
 import 'package:flutter/material.dart';
@@ -90,7 +91,7 @@ Future<void> _uploadImage() async {
               elevation: 0.0,
               padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 130.0),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
+                borderRadius: BorderRadius.circular(25.0),
               ),
               onPressed: _getImage,
               child: Text(
@@ -108,7 +109,7 @@ Future<void> _uploadImage() async {
               elevation: 0.0,
               padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 90.0),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
+                borderRadius: BorderRadius.circular(25.0),
               ),
               onPressed: _uploadImage,
               child: Text(
@@ -126,7 +127,7 @@ Future<void> _uploadImage() async {
               elevation: 0.0,
               padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 105.0),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
+                borderRadius: BorderRadius.circular(25.0),
               ),
               onPressed: () {
                 Navigator.of(context).pushReplacement(
@@ -148,7 +149,7 @@ Future<void> _uploadImage() async {
               elevation: 0.0,
               padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 130.0),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
+                borderRadius: BorderRadius.circular(25.0),
               ),
               onPressed: () {
                 Navigator.of(context).pushReplacement(
@@ -157,6 +158,28 @@ Future<void> _uploadImage() async {
               },
               child: Text(
                 'Notificaciones',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Roboto',
+                  fontSize: 15,
+                ),
+                ),
+            ),
+            SizedBox(height: 20.0),
+            RawMaterialButton(
+              fillColor: Color(0xFF145647),
+              elevation: 0.0,
+              padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 110.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0),
+              ),
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => About()),
+                );
+              },
+              child: Text(
+                'Acerca de nosotros',
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Roboto',
