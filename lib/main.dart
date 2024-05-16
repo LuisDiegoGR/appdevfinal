@@ -20,29 +20,69 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-@override
+  @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      // Inicializa Firebase antes de ejecutar la aplicación
-      future: Firebase.initializeApp(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const MaterialApp(
-            // Muestra un indicador de carga mientras Firebase se inicializa
-            home: Scaffold(body: Center(child: CircularProgressIndicator())),
-          );
-        } else {
-          // Una vez que Firebase se ha inicializado correctamente, muestra la pantalla de inicio de sesión
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: HomePage(),
-          );
-        }
-      },
+    return MaterialApp(
+      title: 'HRAEI',
+      theme: ThemeData(
+        primaryColor: Color(0xFF145647),
+      ),
+      home: SplashScreen(), // Mostrar la pantalla de carga al inicio
+      debugShowCheckedModeBanner: false,
     );
   }
 }
 
+// Pantalla de carga personalizada
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _navigateToHome();
+  }
+
+  _navigateToHome() async {
+    await Future.delayed(Duration(seconds: 3)); // Esperar 3 segundos
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage()), // Ir a la pantalla principal
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Container(
+          width: 100,
+          height: 100,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: Color(0xFF145647).withOpacity(0.5),
+                spreadRadius: 10,
+                blurRadius: 20,
+                offset: Offset(0, 0),
+              ),
+            ],
+          ),
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF145647)),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Pantalla principal de la aplicación
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -70,7 +110,6 @@ class HomePage extends StatelessWidget {
               'assets/images/tre.png', // Ruta de la imagen en tu proyecto
               width: 200,
             ),
-            //Navigator.pushNamed(context, '/siguiente');
             const SizedBox(height: 40),
             RawMaterialButton(
               fillColor: Color(0xFF145647),
@@ -81,7 +120,7 @@ class HomePage extends StatelessWidget {
               ),
               onPressed: () {
                 Navigator.push(
-                  context, 
+                  context,
                   MaterialPageRoute(builder: (context) => PantallaSiguiente()),
                 );
               },
@@ -94,6 +133,26 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+// Pantalla de error personalizada
+class ErrorScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Text(
+          'Error al inicializar Firebase',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.red,
+          ),
         ),
       ),
     );
