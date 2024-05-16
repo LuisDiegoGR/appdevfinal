@@ -87,35 +87,47 @@ class _AdminPageState extends State<AdminPage> {
                 );
               },
             ),
-            SizedBox(height: 80),
-            ElevatedButton(
+            SizedBox(height: 30),
+            RawMaterialButton(
+              fillColor: Color(0xFF145647),
+              elevation: 0.0,
+              padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 130),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0),
+              ),
               onPressed: () {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => CitasReb()),
                 );
               },
-              child: Text('Citas'),
+              child: Text(
+                'Citas',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Roboto',
+                  fontSize: 15
+                ),
+                ),
             ),
             SizedBox(height: 25),
-            ElevatedButton(
+            RawMaterialButton(
+              fillColor: Color(0xFF145647),
+              elevation: 0.0,
+              padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 107),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0),
+              ),
               onPressed: () {
-                // Acción
+             //Mode unmosd
               },
-              child: Text('HOLA'),
-            ),
-            SizedBox(height: 25),
-            ElevatedButton(
-              onPressed: () {
-                // Acción
-              },
-              child: Text('HOLA'),
-            ),
-            SizedBox(height: 25),
-            ElevatedButton(
-              onPressed: () {
-                // Acción
-              },
-              child: Text('HOLA'),
+              child: Text(
+                'Otra opcion',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Roboto',
+                  fontSize: 15
+                ),
+                ),
             ),
           ],
         ),

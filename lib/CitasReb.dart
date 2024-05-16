@@ -52,7 +52,7 @@ void _getCitas() {
       ),
       body: _citas.isEmpty
           ? Center(
-              child: Text('No hay citas registradas'),
+              child: CircularProgressIndicator(),
             )
           : ListView.builder(
               itemCount: _citas.length,
