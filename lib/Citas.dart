@@ -1,5 +1,6 @@
 import 'package:appdevfinal/TerceraPage.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class Citas extends StatefulWidget {
@@ -10,7 +11,7 @@ class Citas extends StatefulWidget {
 }
 
 class _CitasState extends State<Citas> {
-    final databaseReference = FirebaseDatabase.instance.reference();
+  final databaseReference = FirebaseDatabase.instance.reference();
   final _formKey = GlobalKey<FormState>();
   String _nombrePaciente = '';
   String _fechaCita = '';
@@ -20,17 +21,16 @@ class _CitasState extends State<Citas> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: IconButton(
+        leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            //coment
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => TerceraPag())
             );
           },
         ),
       ),
-body: Padding(
+      body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
@@ -92,22 +92,29 @@ body: Padding(
     );
   }
 
-  void _registrarCita() {
-    databaseReference.child('citas').push().set({
-      'paciente': _nombrePaciente,
-      'fecha': _fechaCita,
-      'descripcion': _descripcionCita,
-    }).then((_) {
+  void _registrarCita() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      String uid = user.uid;
+      databaseReference.child('citas').child(uid).set({
+        'paciente': _nombrePaciente,
+        'fecha': _fechaCita,
+        'descripcion': _descripcionCita,
+      }).then((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Cita registrada exitosamente')),
+        );
+        // Limpiar los campos después de registrar la cita
+        _formKey.currentState!.reset();
+      }).catchError((error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error al registrar la cita: $error')),
+        );
+      });
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Cita registrada exitosamente')),
+        SnackBar(content: Text('Error: Usuario no autenticado')),
       );
-      // Limpiar los campos después de registrar la cita
-      _formKey.currentState!.reset();
-    }).catchError((error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error al registrar la cita: $error')),
-      );
-    });
+    }
   }
 }
-   

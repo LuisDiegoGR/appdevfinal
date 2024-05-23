@@ -3,6 +3,7 @@ import 'package:appdevfinal/CitasReb.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:appdevfinal/acceptcita.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({super.key});
@@ -91,7 +92,7 @@ class _AdminPageState extends State<AdminPage> {
             RawMaterialButton(
               fillColor: Color(0xFF145647),
               elevation: 0.0,
-              padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 130),
+              padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 100),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25.0),
               ),
@@ -101,7 +102,7 @@ class _AdminPageState extends State<AdminPage> {
                 );
               },
               child: Text(
-                'Citas',
+                'Registro citas',
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Roboto',
@@ -113,15 +114,17 @@ class _AdminPageState extends State<AdminPage> {
             RawMaterialButton(
               fillColor: Color(0xFF145647),
               elevation: 0.0,
-              padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 107),
+              padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 90),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25.0),
               ),
               onPressed: () {
-             //Mode unmosd
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => AcceptCita())
+                );
               },
               child: Text(
-                'Otra opcion',
+                'Citas Aceptadas',
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Roboto',
