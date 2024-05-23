@@ -1,12 +1,13 @@
 import 'dart:io';
+
 import 'package:appdevfinal/CitasReb.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:appdevfinal/acceptcita.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class AdminPage extends StatefulWidget {
-  const AdminPage({super.key});
+  const AdminPage({Key? key});
 
   @override
   State<AdminPage> createState() => _AdminPageState();
@@ -17,7 +18,7 @@ class _AdminPageState extends State<AdminPage> {
   late String _userId;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _userId = FirebaseAuth.instance.currentUser!.uid;
   }
@@ -51,40 +52,35 @@ class _AdminPageState extends State<AdminPage> {
               builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return CircularProgressIndicator();
-                } 
-                if (!snapshot.hasData || !snapshot.data!.exists){
+                }
+                if (!snapshot.hasData || !snapshot.data!.exists) {
                   return Text('No data found');
                 }
 
                 var userData = snapshot.data!.data() as Map<String, dynamic>;
 
-                return Padding(
-                padding: const EdgeInsets.only(left: 65),
-                child: ListTile(
-                  title: Text(
-                    '${userData['name']} ${userData['lastName']}',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontFamily: 'Roboto',
+                return Column(
+                  children: [
+                    Text(
+                      '${userData['name']} ${userData['lastName']}',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.bold, // Negrita
+                      ),
                     ),
-                  ),
-                  subtitle: Padding(
-                    padding: const EdgeInsets.only(left: 85),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text('Role ${userData['role']}',
+                    SizedBox(height: 5), // Espacio entre el nombre y el rol
+                    Text(
+                      'Role ${userData['role']}',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 15,
                         fontFamily: 'Roboto',
-                      )
+                        fontWeight: FontWeight.bold, // Negrita
                       ),
-                    ],
-                  ),
-                  ),
-                ),
+                    ),
+                  ],
                 );
               },
             ),
@@ -106,9 +102,10 @@ class _AdminPageState extends State<AdminPage> {
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Roboto',
-                  fontSize: 15
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold, // Negrita
                 ),
-                ),
+              ),
             ),
             SizedBox(height: 25),
             RawMaterialButton(
@@ -120,17 +117,17 @@ class _AdminPageState extends State<AdminPage> {
               ),
               onPressed: () {
                 Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => AcceptCita())
-                );
+                    MaterialPageRoute(builder: (context) => AcceptCita()));
               },
               child: Text(
                 'Citas Aceptadas',
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Roboto',
-                  fontSize: 15
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold, // Negrita
                 ),
-                ),
+              ),
             ),
           ],
         ),
