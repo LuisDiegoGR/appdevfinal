@@ -47,6 +47,7 @@ dependencies:
   flutter_datetime_picker: ^1.5.1
   shared_preferences: ^2.2.3
   video_player: ^2.8.6
+  fl_chart: ^0.68.0
 
 dev_dependencies:
   flutter_test:
