@@ -1,6 +1,8 @@
+import 'dart:async';
+
 import 'package:appdevfinal/InicioAppAdmin.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
 
 class CitasReb extends StatefulWidget {
   const CitasReb({Key? key}) : super(key: key);
@@ -13,6 +15,7 @@ class _CitasRebState extends State<CitasReb> {
   final DatabaseReference _databaseReference = FirebaseDatabase.instance.ref();
   final List<Map<dynamic, dynamic>> _citas = [];
   final List<String> _keys = [];
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -23,6 +26,7 @@ class _CitasRebState extends State<CitasReb> {
   void _getCitas() {
     _databaseReference.child('citas').onValue.listen((event) {
       setState(() {
+        _isLoading = false;
         _citas.clear();
         _keys.clear();
         Map<dynamic, dynamic>? values = event.snapshot.value as Map<dynamic, dynamic>?;
@@ -34,9 +38,26 @@ class _CitasRebState extends State<CitasReb> {
             }
           });
         }
+        if (_citas.isEmpty) {
+          _showSnackBar();
+        }
       });
     }, onError: (error) {
       print('Error al obtener datos: $error');
+    });
+  }
+
+  void _showSnackBar() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Sin citas registradas'),
+        duration: Duration(seconds: 5),
+      ),
+    );
+    Timer(Duration(seconds: 2), () {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => AdminPage()),
+      );
     });
   }
 
@@ -78,47 +99,51 @@ class _CitasRebState extends State<CitasReb> {
         ),
         title: Text('Citas Registradas'),
       ),
-      body: _citas.isEmpty
+      body: _isLoading
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : ListView.builder(
-              itemCount: _citas.length,
-              itemBuilder: (BuildContext context, int index) {
-                if (index < 0 || index >= _citas.length || index >= _keys.length) {
-                  return SizedBox.shrink();
-                }
-                Map<dynamic, dynamic> cita = _citas[index];
-                String key = _keys[index];
-                return ListTile(
-                  title: Text('Paciente: ${cita['paciente'] ?? 'Desconocido'}'),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Fecha: ${cita['fecha'] ?? 'Desconocida'}'),
-                      Text('Descripción: ${cita['descripcion'] ?? 'Sin descripción'}'),
-                    ],
-                  ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.delete),
-                        onPressed: () {
-                          _deleteCita(key);
-                        },
+          : _citas.isEmpty
+              ? SizedBox.shrink()
+              : ListView.builder(
+                  itemCount: _citas.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index < 0 ||
+                        index >= _citas.length ||
+                        index >= _keys.length) {
+                      return SizedBox.shrink();
+                    }
+                    Map<dynamic, dynamic> cita = _citas[index];
+                    String key = _keys[index];
+                    return ListTile(
+                      title: Text('Paciente: ${cita['paciente'] ?? 'Desconocido'}'),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Fecha: ${cita['fecha'] ?? 'Desconocida'}'),
+                          Text('Descripción: ${cita['descripcion'] ?? 'Sin descripción'}'),
+                        ],
                       ),
-                      IconButton(
-                        icon: Icon(Icons.check),
-                        onPressed: () {
-                          _acceptCita(key, cita);
-                        },
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              _deleteCita(key);
+                            },
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.check),
+                            onPressed: () {
+                              _acceptCita(key, cita);
+                            },
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                );
-              },
-            ),
+                    );
+                  },
+                ),
     );
   }
 }
