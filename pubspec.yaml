@@ -48,6 +48,8 @@ dependencies:
   shared_preferences: ^2.2.3
   video_player: ^2.8.6
   fl_chart: ^0.68.0
+  flutter_animate: ^4.5.0
+  quickalert: ^1.1.0
 
 dev_dependencies:
   flutter_test:

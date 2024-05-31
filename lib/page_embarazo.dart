@@ -134,6 +134,7 @@ class PageEmbarazo extends StatelessWidget {
                 '• Defectos congenitos\n'
                 '• Prematuridad',
                 style: TextStyle(fontSize: 18),
+                textAlign: TextAlign.left,
               ),
               SizedBox(height: 35),
               RawMaterialButton(
