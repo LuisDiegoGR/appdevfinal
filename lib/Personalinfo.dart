@@ -9,10 +9,10 @@ class PersonalInfo extends StatefulWidget {
 }
 
 class _PersonalInfoState extends State<PersonalInfo> {
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _lastNameController = TextEditingController();
-  TextEditingController _addressController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
 
   late String _userId;
 
@@ -27,10 +27,10 @@ class _PersonalInfoState extends State<PersonalInfo> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => TerceraPag()),
+              MaterialPageRoute(builder: (context) => const TerceraPag()),
             );
           },
         ),
@@ -42,17 +42,17 @@ class _PersonalInfoState extends State<PersonalInfo> {
             .snapshots(),
         builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           if (!snapshot.hasData || !snapshot.data!.exists) {
-            return Center(child: Text('No data found'));
+            return const Center(child: Text('No data found'));
           }
 
           var userData = snapshot.data!.data() as Map<String, dynamic>;
 
           return ListTile(
             title: Text('${userData['name']} ${userData['lastName']}',
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.black,
               fontFamily: 'Roboto',
               fontSize: 20,
@@ -62,14 +62,14 @@ class _PersonalInfoState extends State<PersonalInfo> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text('Dirección: ${userData['address']}',
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontFamily: 'Roboto',
                   fontSize: 20,
                 ),
                 ),
                 Text('Teléfono: ${userData['phone']}',
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontFamily: 'Roboto',
                   fontSize: 20,
@@ -83,7 +83,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: Text('Editar Información Personal'),
+                      title: const Text('Editar Información Personal'),
                       content: SingleChildScrollView(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -91,33 +91,31 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             TextField(
                               controller: _nameController
                                 ..text = userData['name'],
-                              decoration: InputDecoration(labelText: 'Nombre'),
+                              decoration: const InputDecoration(labelText: 'Nombre'),
                             ),
                             TextField(
                               controller: _lastNameController
                                 ..text = userData['lastName'],
-                              decoration: InputDecoration(labelText: 'Apellido'),
+                              decoration: const InputDecoration(labelText: 'Apellido'),
                             ),
                             TextField(
                               controller: _addressController
                                 ..text = userData['address'],
-                              decoration: InputDecoration(labelText: 'Dirección'),
+                              decoration: const InputDecoration(labelText: 'Dirección'),
                             ),
                             TextField(
                               controller: _phoneController
                                 ..text = userData['phone'],
-                              decoration: InputDecoration(labelText: 'Teléfono'),
+                              decoration: const InputDecoration(labelText: 'Teléfono'),
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             ElevatedButton(
                               onPressed: () async {
-                                // Obtener los nuevos valores de los campos
                                 String newName = _nameController.text;
                                 String newLastName = _lastNameController.text;
                                 String newAddress = _addressController.text;
                                 String newPhone = _phoneController.text;
 
-                                // Actualizar los campos en Firestore
                                 await FirebaseFirestore.instance
                                     .collection('users')
                                     .doc(_userId)
@@ -130,7 +128,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
 
                                 Navigator.pop(context);
                               },
-                              child: Text('Guardar Cambios'),
+                              child: const Text('Guardar Cambios'),
                             ),
                           ],
                         ),
@@ -139,18 +137,18 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   },
                 );
               },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF145647)),
+                padding: MaterialStateProperty.all<EdgeInsetsGeometry>(const EdgeInsets.symmetric(vertical: 12, horizontal: 16)),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                )
+              ),
               child: const Text('Editar',
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
-              ),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF145647)),
-                padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.symmetric(vertical: 12, horizontal: 16)),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-                )
               ),
             ),
           );

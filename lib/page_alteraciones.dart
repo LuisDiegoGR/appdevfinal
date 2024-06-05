@@ -2,15 +2,17 @@ import 'package:appdevfinal/informacion1.dart';
 import 'package:flutter/material.dart';
 
 class PageAlteraciones extends StatelessWidget {
+  const PageAlteraciones({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => Informacion1()),
+              MaterialPageRoute(builder: (context) => const Informacion1()),
             );
           },
         ),
@@ -21,7 +23,7 @@ class PageAlteraciones extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'ALTERACIONES DE LA SUCCIÓN - DEGLUCIÓN',
                 style: TextStyle(
                   fontSize: 20,
@@ -29,10 +31,10 @@ class PageAlteraciones extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               RichText(
                 textAlign: TextAlign.justify,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan> [
                     TextSpan(text: 'Durante la alimentación,',
@@ -48,8 +50,8 @@ class PageAlteraciones extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 20.0),
-              Text(
+              const SizedBox(height: 20.0),
+              const Text(
                 '• Óseas.\n'
                 '• Musculares.\n'
                 '• Nerviosas.',
@@ -58,10 +60,10 @@ class PageAlteraciones extends StatelessWidget {
                 ),
                 textAlign: TextAlign.left,
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               RichText(
                 textAlign: TextAlign.justify,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan> [
                     TextSpan(text: 'Que canalizan las sensaciones y',

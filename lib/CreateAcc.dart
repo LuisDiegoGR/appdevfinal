@@ -17,11 +17,11 @@ class _CreateAccnState extends State<CreateAccn> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   final TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _lastNameController = TextEditingController();
-  TextEditingController _addressController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
 
   UserRole _selectedRole = UserRole.patient;
 
@@ -41,7 +41,7 @@ class _CreateAccnState extends State<CreateAccn> {
       });
 
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => PantallaSiguiente()),
+        MaterialPageRoute(builder: (context) => const PantallaSiguiente()),
       );
     } catch (e) {
       print("Error al registar usuario: $e");
@@ -53,17 +53,17 @@ class _CreateAccnState extends State<CreateAccn> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => PantallaSiguiente())
+              MaterialPageRoute(builder: (context) => const PantallaSiguiente())
             );
           },
         ),
       ),
       body: Center(
         child: Padding(
-          padding: EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20.0),
           child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -75,7 +75,7 @@ class _CreateAccnState extends State<CreateAccn> {
                   fontWeight: FontWeight.bold
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               DropdownButtonFormField(
                 value: _selectedRole,
                 onChanged: (value) {
@@ -102,7 +102,7 @@ class _CreateAccnState extends State<CreateAccn> {
                 child: TextField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'name@example.com',
                     prefixIcon: Icon(Icons.mail, color: Colors.black),
                     border: InputBorder.none,
@@ -121,7 +121,7 @@ class _CreateAccnState extends State<CreateAccn> {
                 child: TextField(
                   controller: _passwordController,
                   keyboardType: TextInputType.visiblePassword,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Password',
                     prefixIcon: Icon(Icons.password, color: Colors.black),
                     border: InputBorder.none,
@@ -140,7 +140,7 @@ class _CreateAccnState extends State<CreateAccn> {
                 child: TextField(
                   controller: _nameController,
                   keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Name',
                     prefixIcon: Icon(Icons.person, color: Colors.black),
                     border: InputBorder.none,
@@ -159,7 +159,7 @@ class _CreateAccnState extends State<CreateAccn> {
                 child: TextField(
                   controller: _lastNameController,
                   keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Last Name',
                     prefixIcon: Icon(Icons.person, color: Colors.black),
                     border: InputBorder.none,
@@ -178,7 +178,7 @@ class _CreateAccnState extends State<CreateAccn> {
                 child: TextField(
                   controller: _addressController,
                   keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Address',
                     prefixIcon: Icon(Icons.person, color: Colors.black),
                     border: InputBorder.none,
@@ -197,7 +197,7 @@ class _CreateAccnState extends State<CreateAccn> {
                 child: TextField(
                   controller: _phoneController,
                   keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Phone Number',
                     prefixIcon: Icon(Icons.person, color: Colors.black),
                     border: InputBorder.none,

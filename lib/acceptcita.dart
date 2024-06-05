@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class AcceptCita extends StatefulWidget {
-  const AcceptCita({Key? key}) : super(key: key);
+  const AcceptCita({super.key});
 
   @override
   State<AcceptCita> createState() => _AcceptCitaState();
@@ -23,7 +23,8 @@ class _AcceptCitaState extends State<AcceptCita> {
     _databaseReference.child('AccepCit').onValue.listen((event) {
       setState(() {
         _acceptedCitas.clear();
-        Map<dynamic, dynamic>? values = event.snapshot.value as Map<dynamic, dynamic>?;
+        Map<dynamic, dynamic>? values =
+            event.snapshot.value as Map<dynamic, dynamic>?;
         if (values != null) {
           values.forEach((key, value) {
             if (value != null && value is Map) {
@@ -42,24 +43,24 @@ class _AcceptCitaState extends State<AcceptCita> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => AdminPage()),
+              MaterialPageRoute(builder: (context) => const AdminPage()),
             );
           },
         ),
-        title: Text('Citas Aceptadas'),
+        title: const Text('Citas Aceptadas'),
       ),
       body: _acceptedCitas.isEmpty
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : ListView.builder(
               itemCount: _acceptedCitas.length,
               itemBuilder: (BuildContext context, int index) {
                 if (index < 0 || index >= _acceptedCitas.length) {
-                  return SizedBox.shrink();
+                  return const SizedBox.shrink();
                 }
                 Map<dynamic, dynamic> cita = _acceptedCitas[index];
                 return ListTile(
@@ -68,7 +69,8 @@ class _AcceptCitaState extends State<AcceptCita> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Fecha: ${cita['fecha'] ?? 'Desconocida'}'),
-                      Text('Descripción: ${cita['descripcion'] ?? 'Sin descripción'}'),
+                      Text(
+                          'Descripción: ${cita['descripcion'] ?? 'Sin descripción'}'),
                     ],
                   ),
                 );

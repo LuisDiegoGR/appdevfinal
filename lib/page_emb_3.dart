@@ -15,14 +15,14 @@ class _PageEmb3State extends State<PageEmb3> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => PageEmb2())
+              MaterialPageRoute(builder: (context) => const PageEmb2())
             );
           },
         ),
-        title: Text('Prueba de scroll 3'),
+        title: const Text('Prueba de scroll 3'),
         shadowColor: Colors.grey,
         scrolledUnderElevation: 10.0,
       ),
@@ -32,13 +32,13 @@ class _PageEmb3State extends State<PageEmb3> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Factores perinatales',
                 style:  TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'Roboto'),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 22),
-              Text(
+              const SizedBox(height: 22),
+              const Text(
                 '• Estrato socioeconómico bajo (Signos neurológicos blandos desaparecen más tardíamente.\n'
                 '• Bajo peso al nacer \n'
                 '• Prematures \n'
@@ -46,10 +46,10 @@ class _PageEmb3State extends State<PageEmb3> {
                 style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.normal, fontFamily: 'Roboto'),
                 textAlign: TextAlign.left,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               RichText(
                 textAlign: TextAlign.justify,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan> [
                     TextSpan(text: 'Puede condicionar',
@@ -65,7 +65,7 @@ class _PageEmb3State extends State<PageEmb3> {
                   ]
                 ),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -83,12 +83,12 @@ class _PageEmb3State extends State<PageEmb3> {
                   ),
                 ],
               ),
-              SizedBox(height: 22),
-              Text(
+              const SizedBox(height: 22),
+              const Text(
                 'Hipoxia',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 22),
+              const SizedBox(height: 22),
               SizedBox(
                 height: 250,
                 child: PieChart(
@@ -99,21 +99,21 @@ class _PageEmb3State extends State<PageEmb3> {
                         title: '85%',
                         color: Colors.blue,
                         radius: 50,
-                        titleStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                        titleStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
                       ),
                       PieChartSectionData(
                         value: 10.0,
                         title: '10%',
                         color: Colors.red,
                         radius: 50,
-                        titleStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                        titleStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
                       ),
                       PieChartSectionData(
                         value: 5.0,
                         title: '5%',
                         color: Colors.green,
                         radius: 50,
-                        titleStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                        titleStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
                       ),
                     ],
                   ),
@@ -136,22 +136,22 @@ class _PageEmb3State extends State<PageEmb3> {
                   ),
                 ],
               ),
-              SizedBox(height: 22),
-              Text(
+              const SizedBox(height: 22),
+              const Text(
                 'Causas relacionadas',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 22),
-              Text(
+              const SizedBox(height: 22),
+              const Text(
                 '• interrupción de la circulación umbilical por compresión, prolapso o accidentes del cordón, circulares irreductibles. \n'
                 '\n'
                 '•  Desprendimiento prematuro de placenta, placenta previa, hipotensión materna y alteraciones de la contractibilidad uterina.',
                 style: TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               RichText(
                 textAlign: TextAlign.justify,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan> [
                     TextSpan(text: 'El periodo perinatal',
@@ -167,10 +167,10 @@ class _PageEmb3State extends State<PageEmb3> {
                   ]
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               RichText(
                 textAlign: TextAlign.justify,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan> [
                     TextSpan(text: 'La capacidad del ',
@@ -186,7 +186,7 @@ class _PageEmb3State extends State<PageEmb3> {
                   ]
                 ),
               ),
-              SizedBox(height: 22),
+              const SizedBox(height: 22),
             ],
           ),
         ),

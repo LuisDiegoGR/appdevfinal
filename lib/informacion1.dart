@@ -5,7 +5,7 @@ import 'package:appdevfinal/page_foro.dart';
 import 'package:flutter/material.dart';
 
 class Informacion1 extends StatefulWidget {
-  const Informacion1({Key? key}) : super(key: key);
+  const Informacion1({super.key});
 
   @override
   State<Informacion1> createState() => _Informacion1State();
@@ -35,7 +35,7 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
   ];
 
   double _currentPage = 0.0;
-  bool _showText = true;
+  final bool _showText = true;
   late AnimationController _animationController;
   late Animation<double> _animation;
 
@@ -85,13 +85,13 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
           child: ElevatedButton(
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
-              backgroundColor: Color.fromRGBO(20, 86, 71, 1),
+              backgroundColor: const Color.fromRGBO(20, 86, 71, 1),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             ),
-            child: Text(
+            child: const Text(
               'Comenzar',
               style: TextStyle(
                 fontSize: 18,
@@ -108,7 +108,7 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
   Widget _buildAnimatedText() {
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 0.0, end: 1.0),
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       builder: (context, value, child) {
         return Opacity(
           opacity: value,
@@ -117,8 +117,8 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
       },
       child: AnimatedOpacity(
         opacity: _showText ? 1.0 : 0.0,
-        duration: Duration(milliseconds: 500),
-        child: Row(
+        duration: const Duration(milliseconds: 500),
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
@@ -143,7 +143,7 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Información'),
+        title: const Text('Información'),
       ),
       body: Stack(
         children: [
@@ -152,7 +152,7 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
             itemCount: _imageUrls.length,
             itemBuilder: (context, index) {
               final image = _imageUrls[index];
-              final title = _titles[index].toUpperCase(); // Convertir a mayúsculas
+              final title = _titles[index].toUpperCase();
               final pageOffset = (index - _currentPage).abs();
               final scale = 1 - (pageOffset * 0.3).clamp(0.0, 0.3);
 
@@ -165,13 +165,13 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
                       Text(
                         title,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'Roboto',
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       _buildImage(
                         image,
                         width: 300,
@@ -179,9 +179,8 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
                         left: 0,
                         right: 0,
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       _buildAnimatedButton(() {
-                        // Navegar a la página correspondiente
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => _pages[index]),

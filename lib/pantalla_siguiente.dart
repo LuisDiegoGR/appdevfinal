@@ -1,7 +1,7 @@
 import 'package:appdevfinal/CreateAcc.dart';
 import 'package:appdevfinal/InicioApp.dart';
 import 'package:appdevfinal/InicioAppAdmin.dart';
-import 'package:appdevfinal/forgot_password_screen.dart'; // Importa la nueva pantalla
+import 'package:appdevfinal/forgot_password_screen.dart'; 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,7 +10,6 @@ class PantallaSiguiente extends StatefulWidget {
   const PantallaSiguiente({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _PantallaSiguiente createState() => _PantallaSiguiente();
 }
 
@@ -40,7 +39,7 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
 
     if(password.isEmpty){
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Porfavor, ingresa una contraseña',
           style: TextStyle(
             color: Colors.white,
@@ -53,7 +52,7 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
       );
     } else if (password.length <6){
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('La contraseña debe contener 6 caracteres',
           style: TextStyle(
             color: Colors.white,
@@ -72,7 +71,7 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
 
     if(email.isEmpty){
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Porfavor, ingrese un correo',
           style: TextStyle(
             color: Colors.white,
@@ -85,7 +84,7 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
       );
     } else if (!email.contains("@") || !email.contains(".com")){
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Correo invalido falta @ o .com',
+        const SnackBar(content: Text('Correo invalido falta @ o .com',
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
@@ -119,17 +118,17 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
               ),
               const SizedBox(height: 40),
               Container(
-                width: 400, // Ancho deseado del TextField
+                width: 400, 
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 203, 203, 203),
+                  color: const Color.fromARGB(255, 203, 203, 203),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: TextField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'name@example.com',
                     prefixIcon: Icon(Icons.mail, color: Colors.black),
                     border: InputBorder.none,
@@ -138,20 +137,20 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
               ),
               const SizedBox(height: 10),
               Container(
-                width: 400, // Ancho deseado del TextField
+                width: 400, 
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 203, 203, 203),
+                  color: const Color.fromARGB(255, 203, 203, 203),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: TextField(
                   controller: _passwordController,
                   keyboardType: TextInputType.text,
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Password',
-                    prefixIcon: const Icon(Icons.lock, color: Colors.black),
+                    prefixIcon: Icon(Icons.lock, color: Colors.black),
                     border: InputBorder.none,
                   ),
                 ),
@@ -162,10 +161,10 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => CreateAccn())
+                        MaterialPageRoute(builder: (context) => const CreateAccn())
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       'Create account',
                       style: TextStyle(
                         color: Colors.blue,
@@ -176,12 +175,11 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                   const SizedBox(width: 20),
                   TextButton(
                     onPressed: () {
-                      // Aquí irá la lógica para la pantalla de recuperar contraseña
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ForgotPasswordScreen()),
+                        MaterialPageRoute(builder: (context) => const ForgotPasswordScreen()),
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       'Forgot Password?',
                       style: TextStyle(
                         color: Colors.blue,
@@ -206,25 +204,21 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
     password: _passwordController.text,
   );
   if (user != null) {
-    // Usuario autenticado correctamente, ahora verificamos su rol
     FirebaseFirestore.instance
         .collection('users')
         .doc(user.uid)
         .get()
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
-        // El documento del usuario existe, ahora verificamos su rol
         String? role = (documentSnapshot.data() as Map<String, dynamic>)['role'];
 
         if (role == 'admin') {
-          // Si el usuario es un administrador, navegamos a la pantalla de administrador
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => AdminPage()),
+            MaterialPageRoute(builder: (context) => const AdminPage()),
           );
         } else if (role == 'patient') {
-          // Si el usuario es un paciente, navegamos a la pantalla de paciente
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => InicioApp()),
+            MaterialPageRoute(builder: (context) => const InicioApp()),
           );
         }
       } else {
@@ -234,7 +228,6 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
       print('Error al obtener el rol del usuario: $error');
     });
   }
-  // Aquí puedes mantener la lógica existente para mostrar mensajes de error si las credenciales son incorrectas
   ContinueDart2(context);
   ContinueDart(context);
 },

@@ -24,7 +24,7 @@ class _EvaluaTempState extends State<EvaluaTemp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Evaluación'),
+        title: const Text('Evaluación'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -41,15 +41,15 @@ class _EvaluaTempState extends State<EvaluaTemp> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                contentPadding: EdgeInsets.all(16.0),
-                leading: Icon(
+                contentPadding: const EdgeInsets.all(16.0),
+                leading: const Icon(
                   Icons.bedroom_baby,
                   size: 40,
                   color: Colors.green,
                 ),
                 title: Text(
                   actividades[index],
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -61,13 +61,13 @@ class _EvaluaTempState extends State<EvaluaTemp> {
                       page = DetalleActividadPage(actividad: 'De 0 a 3 meses');
                       break;
                     case 1:
-                      page = DetalleActividadPage2(actividad: 'De 4 a 6 meses');
+                      page = const DetalleActividadPage2(actividad: 'De 4 a 6 meses');
                       break;
                     case 2:
-                      page = DetalleActividadPage3(actividad: 'De 7 a 9 meses');
+                      page = const DetalleActividadPage3(actividad: 'De 7 a 9 meses');
                       break;
                     case 3:
-                      page = DetalleActividadPage4(actividad: 'De 10 a 12 meses');
+                      page = const DetalleActividadPage4(actividad: 'De 10 a 12 meses');
                       break;
                     default:
                       page = DetalleActividadPage(actividad: 'De 0 a 3 meses');
@@ -80,7 +80,7 @@ class _EvaluaTempState extends State<EvaluaTemp> {
                     ),
                   );
                 },
-              ).animate().fadeIn(), // Añadir animación de desvanecimiento
+              ).animate().fadeIn(),
             );
           },
         ),

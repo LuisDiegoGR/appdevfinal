@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:appdevfinal/Citas.dart';
-import 'package:appdevfinal/InicioApp.dart'; // Importa tus archivos según sea necesario
+import 'package:appdevfinal/InicioApp.dart'; 
 import 'package:appdevfinal/Notification.dart';
 import 'package:appdevfinal/Personalinfo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -43,7 +43,6 @@ Future<void> _uploadImage() async {
           User? user = FirebaseAuth.instance.currentUser;
           await user?.updatePhotoURL(imageURL);
           setState(() {
-            // Actualiza el estado si es necesario
           });
           print('Image uploaded successfully.');
         } catch (e) {
@@ -64,7 +63,7 @@ Future<void> _uploadImage() async {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => const InicioApp()),
@@ -76,7 +75,7 @@ Future<void> _uploadImage() async {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Spacer(),
+            const Spacer(),
               CircleAvatar(
               radius: 80,
               backgroundImage: _image != null
@@ -85,16 +84,16 @@ Future<void> _uploadImage() async {
                       ? NetworkImage(FirebaseAuth.instance.currentUser!.photoURL!)
                       : const AssetImage('assets/images/Placeholder.jpg') as ImageProvider),
             ),
-            SizedBox(height: 20), // Espacio en blanco
+            const SizedBox(height: 20), 
             RawMaterialButton(
-              fillColor: Color(0xFF145647),
+              fillColor: const Color(0xFF145647),
               elevation: 0.0,
               padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 130.0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25.0),
               ),
               onPressed: _getImage,
-              child: Text(
+              child: const Text(
                 'Select Image',
                 style: TextStyle(
                   color: Colors.white,
@@ -103,16 +102,16 @@ Future<void> _uploadImage() async {
                 ),
               ),
             ),
-            SizedBox(height: 20), // Espacio en blanco
+            const SizedBox(height: 20), 
             RawMaterialButton(
-              fillColor: Color(0xFF145647),
+              fillColor: const Color(0xFF145647),
               elevation: 0.0,
               padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 90.0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25.0),
               ),
               onPressed: _uploadImage,
-              child: Text(
+              child: const Text(
                 'Upload Image to Firebase',
                 style: TextStyle(
                   color: Colors.white,
@@ -121,9 +120,9 @@ Future<void> _uploadImage() async {
                 ),
                 ),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             RawMaterialButton(
-              fillColor: Color(0xFF145647),
+              fillColor: const Color(0xFF145647),
               elevation: 0.0,
               padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 105.0),
               shape: RoundedRectangleBorder(
@@ -134,7 +133,7 @@ Future<void> _uploadImage() async {
                   MaterialPageRoute(builder: (context) => PersonalInfo()),
                 );
               },
-              child: Text(
+              child: const Text(
                 'Informacion Personal',
                 style: TextStyle(
                   color: Colors.white,
@@ -143,9 +142,9 @@ Future<void> _uploadImage() async {
                 ),
                 ),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             RawMaterialButton(
-              fillColor: Color(0xFF145647),
+              fillColor: const Color(0xFF145647),
               elevation: 0.0,
               padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 130.0),
               shape: RoundedRectangleBorder(
@@ -153,10 +152,10 @@ Future<void> _uploadImage() async {
               ),
               onPressed: () {
                 Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => NotificationPage()),
+                  MaterialPageRoute(builder: (context) => const NotificationPage()),
                 );
               },
-              child: Text(
+              child: const Text(
                 'Notificaciones',
                 style: TextStyle(
                   color: Colors.white,
@@ -165,9 +164,9 @@ Future<void> _uploadImage() async {
                 ),
                 ),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             RawMaterialButton(
-              fillColor: Color(0xFF145647),
+              fillColor: const Color(0xFF145647),
               elevation: 0.0,
               padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 110.0),
               shape: RoundedRectangleBorder(
@@ -175,10 +174,10 @@ Future<void> _uploadImage() async {
               ),
               onPressed: () {
                 Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => Citas()),
+                  MaterialPageRoute(builder: (context) => const Citas()),
                 );
               },
-              child: Text(
+              child: const Text(
                 'Acerca de nosotros',
                 style: TextStyle(
                   color: Colors.white,
@@ -187,7 +186,7 @@ Future<void> _uploadImage() async {
                 ),
                 ),
             ),
-            Spacer(),
+            const Spacer(),
           ],
         ),
       ),

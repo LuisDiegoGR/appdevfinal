@@ -14,11 +14,10 @@ class _NotificationPageState extends State<NotificationPage> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            //coment
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => TerceraPag())
+              MaterialPageRoute(builder: (context) => const TerceraPag())
             );
           },
         ),
@@ -36,15 +35,15 @@ class _NotificationPageState extends State<NotificationPage> {
                   fontFamily: 'Roboto'
                 ),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Container(
                 width: 350,
                 height: 200,
                 decoration: BoxDecoration(
-                  color: Color(0xFFE6E6E6),
+                  color: const Color(0xFFE6E6E6),
                   borderRadius: BorderRadius.circular(30),
                 ),
-                child: Center(
+                child: const Center(
                   child: Text(
                     'Title Notification',
                     style: TextStyle(
@@ -55,15 +54,15 @@ class _NotificationPageState extends State<NotificationPage> {
                   ),
                 )
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Container(
                 width: 350,
                 height: 200,
                 decoration: BoxDecoration(
-                  color: Color(0xFFE6E6E6),
+                  color: const Color(0xFFE6E6E6),
                   borderRadius: BorderRadius.circular(30),
                 ),
-                child: Center(
+                child: const Center(
                   child: Text(
                     'Title Notification',
                     style: TextStyle(
@@ -74,15 +73,15 @@ class _NotificationPageState extends State<NotificationPage> {
                   ),
                 )
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Container(
                 width: 350,
                 height: 200,
                 decoration: BoxDecoration(
-                  color: Color(0xFFE6E6E6),
+                  color: const Color(0xFFE6E6E6),
                   borderRadius: BorderRadius.circular(30),
                 ),
-                child: Center(
+                child: const Center(
                   child: Text(
                     'Title Notification',
                     style: TextStyle(

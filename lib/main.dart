@@ -1,4 +1,4 @@
-import 'package:appdevfinal/pantalla_siguiente.dart'; // Importa el archivo Dart al que quieres redirigir
+import 'package:appdevfinal/pantalla_siguiente.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +14,7 @@ Future<void> main() async {
       storageBucket: 'gs://apphraei.appspot.com',
     ),
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -25,15 +25,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'HRAEI',
       theme: ThemeData(
-        primaryColor: Color(0xFF145647),
+        primaryColor: const Color(0xFF145647),
       ),
-      home: SplashScreen(), // Mostrar la pantalla de carga al inicio
+      home: SplashScreen(), 
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
-// Pantalla de carga personalizada
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -47,10 +46,10 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _navigateToHome() async {
-    await Future.delayed(Duration(seconds: 3)); // Esperar 3 segundos
+    await Future.delayed(const Duration(seconds: 3)); 
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => HomePage()), // Ir a la pantalla principal
+      MaterialPageRoute(builder: (context) => HomePage()), 
     );
   }
 
@@ -66,14 +65,14 @@ class _SplashScreenState extends State<SplashScreen> {
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
-                color: Color(0xFF145647).withOpacity(0.5),
+                color: const Color(0xFF145647).withOpacity(0.5),
                 spreadRadius: 10,
                 blurRadius: 20,
-                offset: Offset(0, 0),
+                offset: const Offset(0, 0),
               ),
             ],
           ),
-          child: CircularProgressIndicator(
+          child: const CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF145647)),
           ),
         ),
@@ -82,7 +81,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-// Pantalla principal de la aplicación
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -107,12 +105,12 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Image.asset(
-              'assets/images/tre.png', // Ruta de la imagen en tu proyecto
+              'assets/images/tre.png', 
               width: 200,
             ),
             const SizedBox(height: 40),
             RawMaterialButton(
-              fillColor: Color(0xFF145647),
+              fillColor: const Color(0xFF145647),
               elevation: 0.0,
               padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 150.0),
               shape: RoundedRectangleBorder(
@@ -121,7 +119,7 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PantallaSiguiente()),
+                  MaterialPageRoute(builder: (context) => const PantallaSiguiente()),
                 );
               },
               child: const Text(
@@ -139,11 +137,10 @@ class HomePage extends StatelessWidget {
   }
 }
 
-// Pantalla de error personalizada
 class ErrorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.white,
       body: Center(
         child: Text(

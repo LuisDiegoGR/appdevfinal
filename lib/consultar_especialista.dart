@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ConsultarEspecialista extends StatefulWidget {
+  const ConsultarEspecialista({super.key});
+
   @override
   _ConsultarEspecialistaState createState() => _ConsultarEspecialistaState();
 }
@@ -20,7 +22,7 @@ class _ConsultarEspecialistaState extends State<ConsultarEspecialista> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Consultar Especialista'),
+        title: const Text('Consultar Especialista'),
       ),
       body: Column(
         children: <Widget>[
@@ -31,7 +33,7 @@ class _ConsultarEspecialistaState extends State<ConsultarEspecialista> {
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
                   title: Text(_messages[index]),
-                  leading: Icon(Icons.message),
+                  leading: const Icon(Icons.message),
                 );
               },
             ),
@@ -43,11 +45,11 @@ class _ConsultarEspecialistaState extends State<ConsultarEspecialista> {
                 Expanded(
                   child: TextField(
                     controller: _textController,
-                    decoration: InputDecoration(labelText: 'Escribe un mensaje...'),
+                    decoration: const InputDecoration(labelText: 'Escribe un mensaje...'),
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.send),
+                  icon: const Icon(Icons.send),
                   onPressed: () {
                     if (_textController.text.isNotEmpty) {
                       _sendMessage(_textController.text);

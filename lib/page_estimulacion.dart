@@ -3,6 +3,8 @@ import 'package:appdevfinal/informacion1.dart';
 import 'package:flutter/material.dart';
 
 class PageEstimulacion extends StatefulWidget {
+  const PageEstimulacion({super.key});
+
   @override
   _PageEstimulacionState createState() => _PageEstimulacionState();
 }
@@ -14,10 +16,10 @@ class _PageEstimulacionState extends State<PageEstimulacion> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => Informacion1()),
+              MaterialPageRoute(builder: (context) => const Informacion1()),
             );
           },
         ),
@@ -28,21 +30,21 @@ class _PageEstimulacionState extends State<PageEstimulacion> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              const Text(
               'Tecnicas de valoracion inicial en el recien nacido',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
               ),
-              SizedBox(height: 5),
-              Text(
+              const SizedBox(height: 5),
+              const Text(
                 'APGAR',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 33, 9, 250)),
                 textAlign: TextAlign.left,
               ),
-              SizedBox(height: 23),
+              const SizedBox(height: 23),
               RichText(
                 textAlign: TextAlign.justify,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan> [
                     TextSpan(text: 'Esta escala se aplica',
@@ -58,10 +60,10 @@ class _PageEstimulacionState extends State<PageEstimulacion> {
                   ],
                 ),
               ),
-              SizedBox(height: 23),
+              const SizedBox(height: 23),
               RichText(
                 textAlign: TextAlign.justify,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan> [
                     TextSpan(text: 'Un puntaje',
@@ -77,10 +79,10 @@ class _PageEstimulacionState extends State<PageEstimulacion> {
                   ],
                 ),
               ),
-              SizedBox(height: 23),
+              const SizedBox(height: 23),
               RichText(
                 textAlign: TextAlign.justify,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan> [
                     TextSpan(text: 'Un bajo puntaje',
@@ -96,29 +98,29 @@ class _PageEstimulacionState extends State<PageEstimulacion> {
                   ],
                 ),
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white, 
-                  backgroundColor: Colors.blue, // Color del texto y del icono
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  textStyle: TextStyle(fontSize: 16),
+                  backgroundColor: Colors.blue, 
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  textStyle: const TextStyle(fontSize: 16),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30), // Bordes redondeados
+                    borderRadius: BorderRadius.circular(30), 
                   ),
-                ), // Texto del botón
+                ), 
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => EvaluaTemp()),
+                    MaterialPageRoute(builder: (context) => const EvaluaTemp()),
                   );
                 },
-                child: Row(
+                child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('Evaluación'), // Texto del botón
-                    SizedBox(width: 15), // Espacio entre el texto y el icono
-                    Icon(Icons.arrow_forward_ios), // Icono de flecha hacia la derecha
+                    Text('Evaluación'), 
+                    SizedBox(width: 15), 
+                    Icon(Icons.arrow_forward_ios), 
                   ],
                 ),
               ),

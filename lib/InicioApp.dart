@@ -8,7 +8,7 @@ import 'consultar_especialista.dart';
 import 'informacion1.dart';
 
 class InicioApp extends StatefulWidget {
-  const InicioApp({Key? key}) : super(key: key);
+  const InicioApp({super.key});
 
   @override
   _InicioAppState createState() => _InicioAppState();
@@ -25,11 +25,11 @@ class _InicioAppState extends State<InicioApp> {
   }
 
   void _animateImages() async {
-    await Future.delayed(Duration(milliseconds: 500)); // Esperar un momento antes de animar la primera imagen
+    await Future.delayed(const Duration(milliseconds: 500)); 
     setState(() {
       _firstImageVisible = true;
     });
-    await Future.delayed(Duration(milliseconds: 500)); // Esperar un momento antes de animar la segunda imagen
+    await Future.delayed(const Duration(milliseconds: 500)); 
     setState(() {});
   }
 
@@ -50,7 +50,7 @@ class _InicioAppState extends State<InicioApp> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: const Icon(Icons.settings),
             iconSize: 30.0,
             onPressed: () {
               Navigator.of(context).pushReplacement(
@@ -65,30 +65,26 @@ class _InicioAppState extends State<InicioApp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 30),
-              // Primer contenedor con imagen desde el lado derecho
+              const SizedBox(height: 30),
               _buildAnimatedContainer(
                 context,
                 'assets/images/DocGirl.png',
                 'CONSULTAR ESPECIALISTA',
                 () {
-                  // Navegar a la página ConsultarEspecialista
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => ConsultarEspecialista()),
+                    MaterialPageRoute(builder: (context) => const ConsultarEspecialista()),
                   );
                 },
                 Alignment.centerRight,
               ),
-              SizedBox(height: 30),
-              // Segundo contenedor con imagen desde el lado izquierdo
+              const SizedBox(height: 30),
               _buildAnimatedContainer(
                 context,
                 'assets/images/DocMan.png',
                 'INFORMACION PEDIATRICA',
                 () {
-                  // Navegar a la página Informacion1
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => Informacion1()),
+                    MaterialPageRoute(builder: (context) => const Informacion1()),
                   );
                 },
                 Alignment.centerLeft,
@@ -103,7 +99,7 @@ class _InicioAppState extends State<InicioApp> {
   Widget _buildAnimatedContainer(BuildContext context, String imagePath, String text, Function() onPressed, Alignment alignment) {
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 0.0, end: 1.0),
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
       curve: Curves.easeInOut,
       builder: (context, value, child) {
         return Transform.translate(
@@ -120,7 +116,7 @@ class _InicioAppState extends State<InicioApp> {
             children: [
               Text(
                 text,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -128,10 +124,10 @@ class _InicioAppState extends State<InicioApp> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               AnimatedOpacity(
                 opacity: _firstImageVisible ? 1.0 : 0.0,
-                duration: Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 500),
                 child: SizedBox(
                   height: 300,
                   width: 300,
@@ -141,23 +137,23 @@ class _InicioAppState extends State<InicioApp> {
                   ),
                 ),
               ),
-              SizedBox(height: 20), // Mayor espacio entre imagen y botón
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: onPressed,
-                child: Text(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromRGBO(20, 86, 71, 1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                ),
+                child: const Text(
                   'IR',
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromRGBO(20, 86, 71, 1),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 ),
               ),
             ],

@@ -9,30 +9,27 @@ class DetalleActividadPage4 extends StatefulWidget {
 }
 
 class _DetalleActividadPage4State extends State<DetalleActividadPage4> {
-  // Variables para almacenar puntajes
   int lenguajePuntaje = 0;
   int socialPuntaje = 0;
   int coordinacionPuntaje = 0;
   int motoraPuntaje = 0;
 
-  // Método para calcular el puntaje total
   int calcularPuntajeTotal() {
     return lenguajePuntaje + socialPuntaje + coordinacionPuntaje + motoraPuntaje;
   }
 
-  // Método para mostrar el resultado
   void mostrarResultado() {
     int puntajeTotal = calcularPuntajeTotal();
-    if (puntajeTotal >= 12) { // Suponiendo que el puntaje máximo por categoría es 3
+    if (puntajeTotal >= 12) { 
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Evaluación Completada'),
-          content: Text('El desarrollo del bebé está bien.'),
+          title: const Text('Evaluación Completada'),
+          content: const Text('El desarrollo del bebé está bien.'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         ),
@@ -41,12 +38,12 @@ class _DetalleActividadPage4State extends State<DetalleActividadPage4> {
       showDialog(
         context: context, 
         builder: (context) => AlertDialog(
-          title: Text('Atencion al desarrollo'),
-          content: Text('El desarrollo se esta viendo afectado consulta un especialista'),
+          title: const Text('Atencion al desarrollo'),
+          content: const Text('El desarrollo se esta viendo afectado consulta un especialista'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context), 
-              child: Text('Consulta'),
+              child: const Text('Consulta'),
               ),
           ],
         ),
@@ -55,15 +52,14 @@ class _DetalleActividadPage4State extends State<DetalleActividadPage4> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Alerta de Desarrollo'),
-          content: Text('Hay áreas de desarrollo que necesitan atención. Por favor, agenda una cita.'),
+          title: const Text('Alerta de Desarrollo'),
+          content: const Text('Hay áreas de desarrollo que necesitan atención. Por favor, agenda una cita.'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
-                // Aquí puedes agregar la lógica para agendar una cita
               },
-              child: Text('Agendar Cita'),
+              child: const Text('Agendar Cita'),
             ),
           ],
         ),
@@ -85,7 +81,7 @@ class _DetalleActividadPage4State extends State<DetalleActividadPage4> {
             children: [
               RichText(
                 textAlign: TextAlign.center,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan>[
                     TextSpan(
@@ -116,10 +112,10 @@ class _DetalleActividadPage4State extends State<DetalleActividadPage4> {
                   });
                 },
               ),
-              SizedBox(height: 34),
+              const SizedBox(height: 34),
               RichText(
                 textAlign: TextAlign.center,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan>[
                     TextSpan(
@@ -150,10 +146,10 @@ class _DetalleActividadPage4State extends State<DetalleActividadPage4> {
                   });
                 },
               ),
-              SizedBox(height: 34),
+              const SizedBox(height: 34),
               RichText(
                 textAlign: TextAlign.center,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan>[
                     TextSpan(
@@ -184,10 +180,10 @@ class _DetalleActividadPage4State extends State<DetalleActividadPage4> {
                   });
                 },
               ),
-              SizedBox(height: 34),
+              const SizedBox(height: 34),
               RichText(
                 textAlign: TextAlign.center,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan>[
                     TextSpan(
@@ -218,10 +214,10 @@ class _DetalleActividadPage4State extends State<DetalleActividadPage4> {
                   });
                 },
               ),
-              SizedBox(height: 80),
+              const SizedBox(height: 80),
               ElevatedButton(
                 onPressed: mostrarResultado,
-                child: Text('Evaluar'),
+                child: const Text('Evaluar'),
               ),
             ],
           ),

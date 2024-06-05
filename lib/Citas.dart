@@ -22,23 +22,23 @@ class _CitasState extends State<Citas> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => TerceraPag())
+              MaterialPageRoute(builder: (context) => const TerceraPag())
             );
           },
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               TextFormField(
-                decoration: InputDecoration(labelText: 'Nombre del Paciente'),
+                decoration: const InputDecoration(labelText: 'Nombre del Paciente'),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Por favor ingrese el nombre del paciente';
@@ -50,7 +50,7 @@ class _CitasState extends State<Citas> {
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Fecha de la Cita'),
+                decoration: const InputDecoration(labelText: 'Fecha de la Cita'),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Por favor ingrese la fecha de la cita';
@@ -62,7 +62,7 @@ class _CitasState extends State<Citas> {
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Descripción de la Cita'),
+                decoration: const InputDecoration(labelText: 'Descripción de la Cita'),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Por favor ingrese la descripción de la cita';
@@ -82,7 +82,7 @@ class _CitasState extends State<Citas> {
                       _registrarCita();
                     }
                   },
-                  child: Text('Registrar Cita'),
+                  child: const Text('Registrar Cita'),
                 ),
               ),
             ],
@@ -102,9 +102,8 @@ class _CitasState extends State<Citas> {
         'descripcion': _descripcionCita,
       }).then((_) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Cita registrada exitosamente')),
+          const SnackBar(content: Text('Cita registrada exitosamente')),
         );
-        // Limpiar los campos después de registrar la cita
         _formKey.currentState!.reset();
       }).catchError((error) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -113,7 +112,7 @@ class _CitasState extends State<Citas> {
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: Usuario no autenticado')),
+        const SnackBar(content: Text('Error: Usuario no autenticado')),
       );
     }
   }

@@ -5,7 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class CitasReb extends StatefulWidget {
-  const CitasReb({Key? key}) : super(key: key);
+  const CitasReb({super.key});
 
   @override
   State<CitasReb> createState() => _CitasRebState();
@@ -49,14 +49,14 @@ class _CitasRebState extends State<CitasReb> {
 
   void _showSnackBar() {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Sin citas registradas'),
         duration: Duration(seconds: 5),
       ),
     );
-    Timer(Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => AdminPage()),
+        MaterialPageRoute(builder: (context) => const AdminPage()),
       );
     });
   }
@@ -90,28 +90,28 @@ class _CitasRebState extends State<CitasReb> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => AdminPage()),
+              MaterialPageRoute(builder: (context) => const AdminPage()),
             );
           },
         ),
-        title: Text('Citas Registradas'),
+        title: const Text('Citas Registradas'),
       ),
       body: _isLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : _citas.isEmpty
-              ? SizedBox.shrink()
+              ? const SizedBox.shrink()
               : ListView.builder(
                   itemCount: _citas.length,
                   itemBuilder: (BuildContext context, int index) {
                     if (index < 0 ||
                         index >= _citas.length ||
                         index >= _keys.length) {
-                      return SizedBox.shrink();
+                      return const SizedBox.shrink();
                     }
                     Map<dynamic, dynamic> cita = _citas[index];
                     String key = _keys[index];
@@ -128,13 +128,13 @@ class _CitasRebState extends State<CitasReb> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           IconButton(
-                            icon: Icon(Icons.delete),
+                            icon: const Icon(Icons.delete),
                             onPressed: () {
                               _deleteCita(key);
                             },
                           ),
                           IconButton(
-                            icon: Icon(Icons.check),
+                            icon: const Icon(Icons.check),
                             onPressed: () {
                               _acceptCita(key, cita);
                             },

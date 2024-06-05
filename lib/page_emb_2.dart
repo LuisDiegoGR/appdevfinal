@@ -15,14 +15,14 @@ class _PageEmb2State extends State<PageEmb2> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => PageEmbarazo())
             );
           },
         ),
-        title: Text('Prueba de scroll 2'),
+        title: const Text('Prueba de scroll 2'),
         shadowColor: Colors.grey,
         scrolledUnderElevation: 10.0,
       ),
@@ -32,15 +32,15 @@ class _PageEmb2State extends State<PageEmb2> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Riesgos preconcepcionales',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.right,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               RichText(
                 textAlign: TextAlign.justify,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan> [
                     TextSpan(text: 'Antecedentes de embarazos previos', 
@@ -58,8 +58,8 @@ class _PageEmb2State extends State<PageEmb2> {
                   ],
                 ),
               ),
-              SizedBox(height: 16),
-              Text(
+              const SizedBox(height: 16),
+              const Text(
                 'Características propias de la madre',
                 style: TextStyle(
                   color: Colors.green,
@@ -67,10 +67,10 @@ class _PageEmb2State extends State<PageEmb2> {
                   fontSize: 20,
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               RichText(
                 textAlign: TextAlign.justify,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan> [
                     TextSpan(text: ' Edad materna: ',
@@ -88,10 +88,10 @@ class _PageEmb2State extends State<PageEmb2> {
                   ],
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               RichText(
                 textAlign: TextAlign.justify,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan> [
                     TextSpan(text: 'Antecedentes patológicos: ',
@@ -109,10 +109,10 @@ class _PageEmb2State extends State<PageEmb2> {
                   ],
                 ),
               ),
-              SizedBox(height: 21),
+              const SizedBox(height: 21),
               RichText(
                 textAlign: TextAlign.justify,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan> [
                     TextSpan(text: 'Durante ',
@@ -129,8 +129,8 @@ class _PageEmb2State extends State<PageEmb2> {
                   ],
                 ),
               ),
-              SizedBox(height: 22),
-              Text(
+              const SizedBox(height: 22),
+              const Text(
                 'En este momento se tienen que realizar acciones preventivas como:',
                 style: TextStyle(
                   color: Colors.green,
@@ -139,8 +139,8 @@ class _PageEmb2State extends State<PageEmb2> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 22),
-              Text(
+              const SizedBox(height: 22),
+              const Text(
                 '• Corregir hábitos alimenticios para llevar a un adecuado estado nutricional.\n'
                 '• Control de enfermedades crónicas y adicciones. \n'
                 '• Tamizaje para Infecciones de transmisión sexual.\n'
@@ -149,8 +149,8 @@ class _PageEmb2State extends State<PageEmb2> {
                 style: TextStyle(fontSize: 17),
                 textAlign: TextAlign.left,
               ),
-              SizedBox(height: 22),
-              Text(
+              const SizedBox(height: 22),
+              const Text(
                 'Riesgo obsterico',
                 style: TextStyle(
                   color: Colors.black,
@@ -159,8 +159,8 @@ class _PageEmb2State extends State<PageEmb2> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 22),
-              Text(
+              const SizedBox(height: 22),
+              const Text(
                 '• Embarazo múltiple.\n'
                 '• Diabetes gestacional. \n'
                 '• Preeclamsia/eclampsia.\n'
@@ -170,7 +170,7 @@ class _PageEmb2State extends State<PageEmb2> {
                 style: TextStyle(fontSize: 17),
                 textAlign: TextAlign.left,
               ),
-              SizedBox(height: 35),
+              const SizedBox(height: 35),
               RawMaterialButton(
               fillColor: Colors.green,
               elevation: 0.0,
@@ -180,10 +180,10 @@ class _PageEmb2State extends State<PageEmb2> {
               ),
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => PageEmb3()),
+                    MaterialPageRoute(builder: (context) => const PageEmb3()),
                   );
                 },
-                child: Text(
+                child: const Text(
                   'Continuar',
                   style: TextStyle(
                   color: Colors.white,
@@ -191,7 +191,7 @@ class _PageEmb2State extends State<PageEmb2> {
                 ),
               ),
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             ],
           ),
         ),

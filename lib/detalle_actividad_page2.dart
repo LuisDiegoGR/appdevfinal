@@ -21,16 +21,16 @@ class _DetalleActividadPage2State extends State<DetalleActividadPage2> {
 
     void mostrarResultado() {
     int puntajeTotal = calcularPuntajeTotal();
-    if (puntajeTotal >= 12) { // Suponiendo que el puntaje máximo por categoría es 3
+    if (puntajeTotal >= 12) { 
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Evaluación Completada'),
-          content: Text('El desarrollo del bebé está bien.'),
+          title: const Text('Evaluación Completada'),
+          content: const Text('El desarrollo del bebé está bien.'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         ),
@@ -39,12 +39,12 @@ class _DetalleActividadPage2State extends State<DetalleActividadPage2> {
       showDialog(
         context: context, 
         builder: (context) => AlertDialog(
-          title: Text('Atencion al desarrollo'),
-          content: Text('El desarrollo se esta viendo afectado consulta un especialista'),
+          title: const Text('Atencion al desarrollo'),
+          content: const Text('El desarrollo se esta viendo afectado consulta un especialista'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context), 
-              child: Text('Consulta'),
+              child: const Text('Consulta'),
               ),
           ],
         ),
@@ -53,15 +53,14 @@ class _DetalleActividadPage2State extends State<DetalleActividadPage2> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Alerta de Desarrollo'),
-          content: Text('Hay áreas de desarrollo que necesitan atención. Por favor, agenda una cita.'),
+          title: const Text('Alerta de Desarrollo'),
+          content: const Text('Hay áreas de desarrollo que necesitan atención. Por favor, agenda una cita.'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
-                // Aquí puedes agregar la lógica para agendar una cita
               },
-              child: Text('Agendar Cita'),
+              child: const Text('Agendar Cita'),
             ),
           ],
         ),
@@ -83,7 +82,7 @@ class _DetalleActividadPage2State extends State<DetalleActividadPage2> {
             children: [
               RichText(
                 textAlign: TextAlign.center,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan> [
                     TextSpan(text: 'Lenguaje:',
@@ -112,10 +111,10 @@ class _DetalleActividadPage2State extends State<DetalleActividadPage2> {
                   });
                 },
               ),
-              SizedBox(height: 34),
+              const SizedBox(height: 34),
               RichText(
                 textAlign: TextAlign.center,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan> [
                     TextSpan(text: 'Social:',
@@ -144,10 +143,10 @@ class _DetalleActividadPage2State extends State<DetalleActividadPage2> {
                   });
                 },
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               RichText(
                 textAlign: TextAlign.center,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan> [
                     TextSpan(text: 'Coordinación:',
@@ -176,10 +175,10 @@ class _DetalleActividadPage2State extends State<DetalleActividadPage2> {
                   });
                 },
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               RichText(
                 textAlign: TextAlign.center,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan> [
                     TextSpan(text: 'Motora:',
@@ -208,22 +207,22 @@ class _DetalleActividadPage2State extends State<DetalleActividadPage2> {
                   });
                 },
               ),
-              SizedBox(height: 80),
+              const SizedBox(height: 80),
                 Image.asset(
                   'assets/images/system-regular-56-warning.gif',
                   width: 70,
                   height: 70,
                 ).animate().fadeIn(),
-                SizedBox(height: 20),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                   'Datos de alarma: No reacciona ante los sonidos de alrededor, no emite sonidos de vocales, tiene dificultad para llevarse cosas a la boca, no rueda en ninguna dirección para darse vuelta, se ve rígido y con los músculos tensos',
                   style: TextStyle(fontSize: 18),
-                ).animate().fadeIn(delay: Duration(milliseconds: 500),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 500),
               ),
-              SizedBox(height: 80),
+              const SizedBox(height: 80),
               ElevatedButton(
                 onPressed: mostrarResultado,
-                child: Text('Evaluar'),
+                child: const Text('Evaluar'),
               ),
             ],
           ),

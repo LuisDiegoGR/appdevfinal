@@ -5,22 +5,22 @@ class PageForo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Foro de Discusión'),
+        title: const Text('Foro de Discusión'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
+          const Text(
             'Foro de Discusión',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Image.asset(
             'assets/images/mante.png',
-            width: 400, // Ancho de la imagen
-            height: 400, // Alto de la imagen
+            width: 400, 
+            height: 400, 
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           AnimatedText(),
         ],
       ),
@@ -42,7 +42,7 @@ class _AnimatedTextState extends State<AnimatedText>
   void initState() {
     super.initState();
     _controller =
-        AnimationController(duration: Duration(seconds: 2), vsync: this);
+        AnimationController(duration: const Duration(seconds: 2), vsync: this);
     _animation = Tween<double>(begin: 18, end: 24).animate(_controller)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
@@ -70,7 +70,7 @@ Widget build(BuildContext context) {
         style: TextStyle(
           fontSize: _animation.value,
           color: const Color.fromARGB(255, 176, 38, 28),
-          fontWeight: FontWeight.bold, // Agregar negritas al texto
+          fontWeight: FontWeight.bold, 
         ),
         textAlign: TextAlign.center,
       );

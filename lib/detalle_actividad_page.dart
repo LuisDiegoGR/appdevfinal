@@ -23,7 +23,7 @@ class _DetalleActividadPageState extends State<DetalleActividadPage> {
 
     void mostrarResultado() {
     int puntajeTotal = calcularPuntajeTotal();
-    if (puntajeTotal >= 12) { // Suponiendo que el puntaje máximo por categoría es 3
+    if (puntajeTotal >= 12) { 
       QuickAlert.show(
         context: context,
         type: QuickAlertType.success,
@@ -64,7 +64,7 @@ class _DetalleActividadPageState extends State<DetalleActividadPage> {
             children: [
               RichText(
                 textAlign: TextAlign.center,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan> [
                     TextSpan(text: 'Lenguaje:',
@@ -95,16 +95,16 @@ class _DetalleActividadPageState extends State<DetalleActividadPage> {
                   });
                 },
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               Image.asset(
                 'assets/images/bebe-recien-nacido.png',
                  width: 300,
                  height: 300,
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               RichText(
                 textAlign: TextAlign.center,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan> [
                     TextSpan(text: 'Social:',
@@ -135,10 +135,10 @@ class _DetalleActividadPageState extends State<DetalleActividadPage> {
                   });
                 },
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               RichText(
                 textAlign: TextAlign.center,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan> [
                     TextSpan(text: 'Coordinación:',
@@ -169,10 +169,10 @@ class _DetalleActividadPageState extends State<DetalleActividadPage> {
                   });
                 },
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               RichText(
                 textAlign: TextAlign.center,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(fontSize: 20),
                   children: <TextSpan> [
                     TextSpan(text: 'Motora:',
@@ -203,31 +203,31 @@ class _DetalleActividadPageState extends State<DetalleActividadPage> {
                   });
                 },
               ),
-              SizedBox(height: 80),
+              const SizedBox(height: 80),
                 Image.asset(
                   'assets/images/system-regular-56-warning.gif',
                   width: 70,
                   height: 70,
                 ).animate().fadeIn(),
-                SizedBox(height: 20),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                   'Datos de alarma: No responde a estímulos fuertes, no sigue con la vista las cosas que se mueven, no se lleva las manos a la boca, no puede sostener la cabeza en alto cuando empuja el cuerpo hacia arriba estando boca abajo. ',
                   style: TextStyle(fontSize: 18),
-                ).animate().fadeIn(delay: Duration(milliseconds: 500),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 500),
               ),
-              SizedBox(height: 80),
+              const SizedBox(height: 80),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white, 
-                  backgroundColor: Colors.green, // Color del texto y del icono
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  textStyle: TextStyle(fontSize: 16),
+                  backgroundColor: Colors.green, 
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  textStyle: const TextStyle(fontSize: 16),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30), // Bordes redondeados
+                    borderRadius: BorderRadius.circular(30), 
                   ),
                 ),
                 onPressed: mostrarResultado,
-                child: Row(
+                child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text('Evaluar'), 

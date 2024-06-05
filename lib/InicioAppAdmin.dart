@@ -27,7 +27,7 @@ class _AdminPageState extends State<AdminPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin'),
+        title: const Text('Admin'),
       ),
       body: Center(
         child: Column(
@@ -43,7 +43,7 @@ class _AdminPageState extends State<AdminPage> {
                       : const AssetImage('assets/images/Placeholder.jpg')
                           as ImageProvider),
             ),
-            SizedBox(height: 20), // Espacio entre el avatar y el StreamBuilder
+            const SizedBox(height: 20), 
             StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('users')
@@ -51,10 +51,10 @@ class _AdminPageState extends State<AdminPage> {
                   .snapshots(),
               builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 }
                 if (!snapshot.hasData || !snapshot.data!.exists) {
-                  return Text('No data found');
+                  return const Text('No data found');
                 }
 
                 var userData = snapshot.data!.data() as Map<String, dynamic>;
@@ -63,30 +63,30 @@ class _AdminPageState extends State<AdminPage> {
                   children: [
                     Text(
                       '${userData['name']} ${userData['lastName']}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black,
                         fontSize: 20,
                         fontFamily: 'Roboto',
-                        fontWeight: FontWeight.bold, // Negrita
+                        fontWeight: FontWeight.bold, 
                       ),
                     ),
-                    SizedBox(height: 5), // Espacio entre el nombre y el rol
+                    const SizedBox(height: 5), 
                     Text(
                       'Role ${userData['role']}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black,
                         fontSize: 15,
                         fontFamily: 'Roboto',
-                        fontWeight: FontWeight.bold, // Negrita
+                        fontWeight: FontWeight.bold, 
                       ),
                     ),
                   ],
                 );
               },
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             RawMaterialButton(
-              fillColor: Color(0xFF145647),
+              fillColor: const Color(0xFF145647),
               elevation: 0.0,
               padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 100),
               shape: RoundedRectangleBorder(
@@ -94,22 +94,22 @@ class _AdminPageState extends State<AdminPage> {
               ),
               onPressed: () {
                 Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => CitasReb()),
+                  MaterialPageRoute(builder: (context) => const CitasReb()),
                 );
               },
-              child: Text(
+              child: const Text(
                 'Registro citas',
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Roboto',
                   fontSize: 15,
-                  fontWeight: FontWeight.bold, // Negrita
+                  fontWeight: FontWeight.bold, 
                 ),
               ),
             ),
-            SizedBox(height: 25),
+            const SizedBox(height: 25),
             RawMaterialButton(
-              fillColor: Color(0xFF145647),
+              fillColor: const Color(0xFF145647),
               elevation: 0.0,
               padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 90),
               shape: RoundedRectangleBorder(
@@ -117,15 +117,15 @@ class _AdminPageState extends State<AdminPage> {
               ),
               onPressed: () {
                 Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => AcceptCita()));
+                    MaterialPageRoute(builder: (context) => const AcceptCita()));
               },
-              child: Text(
+              child: const Text(
                 'Citas Aceptadas',
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Roboto',
                   fontSize: 15,
-                  fontWeight: FontWeight.bold, // Negrita
+                  fontWeight: FontWeight.bold, 
                 ),
               ),
             ),

@@ -14,11 +14,10 @@ class _AboutState extends State<About> {
     return Scaffold(
       appBar: AppBar(
           leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            //coment
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => TerceraPag())
+              MaterialPageRoute(builder: (context) => const TerceraPag())
             );
           },
         ),
