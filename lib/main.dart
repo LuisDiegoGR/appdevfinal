@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import 'package:appdevfinal/pantalla_siguiente.dart';
+=======
+import 'package:appdevfinal/pantalla_siguiente.dart'; // Importa el archivo Dart al que quieres redirigir
+import 'package:appdevfinal/src/providers/push_notifications_provider.dart';
+>>>>>>> 8321d6e2842c859f38c9ef384d151683c39ce4eb
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -42,15 +47,27 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigateToHome();
+    _initialize();
   }
 
+<<<<<<< HEAD
   _navigateToHome() async {
     await Future.delayed(const Duration(seconds: 3)); 
+=======
+  Future<void> _initialize() async {
+    await Future.delayed(Duration(seconds: 3));
+    _initNotifications(); // Inicia el proveedor de notificaciones
+>>>>>>> 8321d6e2842c859f38c9ef384d151683c39ce4eb
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => HomePage()), 
     );
+  }
+
+  // Inicia el proveedor de notificaciones
+  void _initNotifications() {
+    final pushProvider = PushNotificationProvider();
+    pushProvider.initNotifications();
   }
 
   @override

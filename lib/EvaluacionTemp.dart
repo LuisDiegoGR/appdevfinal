@@ -80,11 +80,23 @@ class _EvaluaTempState extends State<EvaluaTemp> {
                     ),
                   );
                 },
+<<<<<<< HEAD
               ).animate().fadeIn(),
             );
+=======
+              )
+              .animate()
+              .fadeIn(duration: Duration(milliseconds: 500)) // Añadir animación de desvanecimiento
+              .slide(begin: Offset(index % 2 == 0 ? -1 : 1, 0), duration: Duration(milliseconds: 1000)), // Añadir animación de deslizamiento
+            ).animate().fadeIn();
+>>>>>>> 8321d6e2842c859f38c9ef384d151683c39ce4eb
           },
         ),
       ),
     );
   }
 }
+
+void main() => runApp(MaterialApp(
+  home: EvaluaTemp(),
+));

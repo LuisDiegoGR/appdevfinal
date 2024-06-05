@@ -4,9 +4,12 @@ class PageForo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< HEAD
       appBar: AppBar(
         title: const Text('Foro de Discusión'),
       ),
+=======
+>>>>>>> 8321d6e2842c859f38c9ef384d151683c39ce4eb
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -61,6 +64,7 @@ class _AnimatedTextState extends State<AnimatedText>
   }
 
   @override
+<<<<<<< HEAD
 Widget build(BuildContext context) {
   return AnimatedBuilder(
     animation: _animation,
@@ -77,3 +81,70 @@ Widget build(BuildContext context) {
     },
   );
 }}
+=======
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return Column(
+          children: [
+            Text(
+              '¡Disculpe las molestias!',
+              style: TextStyle(
+                fontSize: _animation.value,
+                color: Colors.red.shade700,
+                fontWeight: FontWeight.bold, // Agregar negritas al texto
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 10),
+            Text(
+              'Estamos realizando tareas de mantenimiento para mejorar su experiencia. Por favor, vuelva más tarde.',
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.black54,
+                fontWeight: FontWeight.normal,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 20),
+            Icon(
+              Icons.construction,
+              color: Colors.orange.shade700,
+              size: 50,
+            ),
+            SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                // Lógica para el botón, como regresar a una pantalla anterior
+                Navigator.pop(context);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red.shade700,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              ),
+              child: Text(
+                'Regresar',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: PageForo(),
+  ));
+}
+>>>>>>> 8321d6e2842c859f38c9ef384d151683c39ce4eb
