@@ -3,6 +3,7 @@ import 'package:appdevfinal/page_embarazo.dart';
 import 'package:appdevfinal/page_estimulacion.dart';
 import 'package:appdevfinal/page_foro.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class Informacion1 extends StatefulWidget {
   const Informacion1({Key? key}) : super(key: key);
@@ -45,6 +46,7 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
     _pageController.addListener(() {
       setState(() {
         _currentPage = _pageController.page!;
+        _showText = _currentPage < _imageUrls.length - 1;
       });
     });
 
@@ -106,44 +108,34 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
   }
 
   Widget _buildAnimatedText() {
-    return TweenAnimationBuilder<double>(
-      tween: Tween(begin: 0.0, end: 1.0),
-      duration: Duration(milliseconds: 500),
-      builder: (context, value, child) {
-        return Opacity(
-          opacity: value,
-          child: child,
-        );
-      },
-      child: AnimatedOpacity(
-        opacity: _showText ? 1.0 : 0.0,
-        duration: Duration(milliseconds: 500),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Desliza para ver más',
-              style: TextStyle(
-                color: Color.fromARGB(255, 139, 137, 137),
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+    return AnimatedOpacity(
+      opacity: _showText ? 1.0 : 0.0,
+      duration: Duration(seconds: 2), // Aumentar duración para una desaparición lenta
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Desliza para ver más',
+            style: TextStyle(
+              color: Color.fromARGB(255, 139, 137, 137),
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
             ),
-            Icon(
-              Icons.arrow_forward,
-              color: Colors.black54,
-            ),
-          ],
-        ),
+          ),
+          Icon(
+            Icons.arrow_forward_ios,
+            color: Colors.black54,
+          ),
+        ],
       ),
-    );
+    ).animate().scale(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Información'),
+        title: Text(''),
       ),
       body: Stack(
         children: [
@@ -204,3 +196,7 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
     );
   }
 }
+
+void main() => runApp(MaterialApp(
+  home: Informacion1(),
+));
