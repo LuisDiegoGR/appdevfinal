@@ -80,16 +80,11 @@ class _EvaluaTempState extends State<EvaluaTemp> {
                     ),
                   );
                 },
-<<<<<<< HEAD
-              ).animate().fadeIn(),
-            );
-=======
               )
               .animate()
-              .fadeIn(duration: Duration(milliseconds: 500)) // Añadir animación de desvanecimiento
-              .slide(begin: Offset(index % 2 == 0 ? -1 : 1, 0), duration: Duration(milliseconds: 1000)), // Añadir animación de deslizamiento
+              .fadeIn(duration: const Duration(milliseconds: 500)) 
+              .slide(begin: Offset(index % 2 == 0 ? -1 : 1, 0), duration: const Duration(milliseconds: 1000)), 
             ).animate().fadeIn();
->>>>>>> 8321d6e2842c859f38c9ef384d151683c39ce4eb
           },
         ),
       ),
@@ -97,6 +92,6 @@ class _EvaluaTempState extends State<EvaluaTemp> {
   }
 }
 
-void main() => runApp(MaterialApp(
+void main() => runApp(const MaterialApp(
   home: EvaluaTemp(),
 ));

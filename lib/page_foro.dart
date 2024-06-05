@@ -4,12 +4,6 @@ class PageForo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-<<<<<<< HEAD
-      appBar: AppBar(
-        title: const Text('Foro de Discusión'),
-      ),
-=======
->>>>>>> 8321d6e2842c859f38c9ef384d151683c39ce4eb
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -64,24 +58,6 @@ class _AnimatedTextState extends State<AnimatedText>
   }
 
   @override
-<<<<<<< HEAD
-Widget build(BuildContext context) {
-  return AnimatedBuilder(
-    animation: _animation,
-    builder: (context, child) {
-      return Text(
-        '¡Disculpe las molestias, estamos en mantenimiento!',
-        style: TextStyle(
-          fontSize: _animation.value,
-          color: const Color.fromARGB(255, 176, 38, 28),
-          fontWeight: FontWeight.bold, 
-        ),
-        textAlign: TextAlign.center,
-      );
-    },
-  );
-}}
-=======
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _animation,
@@ -93,12 +69,12 @@ Widget build(BuildContext context) {
               style: TextStyle(
                 fontSize: _animation.value,
                 color: Colors.red.shade700,
-                fontWeight: FontWeight.bold, // Agregar negritas al texto
+                fontWeight: FontWeight.bold, 
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               'Estamos realizando tareas de mantenimiento para mejorar su experiencia. Por favor, vuelva más tarde.',
               style: TextStyle(
                 fontSize: 18,
@@ -107,16 +83,15 @@ Widget build(BuildContext context) {
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Icon(
               Icons.construction,
               color: Colors.orange.shade700,
               size: 50,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                // Lógica para el botón, como regresar a una pantalla anterior
                 Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
@@ -124,9 +99,9 @@ Widget build(BuildContext context) {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0),
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               ),
-              child: Text(
+              child: const Text(
                 'Regresar',
                 style: TextStyle(
                   fontSize: 18,
@@ -147,4 +122,3 @@ void main() {
     home: PageForo(),
   ));
 }
->>>>>>> 8321d6e2842c859f38c9ef384d151683c39ce4eb

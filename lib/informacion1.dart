@@ -29,14 +29,14 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
   ];
 
   final List<Widget> _pages = [
-    PageEstimulacion(),
+    const PageEstimulacion(),
     PageEmbarazo(),
-    PageAlteraciones(),
+    const PageAlteraciones(),
     PageForo(),
   ];
 
   double _currentPage = 0.0;
-  final bool _showText = true;
+  bool _showText = true;
   late AnimationController _animationController;
   late Animation<double> _animation;
 
@@ -108,34 +108,10 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
   }
 
   Widget _buildAnimatedText() {
-<<<<<<< HEAD
-    return TweenAnimationBuilder<double>(
-      tween: Tween(begin: 0.0, end: 1.0),
-      duration: const Duration(milliseconds: 500),
-      builder: (context, value, child) {
-        return Opacity(
-          opacity: value,
-          child: child,
-        );
-      },
-      child: AnimatedOpacity(
-        opacity: _showText ? 1.0 : 0.0,
-        duration: const Duration(milliseconds: 500),
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Desliza para ver más',
-              style: TextStyle(
-                color: Color.fromARGB(255, 139, 137, 137),
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-=======
     return AnimatedOpacity(
       opacity: _showText ? 1.0 : 0.0,
-      duration: Duration(seconds: 2), // Aumentar duración para una desaparición lenta
-      child: Row(
+      duration: const Duration(seconds: 2), 
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
@@ -144,7 +120,6 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
               color: Color.fromARGB(255, 139, 137, 137),
               fontSize: 16,
               fontWeight: FontWeight.bold,
->>>>>>> 8321d6e2842c859f38c9ef384d151683c39ce4eb
             ),
           ),
           Icon(
@@ -153,18 +128,14 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
           ),
         ],
       ),
-    ).animate().scale(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+    ).animate().scale(duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-<<<<<<< HEAD
-        title: const Text('Información'),
-=======
-        title: Text(''),
->>>>>>> 8321d6e2842c859f38c9ef384d151683c39ce4eb
+        title: const Text(''),
       ),
       body: Stack(
         children: [
@@ -225,6 +196,6 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
   }
 }
 
-void main() => runApp(MaterialApp(
+void main() => runApp(const MaterialApp(
   home: Informacion1(),
 ));

@@ -23,7 +23,7 @@ class _PageEstimulacionState extends State<PageEstimulacion> with SingleTickerPr
     )..forward();
 
     _offsetAnimation = Tween<Offset>(
-      begin: Offset(0.0, 1.0),
+      begin: const Offset(0.0, 1.0),
       end: Offset.zero,
     ).animate(CurvedAnimation(
       parent: _controller,
@@ -63,79 +63,37 @@ class _PageEstimulacionState extends State<PageEstimulacion> with SingleTickerPr
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-<<<<<<< HEAD
-              const Text(
-              'Tecnicas de valoracion inicial en el recien nacido',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 5),
-              const Text(
-                'APGAR',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 33, 9, 250)),
-                textAlign: TextAlign.left,
-              ),
-              const SizedBox(height: 23),
-              RichText(
-                textAlign: TextAlign.justify,
-                text: const TextSpan(
-                  style: TextStyle(fontSize: 20),
-                  children: <TextSpan> [
-                    TextSpan(text: 'Esta escala se aplica',
-                    style: TextStyle(
-                      color: Colors.black,
-                      ),
-                    ),
-                    TextSpan(text: ' al recién nacido al minuto de haber nacido y a los 5 minutos, evaluando la frecuencia cardiaca, respiración, reflejos, tono muscular y color. De esta manera se cuantifican los signos de depresión neonatal. ',
-                    style: TextStyle(
-                      color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 23),
-              RichText(
-                textAlign: TextAlign.justify,
-                text: const TextSpan(
-                  style: TextStyle(fontSize: 20),
-                  children: <TextSpan> [
-                    TextSpan(text: 'Un puntaje',
-                    style: TextStyle(
-                      color: Colors.black,
-                      ),
-=======
               SlideTransition(
                 position: _offsetAnimation,
                 child: FadeTransition(
                   opacity: _fadeAnimation,
-                  child: Text(
+                  child: const Text(
                     'Tecnicas de valoracion inicial en el recien nacido',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                 ),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               SlideTransition(
                 position: _offsetAnimation,
                 child: FadeTransition(
                   opacity: _fadeAnimation,
-                  child: Text(
+                  child: const Text(
                     'APGAR',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 33, 9, 250)),
                     textAlign: TextAlign.left,
                   ),
                 ),
               ),
-              SizedBox(height: 23),
+              const SizedBox(height: 23),
               SlideTransition(
                 position: _offsetAnimation,
                 child: FadeTransition(
                   opacity: _fadeAnimation,
                   child: RichText(
                     textAlign: TextAlign.justify,
-                    text: TextSpan(
+                    text: const TextSpan(
                       style: TextStyle(fontSize: 20),
                       children: <TextSpan>[
                         TextSpan(
@@ -151,31 +109,18 @@ class _PageEstimulacionState extends State<PageEstimulacion> with SingleTickerPr
                           ),
                         ),
                       ],
->>>>>>> 8321d6e2842c859f38c9ef384d151683c39ce4eb
                     ),
                   ),
                 ),
               ),
-<<<<<<< HEAD
               const SizedBox(height: 23),
-              RichText(
-                textAlign: TextAlign.justify,
-                text: const TextSpan(
-                  style: TextStyle(fontSize: 20),
-                  children: <TextSpan> [
-                    TextSpan(text: 'Un bajo puntaje',
-                    style: TextStyle(
-                      color: Colors.black,
-                      ),
-=======
-              SizedBox(height: 23),
               SlideTransition(
                 position: _offsetAnimation,
                 child: FadeTransition(
                   opacity: _fadeAnimation,
                   child: RichText(
                     textAlign: TextAlign.justify,
-                    text: TextSpan(
+                    text: const TextSpan(
                       style: TextStyle(fontSize: 20),
                       children: <TextSpan>[
                         TextSpan(
@@ -191,19 +136,18 @@ class _PageEstimulacionState extends State<PageEstimulacion> with SingleTickerPr
                           ),
                         ),
                       ],
->>>>>>> 8321d6e2842c859f38c9ef384d151683c39ce4eb
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 23),
+              const SizedBox(height: 23),
               SlideTransition(
                 position: _offsetAnimation,
                 child: FadeTransition(
                   opacity: _fadeAnimation,
                   child: RichText(
                     textAlign: TextAlign.justify,
-                    text: TextSpan(
+                    text: const TextSpan(
                       style: TextStyle(fontSize: 20),
                       children: <TextSpan>[
                         TextSpan(
@@ -223,33 +167,7 @@ class _PageEstimulacionState extends State<PageEstimulacion> with SingleTickerPr
                   ),
                 ),
               ),
-<<<<<<< HEAD
               const SizedBox(height: 32),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, 
-                  backgroundColor: Colors.blue, 
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  textStyle: const TextStyle(fontSize: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30), 
-                  ),
-                ), 
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const EvaluaTemp()),
-                  );
-                },
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text('Evaluación'), 
-                    SizedBox(width: 15), 
-                    Icon(Icons.arrow_forward_ios), 
-                  ],
-=======
-              SizedBox(height: 32),
               SlideTransition(
                 position: _offsetAnimation,
                 child: FadeTransition(
@@ -258,8 +176,8 @@ class _PageEstimulacionState extends State<PageEstimulacion> with SingleTickerPr
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.blue,
-                      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                      textStyle: TextStyle(fontSize: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                      textStyle: const TextStyle(fontSize: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -267,10 +185,10 @@ class _PageEstimulacionState extends State<PageEstimulacion> with SingleTickerPr
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => EvaluaTemp()),
+                        MaterialPageRoute(builder: (context) => const EvaluaTemp()),
                       );
                     },
-                    child: Row(
+                    child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text('Evaluación'),
@@ -279,7 +197,6 @@ class _PageEstimulacionState extends State<PageEstimulacion> with SingleTickerPr
                       ],
                     ),
                   ),
->>>>>>> 8321d6e2842c859f38c9ef384d151683c39ce4eb
                 ),
               ),
             ],
@@ -290,6 +207,6 @@ class _PageEstimulacionState extends State<PageEstimulacion> with SingleTickerPr
   }
 }
 
-void main() => runApp(MaterialApp(
+void main() => runApp(const MaterialApp(
   home: PageEstimulacion(),
 ));
