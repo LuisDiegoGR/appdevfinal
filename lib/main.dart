@@ -1,4 +1,4 @@
-import 'package:appdevfinal/pantalla_siguiente.dart'; 
+import 'package:appdevfinal/pantalla_siguiente.dart';
 import 'package:appdevfinal/src/providers/push_notifications_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -48,14 +48,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _initialize() async {
     await Future.delayed(const Duration(seconds: 3));
-    _initNotifications(); // Inicia el proveedor de notificaciones
+    _initNotifications();
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => HomePage()), 
+      MaterialPageRoute(builder: (context) => HomePage()),
     );
   }
 
-  // Inicia el proveedor de notificaciones
+  
   void _initNotifications() {
     final pushProvider = PushNotificationProvider();
     pushProvider.initNotifications();
