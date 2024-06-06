@@ -93,17 +93,16 @@ class _CreateAccnState extends State<CreateAccn> {
               const SizedBox(height: 20),
               Container(
                 width: 400, // Ancho deseado del TextField
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                padding: const EdgeInsets.all(9),
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 203, 203, 203),
-                  borderRadius: BorderRadius.circular(10.0),
+                  color: const Color.fromARGB(255, 231, 230, 2030),
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
-                child: TextField(
+                child: TextFormField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
-                    hintText: 'name@example.com',
+                    labelText: 'name@example.com',
                     prefixIcon: Icon(Icons.mail, color: Colors.black),
                     border: InputBorder.none,
                   ),
@@ -113,17 +112,17 @@ class _CreateAccnState extends State<CreateAccn> {
               Container(
                 width: 400, // Ancho deseado del TextField
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                    const EdgeInsets.all(9),
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 203, 203, 203),
-                  borderRadius: BorderRadius.circular(10.0),
+                  color: const Color.fromARGB(255, 231, 230, 230),
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: TextField(
                   controller: _passwordController,
                   keyboardType: TextInputType.visiblePassword,
                   decoration: const InputDecoration(
-                    hintText: 'Password',
-                    prefixIcon: Icon(Icons.password, color: Colors.black),
+                    labelText: 'Password',
+                    prefixIcon: Icon(Icons.lock, color: Colors.black),
                     border: InputBorder.none,
                   ),
                 ),
@@ -132,16 +131,16 @@ class _CreateAccnState extends State<CreateAccn> {
               Container(
                 width: 400, // Ancho deseado del TextField
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                    const EdgeInsets.all(9),
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 203, 203, 203),
-                  borderRadius: BorderRadius.circular(10.0),
+                  color: const Color.fromARGB(255, 231, 230, 230),
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: TextField(
                   controller: _nameController,
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
-                    hintText: 'Name',
+                    labelText: 'Name',
                     prefixIcon: Icon(Icons.person, color: Colors.black),
                     border: InputBorder.none,
                   ),
@@ -151,16 +150,16 @@ class _CreateAccnState extends State<CreateAccn> {
               Container(
                 width: 400, // Ancho deseado del TextField
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                    const EdgeInsets.all(9),
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 203, 203, 203),
-                  borderRadius: BorderRadius.circular(10.0),
+                  color: const Color.fromARGB(255, 231, 230, 230),
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: TextField(
                   controller: _lastNameController,
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
-                    hintText: 'Last Name',
+                    labelText: 'Last Name',
                     prefixIcon: Icon(Icons.person, color: Colors.black),
                     border: InputBorder.none,
                   ),
@@ -170,17 +169,17 @@ class _CreateAccnState extends State<CreateAccn> {
               Container(
                 width: 400, // Ancho deseado del TextField
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                    const EdgeInsets.all(9),
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 203, 203, 203),
+                  color: const Color.fromARGB(255, 231, 230, 230),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: TextField(
                   controller: _addressController,
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
-                    hintText: 'Address',
-                    prefixIcon: Icon(Icons.person, color: Colors.black),
+                    labelText: 'Address',
+                    prefixIcon: Icon(Icons.maps_home_work, color: Colors.black),
                     border: InputBorder.none,
                   ),
                 ),
@@ -189,27 +188,26 @@ class _CreateAccnState extends State<CreateAccn> {
               Container(
                 width: 400, // Ancho deseado del TextField
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                    const EdgeInsets.all(9),
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 203, 203, 203),
-                  borderRadius: BorderRadius.circular(10.0),
+                  color: const Color.fromARGB(255, 231, 230, 230),
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: TextField(
                   controller: _phoneController,
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
-                    hintText: 'Phone Number',
-                    prefixIcon: Icon(Icons.person, color: Colors.black),
+                    labelText: 'Phone Number',
+                    prefixIcon: Icon(Icons.phone, color: Colors.black),
                     border: InputBorder.none,
                   ),
                 ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
               RawMaterialButton(
                 fillColor: const Color(0xFF145647),
                 elevation: 0.0,
-                padding: const EdgeInsets.symmetric(
-                    vertical: 15.0, horizontal: 100.0),
+                padding: const EdgeInsets.all(9),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0),
                 ),
