@@ -90,14 +90,13 @@ class _CitasRebState extends State<CitasReb> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => const AdminPage()),
             );
           },
         ),
-        title: const Text('Citas Registradas'),
       ),
       body: _isLoading
           ? const Center(
@@ -115,33 +114,66 @@ class _CitasRebState extends State<CitasReb> {
                     }
                     Map<dynamic, dynamic> cita = _citas[index];
                     String key = _keys[index];
-                    return ListTile(
-                      title: Text('Paciente: ${cita['paciente'] ?? 'Desconocido'}'),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Fecha: ${cita['fecha'] ?? 'Desconocida'}'),
-                          Text('Descripción: ${cita['descripcion'] ?? 'Sin descripción'}'),
-                        ],
-                      ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            icon: const Icon(Icons.delete, color: Colors.red),
-                            onPressed: () {
-                              _deleteCita(key);
-                            },
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.check, color: Colors.green),
-                            onPressed: () {
-                              _acceptCita(key, cita);
-                            },
-                          ),
-                        ],
-                      ),
-                    );
+                   return Padding(
+                   padding: const EdgeInsets.all(25),
+                   child: Card(
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(25.0),
+  ),
+  elevation: 5,
+  child: Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Paciente: ${cita['paciente'] ?? 'Desconocido'}',
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text('Fecha: ${cita['fecha'] ?? 'Desconocida'}'),
+        const SizedBox(height: 4),
+        Text('Descripción: ${cita['descripcion'] ?? 'Sin descripción'}'),
+        const SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.red.withOpacity(0.2),
+                shape: BoxShape.circle,
+              ),
+            child: IconButton(
+              icon: const Icon(Icons.delete, color: Colors.red),
+              onPressed: () {
+                _deleteCita(key);
+              },
+            ),
+            ),
+            const SizedBox(width: 16),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.green.withOpacity(0.2),
+                shape: BoxShape.circle,
+              ),
+            child: IconButton(
+              icon: const Icon(Icons.check, color: Colors.green),
+              onPressed: () {
+                _acceptCita(key, cita);
+              },
+            ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  ),
+                   ),
+);
+
                   },
                 ),
     );

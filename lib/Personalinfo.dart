@@ -26,6 +26,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text('Información Personal'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -35,120 +36,207 @@ class _PersonalInfoState extends State<PersonalInfo> {
           },
         ),
       ),
-      body: StreamBuilder(
+      body: StreamBuilder<DocumentSnapshot>(
         stream: FirebaseFirestore.instance
             .collection('users')
             .doc(_userId)
             .snapshots(),
-        builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
           if (!snapshot.hasData || !snapshot.data!.exists) {
-            return const Center(child: Text('No data found'));
+            return const Center(child: Text('No se encontraron datos'));
           }
 
           var userData = snapshot.data!.data() as Map<String, dynamic>;
 
-          return ListTile(
-            title: Text('${userData['name']} ${userData['lastName']}',
-            style: const TextStyle(
-              color: Colors.black,
-              fontFamily: 'Roboto',
-              fontSize: 20,
-            ),
-            ),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text('Dirección: ${userData['address']}',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontFamily: 'Roboto',
-                  fontSize: 20,
-                ),
-                ),
-                Text('Teléfono: ${userData['phone']}',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontFamily: 'Roboto',
-                  fontSize: 20,
-                ),
-                ),
-              ],
-            ),
-            trailing: ElevatedButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: const Text('Editar Información Personal'),
-                      content: SingleChildScrollView(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            TextField(
-                              controller: _nameController
-                                ..text = userData['name'],
-                              decoration: const InputDecoration(labelText: 'Nombre'),
-                            ),
-                            TextField(
-                              controller: _lastNameController
-                                ..text = userData['lastName'],
-                              decoration: const InputDecoration(labelText: 'Apellido'),
-                            ),
-                            TextField(
-                              controller: _addressController
-                                ..text = userData['address'],
-                              decoration: const InputDecoration(labelText: 'Dirección'),
-                            ),
-                            TextField(
-                              controller: _phoneController
-                                ..text = userData['phone'],
-                              decoration: const InputDecoration(labelText: 'Teléfono'),
-                            ),
-                            const SizedBox(height: 20),
-                            ElevatedButton(
-                              onPressed: () async {
-                                String newName = _nameController.text;
-                                String newLastName = _lastNameController.text;
-                                String newAddress = _addressController.text;
-                                String newPhone = _phoneController.text;
+          return Padding(
+            padding: const EdgeInsets.only(top: 40, left: 40, right: 40, bottom: 400),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0),
+              ),
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${userData['name']} ${userData['lastName']}',
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'Roboto',
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Dirección: ${userData['address']}',
+                      style: const TextStyle(
+                        color: Colors.black54,
+                        fontFamily: 'Roboto',
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Teléfono: ${userData['phone']}',
+                      style: const TextStyle(
+                        color: Colors.black54,
+                        fontFamily: 'Roboto',
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text(
+                                  'Editar Información Personal',
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                content: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Container(
+                                        width: 280,
+                                        padding: const EdgeInsets.all(9),
+                                        decoration: BoxDecoration(
+                                          color: const Color.fromARGB(255, 231, 230, 230),
+                                          borderRadius: BorderRadius.circular(20.0),
+                                        ),
+                                      child: TextField(
+                                        controller: _nameController
+                                          ..text = userData['name'],
+                                        decoration: const InputDecoration(
+                                          labelText: 'Nombre',
+                                          border: InputBorder.none,
+                                        ),
+                                      ),
+                                      ),
+                                      SizedBox(height: 10),
+                                      Container(
+                                        width: 280,
+                                        padding: const EdgeInsets.all(9),
+                                        decoration: BoxDecoration(
+                                          color: const Color.fromARGB(255, 231, 230, 230),
+                                          borderRadius: BorderRadius.circular(20.0),
+                                        ),
+                                      child: TextField(
+                                        controller: _lastNameController
+                                          ..text = userData['lastName'],
+                                        decoration: const InputDecoration(
+                                          labelText: 'Apellido',
+                                          border: InputBorder.none,
+                                        ),
+                                      ),
+                                      ),
+                                      SizedBox(height: 10),
+                                      Container(
+                                        width: 280,
+                                        padding: const EdgeInsets.all(9),
+                                        decoration: BoxDecoration(
+                                          color: const Color.fromARGB(255, 231, 230, 230),
+                                          borderRadius: BorderRadius.circular(20.0),
+                                        ),
+                                      child: TextField(
+                                        controller: _addressController
+                                          ..text = userData['address'],
+                                        decoration: const InputDecoration(
+                                          labelText: 'Dirección',
+                                          border: InputBorder.none,
+                                        ),
+                                      ),
+                                      ),
+                                      SizedBox(height: 10),
+                                      Container(
+                                        width: 280,
+                                        padding: const EdgeInsets.all(9),
+                                        decoration: BoxDecoration(
+                                          color: const Color.fromARGB(255, 231, 230, 230),
+                                          borderRadius: BorderRadius.circular(20.0),
+                                        ),
+                                      child: TextField(
+                                        controller: _phoneController
+                                          ..text = userData['phone'],
+                                        decoration: const InputDecoration(
+                                          labelText: 'Teléfono',
+                                          border: InputBorder.none,
+                                        ),
+                                      ),
+                                      ),
+                                      const SizedBox(height: 20),
+                                      RawMaterialButton(
+                                        fillColor: const Color(0xFF145647),
+                                        elevation: 0.0,
+                                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 60),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(30.0),
+                                          ),
+                                        onPressed: () async {
+                                          String newName = _nameController.text;
+                                          String newLastName = _lastNameController.text;
+                                          String newAddress = _addressController.text;
+                                          String newPhone = _phoneController.text;
 
-                                await FirebaseFirestore.instance
-                                    .collection('users')
-                                    .doc(_userId)
-                                    .update({
-                                  'name': newName,
-                                  'lastName': newLastName,
-                                  'address': newAddress,
-                                  'phone': newPhone,
-                                });
+                                          await FirebaseFirestore.instance
+                                              .collection('users')
+                                              .doc(_userId)
+                                              .update({
+                                            'name': newName,
+                                            'lastName': newLastName,
+                                            'address': newAddress,
+                                            'phone': newPhone,
+                                          });
 
-                                Navigator.pop(context);
-                              },
-                              child: const Text('Guardar Cambios'),
-                            ),
-                          ],
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text(
+                                          'Guardar Cambios',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStateProperty.all<Color>(const Color(0xFF145647)),
+                          padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
+                            const EdgeInsets.symmetric(vertical: 12, horizontal: 50),
+                          ),
+                          shape: WidgetStateProperty.all(
+                            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                          ),
+                        ),
+                        child: const Text(
+                          'Editar',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    );
-                  },
-                );
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF145647)),
-                padding: MaterialStateProperty.all<EdgeInsetsGeometry>(const EdgeInsets.symmetric(vertical: 12, horizontal: 16)),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-                )
-              ),
-              child: const Text('Editar',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
+                    ),
+                  ],
+                ),
               ),
             ),
           );

@@ -1,4 +1,4 @@
-import 'package:appdevfinal/InicioAppAdmin.dart';
+import 'package:appdevfinal/pantalla_siguiente.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -43,14 +43,13 @@ class _AcceptCitaState extends State<AcceptCita> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const AdminPage()),
+              MaterialPageRoute(builder: (context) => const PantallaSiguiente()),
             );
           },
         ),
-        title: const Text('Citas Aceptadas'),
       ),
       body: _acceptedCitas.isEmpty
           ? const Center(
@@ -63,15 +62,33 @@ class _AcceptCitaState extends State<AcceptCita> {
                   return const SizedBox.shrink();
                 }
                 Map<dynamic, dynamic> cita = _acceptedCitas[index];
-                return ListTile(
-                  title: Text('Paciente: ${cita['paciente'] ?? 'Desconocido'}'),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Fecha: ${cita['fecha'] ?? 'Desconocida'}'),
-                      Text(
-                          'Descripción: ${cita['descripcion'] ?? 'Sin descripción'}'),
-                    ],
+                return Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25.0),
+                    ),
+                    elevation: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Paciente: ${cita['paciente'] ?? 'Desconocido'}',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text('Fecha: ${cita['fecha'] ?? 'Desconocida'}'),
+                          const SizedBox(height: 8),
+                          Text('Descripción: ${cita['descripcion'] ?? 'Sin descripción'}'),
+                          const SizedBox(height: 16),
+                        ],
+                      ),
+                    ),
                   ),
                 );
               },
