@@ -128,13 +128,13 @@ class _CitasRebState extends State<CitasReb> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           IconButton(
-                            icon: const Icon(Icons.delete),
+                            icon: const Icon(Icons.delete, color: Colors.red),
                             onPressed: () {
                               _deleteCita(key);
                             },
                           ),
                           IconButton(
-                            icon: const Icon(Icons.check),
+                            icon: const Icon(Icons.check, color: Colors.green),
                             onPressed: () {
                               _acceptCita(key, cita);
                             },
