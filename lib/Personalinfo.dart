@@ -59,7 +59,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
             ),
             ),
             subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text('Dirección: ${userData['address']}',
                 style: const TextStyle(

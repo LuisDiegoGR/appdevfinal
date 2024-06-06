@@ -120,9 +120,9 @@ class HomePage extends StatelessWidget {
             RawMaterialButton(
               fillColor: const Color(0xFF145647),
               elevation: 0.0,
-              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 150.0),
+              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 125.0),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
+                borderRadius: BorderRadius.circular(30.0),
               ),
               onPressed: () {
                 Navigator.push(

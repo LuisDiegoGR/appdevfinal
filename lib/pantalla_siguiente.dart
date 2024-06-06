@@ -120,17 +120,17 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
               Container(
                 width: 400, 
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                    const EdgeInsets.all(9),
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 203, 203, 203),
-                  borderRadius: BorderRadius.circular(10.0),
+                  color: Color.fromARGB(255, 231, 230, 230),
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: TextField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     hintText: 'name@example.com',
-                    prefixIcon: Icon(Icons.mail, color: Colors.black),
+                    prefixIcon: Icon(Icons.mail, color: Color(0xFF333333)),
                     border: InputBorder.none,
                   ),
                 ),
@@ -139,10 +139,10 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
               Container(
                 width: 400, 
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                    const EdgeInsets.all(9),
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 203, 203, 203),
-                  borderRadius: BorderRadius.circular(10.0),
+                  color: const Color.fromARGB(255, 231, 230, 230),
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: TextField(
                   controller: _passwordController,
@@ -150,7 +150,7 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                   obscureText: true,
                   decoration: const InputDecoration(
                     hintText: 'Password',
-                    prefixIcon: Icon(Icons.lock, color: Colors.black),
+                    prefixIcon: Icon(Icons.lock, color: Color(0xFF333333)),
                     border: InputBorder.none,
                   ),
                 ),
@@ -167,8 +167,8 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                     child: const Text(
                       'Create account',
                       style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 16,
+                        color: Color(0xFF333333), 
+                        fontSize: 16, 
                       ),
                     ),
                   ),
@@ -182,7 +182,7 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                     child: const Text(
                       'Forgot Password?',
                       style: TextStyle(
-                        color: Colors.blue,
+                        color: Color(0xFF333333),
                         fontSize: 16,
                       ),
                     ),
@@ -196,7 +196,7 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                 padding: const EdgeInsets.symmetric(
                     vertical: 15.0, horizontal: 100.0),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
+                  borderRadius: BorderRadius.circular(30.0),
                 ),
   onPressed: () async {
   User? user = await loginUsingEmailPassword(

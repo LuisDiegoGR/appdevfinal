@@ -63,10 +63,21 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              TextFormField(
+              Container(
+                width: 400,
+                padding: const EdgeInsets.all(9),
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 231, 230, 230),
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              child: TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(labelText: 'Correo Electrónico'),
+                decoration: const InputDecoration(
+                  labelText: 'Correo Electrónico',
+                  prefixIcon: Icon(Icons.mail, color: Color(0xFF333333)),
+                  border: InputBorder.none,
+                  ),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Por favor, ingresa tu correo electrónico.';
@@ -74,12 +85,25 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   return null;
                 },
               ),
+              ),
               const SizedBox(height: 20.0),
               _isLoading
                   ? const CircularProgressIndicator()
-                  : ElevatedButton(
+                  : RawMaterialButton(
+                    fillColor: const Color(0xFF145647),
+                    elevation: 0.0,
+                    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 60),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
                       onPressed: _resetPassword,
-                      child: const Text('Restablecer Contraseña'),
+                      child: const Text(
+                        'Restablecer Contraseña',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14.0,
+                        ),
+                      ),
                     ),
             ],
           ),

@@ -35,10 +35,21 @@ class _CitasState extends State<Citas> {
         child: Form(
           key: _formKey,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Nombre del Paciente'),
+              Spacer(),
+              Container(
+                width: 400,
+                padding: const EdgeInsets.all(9),
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 231, 230, 230),
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Nombre del Paciente',
+                  border: InputBorder.none,
+                ),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Por favor ingrese el nombre del paciente';
@@ -49,8 +60,20 @@ class _CitasState extends State<Citas> {
                   _nombrePaciente = value!;
                 },
               ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Fecha de la Cita'),
+          ),
+          SizedBox(height: 30),
+          Container(
+                width: 400,
+                padding: const EdgeInsets.all(9),
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 231, 230, 230),
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Fecha de la Cita',
+                  border: InputBorder.none,
+                ),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Por favor ingrese la fecha de la cita';
@@ -61,8 +84,20 @@ class _CitasState extends State<Citas> {
                   _fechaCita = value!;
                 },
               ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Descripción de la Cita'),
+          ),
+          SizedBox(height: 30),
+          Container(
+                width: 400,
+                padding: const EdgeInsets.all(9),
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 231, 230, 230),
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Descripción de la Cita',
+                  border: InputBorder.none,
+                ),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Por favor ingrese la descripción de la cita';
@@ -73,18 +108,31 @@ class _CitasState extends State<Citas> {
                   _descripcionCita = value!;
                 },
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: ElevatedButton(
+          ),
+          SizedBox(height: 30),
+          RawMaterialButton(
+                    fillColor: const Color(0xFF145647), 
+                    elevation: 0.0,
+                    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 60),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
                       _registrarCita();
                     }
                   },
-                  child: const Text('Registrar Cita'),
+                  child: const Text(
+                    'Registrar Cita',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14.0,
+                    ),
+                  ),
                 ),
-              ),
+              
+              Spacer(),
             ],
           ),
         ),

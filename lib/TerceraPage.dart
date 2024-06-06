@@ -85,48 +85,51 @@ Future<void> _uploadImage() async {
                       : const AssetImage('assets/images/Placeholder.jpg') as ImageProvider),
             ),
             const SizedBox(height: 20), 
-            RawMaterialButton(
-              fillColor: const Color(0xFF145647),
-              elevation: 0.0,
-              padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 130.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  RawMaterialButton(
+                    fillColor: Color(0xFF145647),
+                    elevation: 0.0,
+                    padding: const EdgeInsets.all(20),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0)
+                    ),
+                    onPressed:_getImage,
+                    child: const Text(
+                      'Select Image',
+                      style: TextStyle(
+                        color: Colors.white, 
+                        fontSize: 16, 
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 15),
+                  RawMaterialButton(
+                    fillColor: Color(0xFF145647),
+                    elevation: 0.0,
+                    padding: const EdgeInsets.all(20),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0)
+                    ),
+                    onPressed: _uploadImage,
+                    child: const Text(
+                      'Upload Image',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              onPressed: _getImage,
-              child: const Text(
-                'Select Image',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Roboto',
-                  fontSize: 15,
-                ),
-              ),
-            ),
-            const SizedBox(height: 20), 
-            RawMaterialButton(
-              fillColor: const Color(0xFF145647),
-              elevation: 0.0,
-              padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 90.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25.0),
-              ),
-              onPressed: _uploadImage,
-              child: const Text(
-                'Upload Image to Firebase',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Roboto',
-                  fontSize: 15,
-                ),
-                ),
-            ),
             const SizedBox(height: 20.0),
             RawMaterialButton(
-              fillColor: const Color(0xFF145647),
+              fillColor: Color(0xFF145647),
               elevation: 0.0,
               padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 105.0),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25.0),
+                borderRadius: BorderRadius.circular(30.0),
               ),
               onPressed: () {
                 Navigator.of(context).pushReplacement(
@@ -138,17 +141,17 @@ Future<void> _uploadImage() async {
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Roboto',
-                  fontSize: 15,
+                  fontSize: 15, 
                 ),
                 ),
             ),
             const SizedBox(height: 20.0),
             RawMaterialButton(
-              fillColor: const Color(0xFF145647),
+              fillColor: Color(0xFF145647),
               elevation: 0.0,
               padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 130.0),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25.0),
+                borderRadius: BorderRadius.circular(30.0),
               ),
               onPressed: () {
                 Navigator.of(context).pushReplacement(
@@ -166,11 +169,11 @@ Future<void> _uploadImage() async {
             ),
             const SizedBox(height: 20.0),
             RawMaterialButton(
-              fillColor: const Color(0xFF145647),
+              fillColor: Color(0xFF145647),
               elevation: 0.0,
-              padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 110.0),
+              padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 135.0),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25.0),
+                borderRadius: BorderRadius.circular(30.0),
               ),
               onPressed: () {
                 Navigator.of(context).pushReplacement(
@@ -178,7 +181,7 @@ Future<void> _uploadImage() async {
                 );
               },
               child: const Text(
-                'Acerca de nosotros',
+                'Agendar Cita',
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Roboto',
