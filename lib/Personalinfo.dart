@@ -1,7 +1,7 @@
 import 'package:appdevfinal/TerceraPage.dart';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class PersonalInfo extends StatefulWidget {
   @override
@@ -52,7 +52,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
           var userData = snapshot.data!.data() as Map<String, dynamic>;
 
           return Padding(
-            padding: const EdgeInsets.only(top: 40, left: 40, right: 40, bottom: 400),
+            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
             child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25.0),
@@ -116,16 +116,16 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                           color: const Color.fromARGB(255, 231, 230, 230),
                                           borderRadius: BorderRadius.circular(20.0),
                                         ),
-                                      child: TextField(
-                                        controller: _nameController
-                                          ..text = userData['name'],
-                                        decoration: const InputDecoration(
-                                          labelText: 'Nombre',
-                                          border: InputBorder.none,
+                                        child: TextField(
+                                          controller: _nameController
+                                            ..text = userData['name'],
+                                          decoration: const InputDecoration(
+                                            labelText: 'Nombre',
+                                            border: InputBorder.none,
+                                          ),
                                         ),
                                       ),
-                                      ),
-                                      SizedBox(height: 10),
+                                      const SizedBox(height: 10),
                                       Container(
                                         width: 280,
                                         padding: const EdgeInsets.all(9),
@@ -133,16 +133,16 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                           color: const Color.fromARGB(255, 231, 230, 230),
                                           borderRadius: BorderRadius.circular(20.0),
                                         ),
-                                      child: TextField(
-                                        controller: _lastNameController
-                                          ..text = userData['lastName'],
-                                        decoration: const InputDecoration(
-                                          labelText: 'Apellido',
-                                          border: InputBorder.none,
+                                        child: TextField(
+                                          controller: _lastNameController
+                                            ..text = userData['lastName'],
+                                          decoration: const InputDecoration(
+                                            labelText: 'Apellido',
+                                            border: InputBorder.none,
+                                          ),
                                         ),
                                       ),
-                                      ),
-                                      SizedBox(height: 10),
+                                      const SizedBox(height: 10),
                                       Container(
                                         width: 280,
                                         padding: const EdgeInsets.all(9),
@@ -150,16 +150,16 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                           color: const Color.fromARGB(255, 231, 230, 230),
                                           borderRadius: BorderRadius.circular(20.0),
                                         ),
-                                      child: TextField(
-                                        controller: _addressController
-                                          ..text = userData['address'],
-                                        decoration: const InputDecoration(
-                                          labelText: 'Dirección',
-                                          border: InputBorder.none,
+                                        child: TextField(
+                                          controller: _addressController
+                                            ..text = userData['address'],
+                                          decoration: const InputDecoration(
+                                            labelText: 'Dirección',
+                                            border: InputBorder.none,
+                                          ),
                                         ),
                                       ),
-                                      ),
-                                      SizedBox(height: 10),
+                                      const SizedBox(height: 10),
                                       Container(
                                         width: 280,
                                         padding: const EdgeInsets.all(9),
@@ -167,14 +167,14 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                           color: const Color.fromARGB(255, 231, 230, 230),
                                           borderRadius: BorderRadius.circular(20.0),
                                         ),
-                                      child: TextField(
-                                        controller: _phoneController
-                                          ..text = userData['phone'],
-                                        decoration: const InputDecoration(
-                                          labelText: 'Teléfono',
-                                          border: InputBorder.none,
+                                        child: TextField(
+                                          controller: _phoneController
+                                            ..text = userData['phone'],
+                                          decoration: const InputDecoration(
+                                            labelText: 'Teléfono',
+                                            border: InputBorder.none,
+                                          ),
                                         ),
-                                      ),
                                       ),
                                       const SizedBox(height: 20),
                                       RawMaterialButton(
@@ -183,7 +183,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 60),
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(30.0),
-                                          ),
+                                        ),
                                         onPressed: () async {
                                           String newName = _nameController.text;
                                           String newLastName = _lastNameController.text;
@@ -218,11 +218,11 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           );
                         },
                         style: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.all<Color>(const Color(0xFF145647)),
-                          padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
+                          backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF145647)),
+                          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                             const EdgeInsets.symmetric(vertical: 12, horizontal: 50),
                           ),
-                          shape: WidgetStateProperty.all(
+                          shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
                           ),
                         ),
