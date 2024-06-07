@@ -81,7 +81,7 @@ class _TerceraPagState extends State<TerceraPag> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFF3A8D8A), Color(0xFF145647)],
+            colors: [Color(0xFF2E3192), Color(0xFF1BFFFF)],
           ),
         ),
         child: Center(
@@ -112,11 +112,12 @@ class _TerceraPagState extends State<TerceraPag> {
               ),
               const SizedBox(height: 30), 
               RawMaterialButton(
-                fillColor: const Color(0xFF1C5F5A),
-                elevation: 5.0,
+                fillColor: Colors.white.withOpacity(0.2),
+                elevation: 0.0,
                 padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0)
+                  borderRadius: BorderRadius.circular(30.0),
+                  side: BorderSide(color: Colors.white.withOpacity(0.1), width: 2.0),
                 ),
                 onPressed: _uploadImage,
                 child: Row(
@@ -137,11 +138,12 @@ class _TerceraPagState extends State<TerceraPag> {
               ),
               const SizedBox(height: 20.0),
               RawMaterialButton(
-                fillColor: const Color(0xFF1C5F5A),
-                elevation: 5.0,
+                fillColor: Colors.white.withOpacity(0.2),
+                elevation: 0.0,
                 padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
+                  side: BorderSide(color: Colors.white.withOpacity(0.1), width: 2.0),
                 ),
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
@@ -167,11 +169,12 @@ class _TerceraPagState extends State<TerceraPag> {
               ),
               const SizedBox(height: 20.0),
               RawMaterialButton(
-                fillColor: const Color(0xFF1C5F5A),
-                elevation: 5.0,
+                fillColor: Colors.white.withOpacity(0.2),
+                elevation: 0.0,
                 padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
+                  side: BorderSide(color: Colors.white.withOpacity(0.1), width: 2.0),
                 ),
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
@@ -197,11 +200,12 @@ class _TerceraPagState extends State<TerceraPag> {
               ),
               const SizedBox(height: 20.0),
               RawMaterialButton(
-                fillColor: const Color(0xFF1C5F5A),
-                elevation: 5.0,
+                fillColor: Colors.white.withOpacity(0.2),
+                elevation: 0.0,
                 padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
+                  side: BorderSide(color: Colors.white.withOpacity(0.1), width: 2.0),
                 ),
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
