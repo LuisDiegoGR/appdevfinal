@@ -1,5 +1,7 @@
+import 'package:appdevfinal/EvaluacionTemp.dart';
 import 'package:appdevfinal/informacion1.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 
 class PageAlteraciones extends StatelessWidget {
   const PageAlteraciones({super.key});
@@ -36,15 +38,18 @@ class PageAlteraciones extends StatelessWidget {
                 textAlign: TextAlign.justify,
                 text: const TextSpan(
                   style: TextStyle(fontSize: 20),
-                  children: <TextSpan> [
-                    TextSpan(text: 'Durante la alimentación,',
-                    style: TextStyle(
-                      color: Colors.black,
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Durante la alimentación,',
+                      style: TextStyle(
+                        color: Colors.black,
                       ),
                     ),
-                    TextSpan(text: ' la deglución es un proceso involuntario y reflejo que está presente desde el nacimiento. Para que esta se lleve a cabo de manera adecuada, es necesaria la integración de una gran variedad de estructuras que participan en el proceso:',
-                    style: TextStyle(
-                      color: Colors.black,
+                    TextSpan(
+                      text:
+                          ' la deglución es un proceso involuntario y reflejo que está presente desde el nacimiento. Para que esta se lleve a cabo de manera adecuada, es necesaria la integración de una gran variedad de estructuras que participan en el proceso:',
+                      style: TextStyle(
+                        color: Colors.black,
                       ),
                     ),
                   ],
@@ -65,18 +70,41 @@ class PageAlteraciones extends StatelessWidget {
                 textAlign: TextAlign.justify,
                 text: const TextSpan(
                   style: TextStyle(fontSize: 20),
-                  children: <TextSpan> [
-                    TextSpan(text: 'Que canalizan las sensaciones y',
-                    style: TextStyle(
-                      color: Colors.black,
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Que canalizan las sensaciones y',
+                      style: TextStyle(
+                        color: Colors.black,
                       ),
                     ),
-                    TextSpan(text: ' los movimientos con la deglución. Consta de tres fases, coordinadas entre ellas y con la respiración: fase oral, fase faríngea y fase esofágica.',
-                    style: TextStyle(
-                      color: Colors.black,
+                    TextSpan(
+                      text:
+                          ' los movimientos con la deglución. Consta de tres fases, coordinadas entre ellas y con la respiración: fase oral, fase faríngea y fase esofágica.',
+                      style: TextStyle(
+                        color: Colors.black,
                       ),
                     ),
                   ],
+                ),
+              ),
+              SizedBox(height: 40),
+              RawMaterialButton(
+                fillColor: Colors.blue,
+                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => const EvaluaTemp()),
+                  );
+                },
+                child: const Text(
+                  'Evaluacion',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                  ),
                 ),
               ),
             ],

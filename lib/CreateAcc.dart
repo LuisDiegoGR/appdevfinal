@@ -92,7 +92,7 @@ class _CreateAccnState extends State<CreateAccn> {
               ),
               const SizedBox(height: 20),
               Container(
-                width: 400, // Ancho deseado del TextField
+                width: 400, 
                 padding: const EdgeInsets.all(9),
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 231, 230, 2030),
@@ -110,7 +110,7 @@ class _CreateAccnState extends State<CreateAccn> {
               ),
               const SizedBox(height: 20),
               Container(
-                width: 400, // Ancho deseado del TextField
+                width: 400, 
                 padding:
                     const EdgeInsets.all(9),
                 decoration: BoxDecoration(
@@ -129,7 +129,7 @@ class _CreateAccnState extends State<CreateAccn> {
               ),
               const SizedBox(height: 20),
               Container(
-                width: 400, // Ancho deseado del TextField
+                width: 400, 
                 padding:
                     const EdgeInsets.all(9),
                 decoration: BoxDecoration(
@@ -148,7 +148,7 @@ class _CreateAccnState extends State<CreateAccn> {
               ),
               const SizedBox(height: 20),
               Container(
-                width: 400, // Ancho deseado del TextField
+                width: 400, 
                 padding:
                     const EdgeInsets.all(9),
                 decoration: BoxDecoration(
@@ -167,7 +167,7 @@ class _CreateAccnState extends State<CreateAccn> {
               ),
               const SizedBox(height: 20),
               Container(
-                width: 400, // Ancho deseado del TextField
+                width: 400, 
                 padding:
                     const EdgeInsets.all(9),
                 decoration: BoxDecoration(
@@ -186,7 +186,7 @@ class _CreateAccnState extends State<CreateAccn> {
               ),
               const SizedBox(height: 20),
               Container(
-                width: 400, // Ancho deseado del TextField
+                width: 400, 
                 padding:
                     const EdgeInsets.all(9),
                 decoration: BoxDecoration(
@@ -212,7 +212,6 @@ class _CreateAccnState extends State<CreateAccn> {
                   borderRadius: BorderRadius.circular(12.0),
                 ),
                 onPressed: () {
-                  //Pacer
                   _register();
                 },
                 child: const Text(

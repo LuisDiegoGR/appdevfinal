@@ -1,4 +1,4 @@
-import 'package:appdevfinal/EvaluacionTemp.dart';
+import 'package:appdevfinal/Gride.dart';
 import 'package:appdevfinal/informacion1.dart';
 import 'package:flutter/material.dart';
 
@@ -172,30 +172,25 @@ class _PageEstimulacionState extends State<PageEstimulacion> with SingleTickerPr
                 position: _offsetAnimation,
                 child: FadeTransition(
                   opacity: _fadeAnimation,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.blue,
-                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                      textStyle: const TextStyle(fontSize: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const EvaluaTemp()),
-                      );
-                    },
-                    child: const Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text('Evaluación'),
-                        SizedBox(width: 15),
-                        Icon(Icons.arrow_forward_ios),
-                      ],
-                    ),
+                ),
+              ),
+              SizedBox(height: 40),
+              RawMaterialButton(
+                fillColor: Colors.blue,
+                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => const Overlapped()),
+                  );
+                },
+                child: const Text(
+                  'Evaluacion',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
                   ),
                 ),
               ),
