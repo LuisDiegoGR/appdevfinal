@@ -1,9 +1,10 @@
-import 'package:appdevfinal/page_alteraciones.dart';
-import 'package:appdevfinal/page_embarazo.dart';
-import 'package:appdevfinal/page_estimulacion.dart';
-import 'package:appdevfinal/page_foro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+
+import 'page_alteraciones.dart';
+import 'page_embarazo.dart';
+import 'page_estimulacion.dart';
+import 'page_foro.dart';
 
 class Informacion1 extends StatefulWidget {
   const Informacion1({super.key});
@@ -67,13 +68,17 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
     super.dispose();
   }
 
-  Widget _buildImage(String imagePath, {double width = 300, double height = 300, double left = 0, double right = 0}) {
-    return Container(
-      margin: EdgeInsets.only(left: left, right: right),
-      child: Image.asset(
-        imagePath,
-        width: width,
-        height: height,
+  Widget _buildImage(String imagePath, double pageOffset) {
+    return Transform.translate(
+      offset: Offset(-pageOffset * 100, 0),
+      child: Opacity(
+        opacity: (1 - pageOffset).clamp(0.0, 1.0),
+        child: Image.asset(
+          imagePath,
+          width: 400,
+          height: 400,
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }
@@ -146,40 +151,33 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
               final image = _imageUrls[index];
               final title = _titles[index].toUpperCase();
               final pageOffset = (index - _currentPage).abs();
-              final scale = 1 - (pageOffset * 0.3).clamp(0.0, 0.3);
 
               return Center(
-                child: Transform.scale(
-                  scale: scale,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        title,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                        ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      title,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
                       ),
-                      const SizedBox(height: 30),
-                      _buildImage(
-                        image,
-                        width: 300,
-                        height: 300,
-                        left: 0,
-                        right: 0,
-                      ),
-                      const SizedBox(height: 30),
-                      _buildAnimatedButton(() {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => _pages[index]),
-                        );
-                      }),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 30),
+                    _buildImage(
+                      image,
+                      pageOffset,
+                    ),
+                    const SizedBox(height: 30),
+                    _buildAnimatedButton(() {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => _pages[index]),
+                      );
+                    }),
+                  ],
                 ),
               );
             },
