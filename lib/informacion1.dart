@@ -75,9 +75,9 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
         opacity: (1 - pageOffset).clamp(0.0, 1.0),
         child: Image.asset(
           imagePath,
-          width: 400,
+          width: double.infinity,
           height: 400,
-          fit: BoxFit.cover,
+          fit: BoxFit.contain,
         ),
       ),
     );
@@ -92,7 +92,7 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
           child: ElevatedButton(
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color.fromRGBO(20, 86, 71, 1),
+              backgroundColor: Color(0xFF33C6A4),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),
@@ -115,7 +115,7 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
   Widget _buildAnimatedText() {
     return AnimatedOpacity(
       opacity: _showText ? 1.0 : 0.0,
-      duration: const Duration(seconds: 2), 
+      duration: const Duration(seconds: 2),
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -154,8 +154,9 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
 
               return Center(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    const SizedBox(height: 50), // Espacio para mover el texto hacia arriba
                     Text(
                       title,
                       textAlign: TextAlign.center,
@@ -165,7 +166,7 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 20), // Espacio adicional entre el texto y la imagen
                     _buildImage(
                       image,
                       pageOffset,
