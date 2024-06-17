@@ -47,20 +47,21 @@ class _PageEmb3State extends State<PageEmb3> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      body:  CustomScrollView(
+      slivers: [
+      SliverAppBar(
+        pinned: true,
+        backgroundColor: Colors.transparent,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => const PageEmb2())
             );
           },
         ),
-        title: const Text('Prueba de scroll 3'),
-        shadowColor: Colors.grey,
-        scrolledUnderElevation: 10.0,
       ),
-      body: SingleChildScrollView(
+      SliverToBoxAdapter(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -305,6 +306,8 @@ class _PageEmb3State extends State<PageEmb3> with SingleTickerProviderStateMixin
             ],
           ),
         ),
+      ),
+      ],
       ),
     );
   }

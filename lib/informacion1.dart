@@ -1,3 +1,4 @@
+import 'package:appdevfinal/InicioApp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -140,7 +141,16 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(''),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const InicioApp()),
+            );
+          },
+        ),
       ),
       body: Stack(
         children: [

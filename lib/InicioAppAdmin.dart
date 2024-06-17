@@ -45,7 +45,7 @@ class _AdminPageState extends State<AdminPage> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFF3A8D8A), Color(0xFF145647)],
+            colors: [Color(0xFF2E3192), Color(0xFF1BFFFF)],
           ),
         ),
         child: Center(
@@ -118,7 +118,7 @@ class _AdminPageState extends State<AdminPage> {
               ),
               const SizedBox(height: 30),
               RawMaterialButton(
-                fillColor: const Color(0xFF1C5F5A),
+                fillColor: Colors.black,
                 elevation: 5.0,
                 padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
                 shape: RoundedRectangleBorder(
@@ -148,7 +148,7 @@ class _AdminPageState extends State<AdminPage> {
               ),
               const SizedBox(height: 25),
               RawMaterialButton(
-                fillColor: const Color(0xFF1C5F5A),
+                fillColor: Colors.black,
                 elevation: 5.0,
                 padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
                 shape: RoundedRectangleBorder(

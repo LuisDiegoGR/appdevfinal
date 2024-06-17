@@ -2,6 +2,7 @@ import 'package:appdevfinal/detalle_actividad_page.dart';
 import 'package:appdevfinal/detalle_actividad_page2.dart';
 import 'package:appdevfinal/detalle_actividad_page3.dart';
 import 'package:appdevfinal/detalle_actividad_page4.dart';
+import 'package:appdevfinal/page_alteraciones.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -24,7 +25,16 @@ class _EvaluaTempState extends State<EvaluaTemp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Evaluación'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const PageAlteraciones()),
+            );
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
