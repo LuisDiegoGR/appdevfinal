@@ -1,11 +1,11 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:appdevfinal/CreateAcc.dart';
 import 'package:appdevfinal/InicioApp.dart';
 import 'package:appdevfinal/InicioAppAdmin.dart';
-import 'package:appdevfinal/forgot_password_screen.dart'; 
+import 'package:appdevfinal/forgot_password_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:animated_snack_bar/animated_snack_bar.dart';
 
 class PantallaSiguiente extends StatefulWidget {
   const PantallaSiguiente({super.key});
@@ -26,7 +26,7 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(email: email, password: password);
       user = userCredential.user;
     } on FirebaseAuthException catch (e) {
-      if (e.code == "user-not-found"){
+      if (e.code == "user-not-found") {
         print("No user found for that email");
       } else if (e.code == "wrong-password") {
         print("Incorrect password provided");
@@ -41,57 +41,56 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
     String password = _passwordController.text.trim();
 
     if (password.isEmpty) {
-AnimatedSnackBar.rectangle(
-'Warning',
-  'Ingresa una contraseña',
-  type: AnimatedSnackBarType.warning,
-  brightness: Brightness.dark,
-).show(context);
+      AnimatedSnackBar.rectangle(
+        'Warning',
+        'Ingresa una contraseña',
+        type: AnimatedSnackBarType.warning,
+        brightness: Brightness.dark,
+      ).show(context);
     } else if (password.length < 6) {
-AnimatedSnackBar.rectangle(
-'Warning',
-  'La contraseña debe tener 6 caracteres',
-  type: AnimatedSnackBarType.warning,
-  brightness: Brightness.dark,
-).show(context);
+      AnimatedSnackBar.rectangle(
+        'Warning',
+        'La contraseña debe tener 6 caracteres',
+        type: AnimatedSnackBarType.warning,
+        brightness: Brightness.dark,
+      ).show(context);
     }
   }
 
   void ContinueDart2(BuildContext context) async {
-  String email = _emailController.text.trim();
-  String password = _passwordController.text.trim();
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
 
-  if (email.isEmpty) {
-AnimatedSnackBar.rectangle(
-'Warning',
-  'Ingresa un correo',
-  type: AnimatedSnackBarType.warning,
-  brightness: Brightness.dark,
-).show(context);
-  } else if (!email.contains("@") || !email.contains(".com")) {
-AnimatedSnackBar.rectangle(
-'Warning',
-  'Correo invalido, falta @ o .com',
-  type: AnimatedSnackBarType.warning,
-  brightness: Brightness.dark,
-).show(context);
-  } else {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password, 
-      );
-    } catch (e) {
-AnimatedSnackBar.rectangle(
-'Error',
-  'Correo o contraseña invalidos verifica los campos',
-  type: AnimatedSnackBarType.error,
-  brightness: Brightness.dark,
-).show(context);
+    if (email.isEmpty) {
+      AnimatedSnackBar.rectangle(
+        'Warning',
+        'Ingresa un correo',
+        type: AnimatedSnackBarType.warning,
+        brightness: Brightness.dark,
+      ).show(context);
+    } else if (!email.contains("@") || !email.contains(".com")) {
+      AnimatedSnackBar.rectangle(
+        'Warning',
+        'Correo invalido, falta @ o .com',
+        type: AnimatedSnackBarType.warning,
+        brightness: Brightness.dark,
+      ).show(context);
+    } else {
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+      } catch (e) {
+        AnimatedSnackBar.rectangle(
+          'Error',
+          'Correo o contraseña invalidos verifica los campos',
+          type: AnimatedSnackBarType.error,
+          brightness: Brightness.dark,
+        ).show(context);
+      }
     }
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
@@ -105,11 +104,14 @@ AnimatedSnackBar.rectangle(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                'Sign In',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Sign In',
+                  style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               const SizedBox(height: 40),
@@ -201,12 +203,12 @@ AnimatedSnackBar.rectangle(
               ),
               const SizedBox(height: 40),
               RawMaterialButton(
-                fillColor: const Color(0xFF145647),
+                fillColor: Color.fromARGB(255, 0, 0, 0),
                 elevation: 0.0,
                 padding: const EdgeInsets.symmetric(
-                    vertical: 15.0, horizontal: 100.0),
+                    vertical: 10.0, horizontal: 100.0),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
+                  borderRadius: BorderRadius.circular(1.0),
                 ),
                 onPressed: () async {
                   User? user = await loginUsingEmailPassword(
