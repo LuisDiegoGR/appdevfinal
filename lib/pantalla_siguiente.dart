@@ -96,7 +96,12 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
       body: Center(
         child: Padding(
