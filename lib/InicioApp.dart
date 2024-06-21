@@ -70,7 +70,7 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings, color: Colors.white),
+            icon: const Icon(Icons.settings, color: Colors.black),
             iconSize: 30.0,
             onPressed: () {
               Navigator.of(context).pushReplacement(
@@ -79,20 +79,9 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
             },
           )
         ],
-        backgroundColor: Colors.blue,
-        shadowColor: Colors.grey,
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xFF4C60AF),
-                Color.fromARGB(255, 37, 195, 248),
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-        ),
+        backgroundColor: Colors.white.withOpacity(0.8),
+        elevation: 15.0, // Adjust this value to increase/decrease the shadow
+        shadowColor: Colors.black.withOpacity(0.9), // Adjust shadow color
       ),
       body: Center(
         child: SingleChildScrollView(
