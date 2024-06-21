@@ -5,6 +5,7 @@ import 'package:appdevfinal/forgot_password_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 
 class PantallaSiguiente extends StatefulWidget {
   const PantallaSiguiente({super.key});
@@ -14,9 +15,9 @@ class PantallaSiguiente extends StatefulWidget {
 }
 
 class _PantallaSiguiente extends State<PantallaSiguiente> {
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _passwordVisible = false;
 
   static Future<User?> loginUsingEmailPassword({required String email, required String password}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -27,6 +28,8 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found"){
         print("No user found for that email");
+      } else if (e.code == "wrong-password") {
+        print("Incorrect password provided");
       }
     } catch (e) {
       print("Error: $e");
@@ -37,65 +40,58 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
   void ContinueDart(BuildContext context) {
     String password = _passwordController.text.trim();
 
-    if(password.isEmpty){
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Porfavor, ingresa una contraseña',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 16.0
-          ),
-          ),
-          backgroundColor: Color(0xFF145647),
-        ),
-      );
-    } else if (password.length <6){
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('La contraseña debe contener 6 caracteres',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 16.0
-          ),
-          ),
-          backgroundColor: Color(0xFF145647),
-        )
-      );
+    if (password.isEmpty) {
+AnimatedSnackBar.rectangle(
+'Warning',
+  'Ingresa una contraseña',
+  type: AnimatedSnackBarType.warning,
+  brightness: Brightness.dark,
+).show(context);
+    } else if (password.length < 6) {
+AnimatedSnackBar.rectangle(
+'Warning',
+  'La contraseña debe tener 6 caracteres',
+  type: AnimatedSnackBarType.warning,
+  brightness: Brightness.dark,
+).show(context);
     }
   }
 
-  void ContinueDart2(BuildContext context){
-    String email = _emailController.text.trim();
+  void ContinueDart2(BuildContext context) async {
+  String email = _emailController.text.trim();
+  String password = _passwordController.text.trim();
 
-    if(email.isEmpty){
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Porfavor, ingrese un correo',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 16.0
-            ),
-          ),
-          backgroundColor: Color(0xFF145647),
-        ),
+  if (email.isEmpty) {
+AnimatedSnackBar.rectangle(
+'Warning',
+  'Ingresa un correo',
+  type: AnimatedSnackBarType.warning,
+  brightness: Brightness.dark,
+).show(context);
+  } else if (!email.contains("@") || !email.contains(".com")) {
+AnimatedSnackBar.rectangle(
+'Warning',
+  'Correo invalido, falta @ o .com',
+  type: AnimatedSnackBarType.warning,
+  brightness: Brightness.dark,
+).show(context);
+  } else {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password, 
       );
-    } else if (!email.contains("@") || !email.contains(".com")){
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Correo invalido falta @ o .com',
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 16.0
-        ),
-        ),
-        backgroundColor: Color(0xFF145647),
-        ),
-      );
+    } catch (e) {
+AnimatedSnackBar.rectangle(
+'Error',
+  'Correo o contraseña invalidos verifica los campos',
+  type: AnimatedSnackBarType.error,
+  brightness: Brightness.dark,
+).show(context);
     }
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -118,9 +114,8 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
               ),
               const SizedBox(height: 40),
               Container(
-                width: 400, 
-                padding:
-                    const EdgeInsets.all(9),
+                width: 400,
+                padding: const EdgeInsets.all(9),
                 decoration: BoxDecoration(
                   color: Color.fromARGB(255, 231, 230, 230),
                   borderRadius: BorderRadius.circular(20.0),
@@ -137,9 +132,8 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
               ),
               const SizedBox(height: 10),
               Container(
-                width: 400, 
-                padding:
-                    const EdgeInsets.all(9),
+                width: 400,
+                padding: const EdgeInsets.all(9),
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 231, 230, 230),
                   borderRadius: BorderRadius.circular(20.0),
@@ -147,11 +141,27 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                 child: TextField(
                   controller: _passwordController,
                   keyboardType: TextInputType.text,
-                  obscureText: true,
-                  decoration: const InputDecoration(
+                  obscureText: !_passwordVisible,
+                  decoration: InputDecoration(
                     hintText: 'Password',
-                    prefixIcon: Icon(Icons.lock, color: Color(0xFF333333)),
+                    prefixIcon: const Icon(Icons.lock, color: Color(0xFF333333)),
                     border: InputBorder.none,
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      },
+                      child: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 200),
+                        transitionBuilder: (Widget child, Animation<double> animation) {
+                          return ScaleTransition(scale: animation, child: child);
+                        },
+                        child: _passwordVisible
+                            ? const Icon(Icons.visibility, key: Key('visible'))
+                            : const Icon(Icons.visibility_off, key: Key('invisible')),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -161,14 +171,14 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => const CreateAccn())
+                        MaterialPageRoute(builder: (context) => const CreateAccn()),
                       );
                     },
                     child: const Text(
                       'Create account',
                       style: TextStyle(
-                        color: Color(0xFF333333), 
-                        fontSize: 16, 
+                        color: Color(0xFF333333),
+                        fontSize: 16,
                       ),
                     ),
                   ),
@@ -198,40 +208,39 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
                 ),
-  onPressed: () async {
-  User? user = await loginUsingEmailPassword(
-    email: _emailController.text,
-    password: _passwordController.text,
-  );
-  if (user != null) {
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(user.uid)
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        String? role = (documentSnapshot.data() as Map<String, dynamic>)['role'];
+                onPressed: () async {
+                  User? user = await loginUsingEmailPassword(
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                  );
+                  if (user != null) {
+                    FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(user.uid)
+                        .get()
+                        .then((DocumentSnapshot documentSnapshot) {
+                      if (documentSnapshot.exists) {
+                        String? role = (documentSnapshot.data() as Map<String, dynamic>)['role'];
 
-        if (role == 'admin') {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const AdminPage()),
-          );
-        } else if (role == 'patient') {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const InicioApp()),
-          );
-        }
-      } else {
-        print('El documento del usuario no existe');
-      }
-    }).catchError((error) {
-      print('Error al obtener el rol del usuario: $error');
-    });
-  }
-  ContinueDart2(context);
-  ContinueDart(context);
-},
-
+                        if (role == 'admin') {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (context) => const AdminPage()),
+                          );
+                        } else if (role == 'patient') {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (context) => const InicioApp()),
+                          );
+                        }
+                      } else {
+                        print('El documento del usuario no existe');
+                      }
+                    }).catchError((error) {
+                      print('Error al obtener el rol del usuario: $error');
+                    });
+                  }
+                  ContinueDart2(context);
+                  ContinueDart(context);
+                },
                 child: const Text(
                   'Comenzar',
                   style: TextStyle(
