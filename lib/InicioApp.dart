@@ -149,7 +149,7 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
           ),
           // Botón Consultar Especialista
           Positioned(
-            top: MediaQuery.of(context).size.height / 3 - 50, // Ajusta la posición del botón
+            top: MediaQuery.of(context).size.height / 3 - 60, // Ajusta la posición del botón
             left: MediaQuery.of(context).size.width / 2 - 20, // Ajusta la posición del botón
             child: ElevatedButton(
               onPressed: () {
@@ -178,7 +178,7 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
           ),
           // Botón Información Pediátrica
           Positioned(
-            top: MediaQuery.of(context).size.height / 2 -(-130), // Ajusta la posición del botón
+            top: MediaQuery.of(context).size.height / 2 -(-125), // Ajusta la posición del botón
             left: MediaQuery.of(context).size.width / 3-30 , // Ajusta la posición del botón
             child: ElevatedButton(
               onPressed: () {
