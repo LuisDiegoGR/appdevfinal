@@ -73,9 +73,11 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
             icon: const Icon(Icons.settings, color: Colors.black),
             iconSize: 30.0,
             onPressed: () {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => const TerceraPag()),
-              );
+              if (mounted) {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const TerceraPag()),
+                );
+              }
             },
           )
         ],
@@ -83,61 +85,127 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
         elevation: 15.0, // Adjust this value to increase/decrease the shadow
         shadowColor: Colors.black.withOpacity(0.9), // Adjust shadow color
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 10),
-              SlideTransition(
-                position: _offsetAnimation1,
-                child: _buildCustomContainer(
-                  context,
-                  'assets/images/DocGirl.png',
-                  'Consultar Especialista',
-                  Alignment.centerLeft,
-                  -30,
-                  Alignment.centerLeft, // Alineación del texto
-                  Alignment.centerLeft, // Alineación del botón
-                  150,
-                  -100.0, // Margen superior ajustable
-                  110.0, // Desplazamiento horizontal del texto
-                  -100.0, // Desplazamiento vertical de la imagen
-                  -20.0, // Desplazamiento vertical del botón
-                  () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => const ConsultarEspecialista()),
-                    );
-                  },
-                ),
+      body: Stack(
+        children: [
+          Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 10),
+                  SlideTransition(
+                    position: _offsetAnimation1,
+                    child: _buildCustomContainer(
+                      context,
+                      'assets/images/DocGirl.png',
+                      'Consultar Especialisa',
+                      Alignment.centerLeft,
+                      -30,
+                      Alignment.centerLeft, // Alineación del texto
+                      Alignment.centerLeft, // Alineación del botón
+                      150,
+                      -50.0, // Margen superior ajustable
+                      110.0, // Desplazamiento horizontal del texto
+                      -100.0, // Desplazamiento vertical de la imagen
+                      -20.0, // Desplazamiento vertical del botón
+                      () {
+                        if (mounted) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => const ConsultarEspecialista()),
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  SlideTransition(
+                    position: _offsetAnimation2,
+                    child: _buildCustomContainer(
+                      context,
+                      'assets/images/DocMan.png',
+                      'Informacion Pediatrica',
+                      Alignment.centerRight,
+                      -70.0,
+                      Alignment.centerRight, // Alineación del texto
+                      Alignment.centerRight, // Alineación del botón
+                      -170,
+                      20.0, // Margen superior ajustable
+                      -120.0, // Desplazamiento horizontal del texto
+                      0.0, // Desplazamiento vertical de la imagen
+                      -20.0, // Desplazamiento vertical del botón
+                      () {
+                        if (mounted) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => const Informacion1()),
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 30),
-              SlideTransition(
-                position: _offsetAnimation2,
-                child: _buildCustomContainer(
-                  context,
-                  'assets/images/DocMan.png',
-                  'Informacion Pediatrica',
-                  Alignment.centerRight,
-                  -70.0,
-                  Alignment.centerRight, // Alineación del texto
-                  Alignment.centerRight, // Alineación del botón
-                  -170,
-                  20.0, // Margen superior ajustable
-                  -120.0, // Desplazamiento horizontal del texto
-                  0.0, // Desplazamiento vertical de la imagen
-                  -20.0, // Desplazamiento vertical del botón
-                  () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => const Informacion1()),
-                    );
-                  },
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          // Botón Consultar Especialista
+          Positioned(
+            top: MediaQuery.of(context).size.height / 3 - 30, // Ajusta la posición del botón
+            left: MediaQuery.of(context).size.width / 2 - 20, // Ajusta la posición del botón
+            child: ElevatedButton(
+              onPressed: () {
+                if (mounted) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const ConsultarEspecialista()),
+                  );
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+              ),
+              child: const Text(
+                'Ir',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          // Botón Información Pediátrica
+          Positioned(
+            top: MediaQuery.of(context).size.height / 2, // Ajusta la posición del botón
+            left: MediaQuery.of(context).size.width / 2 - 80, // Ajusta la posición del botón
+            child: ElevatedButton(
+              onPressed: () {
+                if (mounted) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const Informacion1()),
+                  );
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+              ),
+              child: const Text(
+                'Ir',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -165,7 +233,7 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
           // Contenedor negro
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 19),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 19),
             margin: EdgeInsets.only(top: 100 + topPadding), // Margen superior ajustable
             decoration: BoxDecoration(
               color: Colors.black,
@@ -191,30 +259,6 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Align(
-                  alignment: buttonAlignment,
-                  child: Transform.translate(
-                    offset: Offset(buttonOffset, buttonVerticalOffset),
-                    child: ElevatedButton(
-                      onPressed: onPressed,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                      ),
-                      child: const Text(
-                        'Ir',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
