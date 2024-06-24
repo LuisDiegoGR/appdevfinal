@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class TerceraPag extends StatefulWidget {
-  const TerceraPag ({Key? key}) : super(key: key);
+  const TerceraPag({Key? key}) : super(key: key);
 
   @override
   State<TerceraPag> createState() => _TerceraPagState();
@@ -34,16 +34,17 @@ class _TerceraPagState extends State<TerceraPag> {
   Future<void> _uploadImage() async {
     try {
       if (_image != null) {
-        Reference ref = FirebaseStorage.instance.ref().child('SubirImage/${FirebaseAuth.instance.currentUser!.uid}.jpg');
+        Reference ref = FirebaseStorage.instance
+            .ref()
+            .child('SubirImage/${FirebaseAuth.instance.currentUser!.uid}.jpg');
         UploadTask uploadTask = ref.putFile(_image!);
-        
+
         uploadTask.whenComplete(() async {
           try {
             String imageURL = await ref.getDownloadURL();
             User? user = FirebaseAuth.instance.currentUser;
             await user?.updatePhotoURL(imageURL);
-            setState(() {
-            });
+            setState(() {});
             print('Image uploaded successfully.');
           } catch (e) {
             print('Error getting download URL: $e');
@@ -67,7 +68,7 @@ class _TerceraPagState extends State<TerceraPag> {
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
-            color: Colors.white,
+            color: Colors.black,
           ),
           onPressed: () {
             Navigator.of(context).pushReplacement(
@@ -78,11 +79,7 @@ class _TerceraPagState extends State<TerceraPag> {
       ),
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Color(0xFF2E3192), Color(0xFF1BFFFF)],
-          ),
+          color: Colors.white,
         ),
         child: Center(
           child: Column(
@@ -96,28 +93,33 @@ class _TerceraPagState extends State<TerceraPag> {
                     backgroundImage: _image != null
                         ? FileImage(_image!)
                         : (FirebaseAuth.instance.currentUser?.photoURL != null
-                            ? NetworkImage(FirebaseAuth.instance.currentUser!.photoURL!)
-                            : const AssetImage('assets/images/Placeholder.jpg') as ImageProvider),
+                            ? NetworkImage(
+                                FirebaseAuth.instance.currentUser!.photoURL!)
+                            : const AssetImage('assets/images/Placeholder.jpg')
+                                as ImageProvider),
                     backgroundColor: Colors.white,
                   ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: IconButton(
-                      icon: const Icon(Icons.camera_alt, color: Colors.white),
-                      onPressed: _getImage,
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      shape: BoxShape.circle,
                     ),
+                      child: IconButton(
+                        icon: const Icon(Icons.camera_alt, color: Colors.white),
+                        onPressed: _getImage,
+                      ),
+                    
                   ),
                 ],
               ),
-              const SizedBox(height: 30), 
+              const SizedBox(height: 30),
               RawMaterialButton(
-                fillColor: Colors.white.withOpacity(0.2),
+                fillColor: Colors.black,
                 elevation: 0.0,
-                padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 15.0, horizontal: 20.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
-                  side: BorderSide(color: Colors.white.withOpacity(0.1), width: 2.0),
                 ),
                 onPressed: _uploadImage,
                 child: Row(
@@ -138,12 +140,12 @@ class _TerceraPagState extends State<TerceraPag> {
               ),
               const SizedBox(height: 20.0),
               RawMaterialButton(
-                fillColor: Colors.white.withOpacity(0.2),
+                fillColor: Colors.black,
                 elevation: 0.0,
-                padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 15.0, horizontal: 20.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
-                  side: BorderSide(color: Colors.white.withOpacity(0.1), width: 2.0),
                 ),
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
@@ -160,7 +162,7 @@ class _TerceraPagState extends State<TerceraPag> {
                       style: TextStyle(
                         color: Colors.white,
                         fontFamily: 'Roboto',
-                        fontSize: 15, 
+                        fontSize: 15,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -169,16 +171,17 @@ class _TerceraPagState extends State<TerceraPag> {
               ),
               const SizedBox(height: 20.0),
               RawMaterialButton(
-                fillColor: Colors.white.withOpacity(0.2),
+                fillColor: Colors.black,
                 elevation: 0.0,
-                padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 15.0, horizontal: 20.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
-                  side: BorderSide(color: Colors.white.withOpacity(0.1), width: 2.0),
                 ),
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const NotificationPage()),
+                    MaterialPageRoute(
+                        builder: (context) => const NotificationPage()),
                   );
                 },
                 child: Row(
@@ -200,12 +203,12 @@ class _TerceraPagState extends State<TerceraPag> {
               ),
               const SizedBox(height: 20.0),
               RawMaterialButton(
-                fillColor: Colors.white.withOpacity(0.2),
+                fillColor: Colors.black,
                 elevation: 0.0,
-                padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 15.0, horizontal: 20.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
-                  side: BorderSide(color: Colors.white.withOpacity(0.1), width: 2.0),
                 ),
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
