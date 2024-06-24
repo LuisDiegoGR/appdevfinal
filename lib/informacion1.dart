@@ -93,9 +93,9 @@ class _Informacion1State extends State<Informacion1> with SingleTickerProviderSt
           child: ElevatedButton(
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
-              backgroundColor: Color(0xFF33C6A4),
+              backgroundColor: Color.fromARGB(255, 0, 0, 0),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
+                borderRadius: BorderRadius.circular(1.0),
               ),
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             ),

@@ -113,16 +113,16 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Image.asset(
-              'assets/images/tre.png', 
+              'assets/images/tre.png',
               width: 200,
             ),
             const SizedBox(height: 40),
             RawMaterialButton(
-              fillColor: const Color(0xFF145647),
+              fillColor: Color.fromARGB(255, 0, 0, 0),
               elevation: 0.0,
-              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 125.0),
+              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 100.0),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0),
+                borderRadius: BorderRadius.circular(1.0),
               ),
               onPressed: () {
                 Navigator.push(
