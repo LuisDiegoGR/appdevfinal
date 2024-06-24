@@ -130,7 +130,7 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
                       Alignment.centerRight, // Alineación del texto
                       Alignment.centerRight, // Alineación del botón
                       -170,
-                      20.0, // Margen superior ajustable
+                      100.0, // Margen superior ajustable
                       -120.0, // Desplazamiento horizontal del texto
                       0.0, // Desplazamiento vertical de la imagen
                       -20.0, // Desplazamiento vertical del botón
@@ -149,7 +149,7 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
           ),
           // Botón Consultar Especialista
           Positioned(
-            top: MediaQuery.of(context).size.height / 3 - 30, // Ajusta la posición del botón
+            top: MediaQuery.of(context).size.height / 3 - 50, // Ajusta la posición del botón
             left: MediaQuery.of(context).size.width / 2 - 20, // Ajusta la posición del botón
             child: ElevatedButton(
               onPressed: () {
@@ -178,8 +178,8 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
           ),
           // Botón Información Pediátrica
           Positioned(
-            top: MediaQuery.of(context).size.height / 2, // Ajusta la posición del botón
-            left: MediaQuery.of(context).size.width / 2 - 80, // Ajusta la posición del botón
+            top: MediaQuery.of(context).size.height / 2 -(-130), // Ajusta la posición del botón
+            left: MediaQuery.of(context).size.width / 3-30 , // Ajusta la posición del botón
             child: ElevatedButton(
               onPressed: () {
                 if (mounted) {
@@ -233,8 +233,8 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
           // Contenedor negro
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 19),
-            margin: EdgeInsets.only(top: 100 + topPadding), // Margen superior ajustable
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+            margin: EdgeInsets.only(top: 50 + topPadding), // Margen superior ajustable
             decoration: BoxDecoration(
               color: Colors.black,
               borderRadius: BorderRadius.circular(10),
@@ -246,7 +246,7 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
                 Align(
                   alignment: textAlignment,
                   child: Transform.translate(
-                    offset: Offset(textHorizontalOffset, -20), // Desplazamiento horizontal del texto
+                    offset: Offset(textHorizontalOffset, -50), // Desplazamiento horizontal del texto
                     child: Text(
                       text,
                       style: const TextStyle(
