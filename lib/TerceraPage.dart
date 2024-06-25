@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:appdevfinal/Citas.dart';
+import 'package:appdevfinal/InicioApp.dart';
 import 'package:appdevfinal/Notification.dart';
 import 'package:appdevfinal/Personalinfo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -82,7 +83,11 @@ class _TerceraPagState extends State<TerceraPag> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.pop(context); // Utiliza Navigator.pop() para regresar a la pantalla anterior
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const InicioApp()),
+              (Route<dynamic> route) => false,
+            );
           },
         ),
       ),
