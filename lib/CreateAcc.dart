@@ -94,7 +94,7 @@ class _CreateAccnState extends State<CreateAccn> {
                   children: [
                     const SizedBox(height: 80), // Añadir espacio para compensar el AppBar
                     const Text(
-                      'Create Account',
+                      'Crea tu cuenta',
                       style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
                     ),
                     const SizedBox(height: 20),
@@ -308,7 +308,7 @@ class _CreateAccnState extends State<CreateAccn> {
                         _register();
                       },
                       child: const Text(
-                        'Crear',
+                        'Registrar Cuenta',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18.0,

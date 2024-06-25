@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:appdevfinal/Citas.dart';
-import 'package:appdevfinal/InicioApp.dart';
 import 'package:appdevfinal/Notification.dart';
 import 'package:appdevfinal/Personalinfo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -61,12 +60,15 @@ class _TerceraPagState extends State<TerceraPag> {
   @override
   Widget build(BuildContext context) {
     final buttonStyle = ElevatedButton.styleFrom(
-      foregroundColor: Colors.white, backgroundColor: Colors.black,
-      padding: const EdgeInsets.symmetric(vertical: 15.0),
-      minimumSize: const Size(200, 50),
+      foregroundColor: Colors.white,
+      backgroundColor: Colors.black,
+      padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
+      minimumSize: const Size(250, 60),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.0),
       ),
+      elevation: 5.0,
+      shadowColor: Colors.black.withOpacity(0.3),
     );
 
     return Scaffold(
@@ -80,9 +82,7 @@ class _TerceraPagState extends State<TerceraPag> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const InicioApp()),
-            );
+            Navigator.pop(context); // Utiliza Navigator.pop() para regresar a la pantalla anterior
           },
         ),
       ),
@@ -134,7 +134,7 @@ class _TerceraPagState extends State<TerceraPag> {
                 label: const Text(
                   'Upload Image',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -147,7 +147,7 @@ class _TerceraPagState extends State<TerceraPag> {
                 label: const Text(
                   'Informacion Personal',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -164,7 +164,7 @@ class _TerceraPagState extends State<TerceraPag> {
                 label: const Text(
                   'Notificaciones',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -181,7 +181,7 @@ class _TerceraPagState extends State<TerceraPag> {
                 label: const Text(
                   'Agendar Cita',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

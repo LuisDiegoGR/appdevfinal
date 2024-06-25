@@ -117,7 +117,7 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
                     child: _buildCustomContainer(
                       context,
                       'assets/images/DocGirl.png',
-                      'Consultar Especialisa',
+                      'Consultar Especialista',
                       Alignment.centerLeft,
                       -30,
                       Alignment.centerLeft,
