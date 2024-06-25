@@ -33,7 +33,7 @@ class _AdminPageState extends State<AdminPage> {
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
-            color: Colors.white,
+            color: Color.fromARGB(255, 0, 0, 0),
           ),
           onPressed: () {
             Navigator.of(context).pop();
@@ -45,7 +45,7 @@ class _AdminPageState extends State<AdminPage> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFF2E3192), Color(0xFF1BFFFF)],
+            colors: [Color(0xFFE8EAF6), Color(0xFF7986CB)],
           ),
         ),
         child: Center(

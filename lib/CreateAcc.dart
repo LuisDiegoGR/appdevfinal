@@ -1,9 +1,9 @@
 import 'package:appdevfinal/pantalla_siguiente.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
-enum UserRole {admin, patient}
+enum UserRole { admin, patient }
 
 class CreateAccn extends StatefulWidget {
   const CreateAccn({super.key});
@@ -22,14 +22,24 @@ class _CreateAccnState extends State<CreateAccn> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _codeController = TextEditingController();
 
   UserRole _selectedRole = UserRole.patient;
+  bool _showCodeField = false;
+  bool _codeIsValid = true;
 
   Future<void> _register() async {
+    if (_selectedRole == UserRole.admin && _codeController.text != '123librefuego') {
+      setState(() {
+        _codeIsValid = false;
+      });
+      return;
+    }
+
     try {
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
-        email: _emailController.text, 
-        password: _passwordController.text
+        email: _emailController.text,
+        password: _passwordController.text,
       );
 
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
@@ -37,195 +47,280 @@ class _CreateAccnState extends State<CreateAccn> {
         'lastName': _lastNameController.text,
         'address': _addressController.text,
         'phone': _phoneController.text,
-        'role': _selectedRole == UserRole.admin ? 'admin' : 'patient'
+        'role': _selectedRole == UserRole.admin ? 'admin' : 'patient',
       });
 
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const PantallaSiguiente()),
       );
     } catch (e) {
-      print("Error al registar usuario: $e");
+      print("Error al registrar usuario: $e");
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () {
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const PantallaSiguiente())
+              MaterialPageRoute(builder: (context) => const PantallaSiguiente()),
             );
           },
         ),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Create Account',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold
-                ),
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Color(0xFFE8EAF6), Color(0xFF7986CB)],
               ),
-              const SizedBox(height: 20),
-              DropdownButtonFormField(
-                value: _selectedRole,
-                onChanged: (value) {
-                  setState(() {
-                    _selectedRole = value!;
-                  });
-                },
-                items: UserRole.values.map((UserRole role) {
-                  return DropdownMenuItem<UserRole>(
-                    value: role,
-                    child: Text(role == UserRole.admin ? 'admin' : 'Paciente'),
-                  );
-                }).toList(),
-              ),
-              const SizedBox(height: 20),
-              Container(
-                width: 400, 
-                padding: const EdgeInsets.all(9),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 231, 230, 2030),
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                child: TextFormField(
-                  controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    labelText: 'name@example.com',
-                    prefixIcon: Icon(Icons.mail, color: Colors.black),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Container(
-                width: 400, 
-                padding:
-                    const EdgeInsets.all(9),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 231, 230, 230),
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                child: TextField(
-                  controller: _passwordController,
-                  keyboardType: TextInputType.visiblePassword,
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
-                    prefixIcon: Icon(Icons.lock, color: Colors.black),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Container(
-                width: 400, 
-                padding:
-                    const EdgeInsets.all(9),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 231, 230, 230),
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                child: TextField(
-                  controller: _nameController,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(
-                    labelText: 'Name',
-                    prefixIcon: Icon(Icons.person, color: Colors.black),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Container(
-                width: 400, 
-                padding:
-                    const EdgeInsets.all(9),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 231, 230, 230),
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                child: TextField(
-                  controller: _lastNameController,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(
-                    labelText: 'Last Name',
-                    prefixIcon: Icon(Icons.person, color: Colors.black),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Container(
-                width: 400, 
-                padding:
-                    const EdgeInsets.all(9),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 231, 230, 230),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: TextField(
-                  controller: _addressController,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(
-                    labelText: 'Address',
-                    prefixIcon: Icon(Icons.maps_home_work, color: Colors.black),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Container(
-                width: 400, 
-                padding:
-                    const EdgeInsets.all(9),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 231, 230, 230),
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                child: TextField(
-                  controller: _phoneController,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(
-                    labelText: 'Phone Number',
-                    prefixIcon: Icon(Icons.phone, color: Colors.black),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              RawMaterialButton(
-                fillColor: const Color(0xFF145647),
-                elevation: 0.0,
-                padding: const EdgeInsets.all(9),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                onPressed: () {
-                  _register();
-                },
-                child: const Text(
-                  'Create',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18.0,
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
-        ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 80), // Añadir espacio para compensar el AppBar
+                    const Text(
+                      'Create Account',
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
+                    ),
+                    const SizedBox(height: 20),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Seleccione un Rol',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: DropdownButtonFormField<UserRole>(
+                        value: _selectedRole,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedRole = value!;
+                            _showCodeField = value == UserRole.admin;
+                            _codeIsValid = true;
+                          });
+                        },
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                        items: UserRole.values.map((UserRole role) {
+                          return DropdownMenuItem<UserRole>(
+                            value: role,
+                            child: Text(
+                              role == UserRole.admin ? 'Profesional de la salud' : 'Paciente',
+                              style: const TextStyle(color: Colors.black),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    if (_showCodeField) ...[
+                      const SizedBox(height: 20),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(9),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.8),
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        child: TextFormField(
+                          controller: _codeController,
+                          cursorColor: Colors.black,
+                          style: const TextStyle(color: Colors.black),
+                          decoration: const InputDecoration(
+                            labelText: 'Código',
+                            labelStyle: TextStyle(color: Colors.black),
+                            prefixIcon: Icon(Icons.security, color: Colors.black),
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                      if (!_codeIsValid)
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.0),
+                          child: Text(
+                            'Si no cuentas con el código, comunícate con los desarrolladores.',
+                            style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                    ],
+                    const SizedBox(height: 20),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(9),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      child: TextFormField(
+                        controller: _emailController,
+                        cursorColor: Colors.black,
+                        style: const TextStyle(color: Colors.black),
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: const InputDecoration(
+                          labelText: 'Correo Electrónico',
+                          labelStyle: TextStyle(color: Colors.black),
+                          prefixIcon: Icon(Icons.mail, color: Colors.black),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(9),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      child: TextField(
+                        controller: _passwordController,
+                        cursorColor: Colors.black,
+                        style: const TextStyle(color: Colors.black),
+                        keyboardType: TextInputType.visiblePassword,
+                        decoration: const InputDecoration(
+                          labelText: 'Contraseña',
+                          labelStyle: TextStyle(color: Colors.black),
+                          prefixIcon: Icon(Icons.lock, color: Colors.black),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(9),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      child: TextField(
+                        controller: _nameController,
+                        cursorColor: Colors.black,
+                        style: const TextStyle(color: Colors.black),
+                        keyboardType: TextInputType.text,
+                        decoration: const InputDecoration(
+                          labelText: 'Nombre',
+                          labelStyle: TextStyle(color: Colors.black),
+                          prefixIcon: Icon(Icons.person, color: Colors.black),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(9),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      child: TextField(
+                        controller: _lastNameController,
+                        cursorColor: Colors.black,
+                        style: const TextStyle(color: Colors.black),
+                        keyboardType: TextInputType.text,
+                        decoration: const InputDecoration(
+                          labelText: 'Apellido',
+                          labelStyle: TextStyle(color: Colors.black),
+                          prefixIcon: Icon(Icons.person, color: Colors.black),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(9),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: TextField(
+                        controller: _addressController,
+                        cursorColor: Colors.black,
+                        style: const TextStyle(color: Colors.black),
+                        keyboardType: TextInputType.text,
+                        decoration: const InputDecoration(
+                          labelText: 'Dirección',
+                          labelStyle: TextStyle(color: Colors.black),
+                          prefixIcon: Icon(Icons.maps_home_work, color: Colors.black),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(9),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      child: TextField(
+                        controller: _phoneController,
+                        cursorColor: Colors.black,
+                        style: const TextStyle(color: Colors.black),
+                        keyboardType: TextInputType.text,
+                        decoration: const InputDecoration(
+                          labelText: 'Número de Teléfono',
+                          labelStyle: TextStyle(color: Colors.black),
+                          prefixIcon: Icon(Icons.phone, color: Colors.black),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    RawMaterialButton(
+                      fillColor: Colors.black,
+                      elevation: 0.0,
+                      padding: const EdgeInsets.all(9),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      onPressed: () {
+                        _register();
+                      },
+                      child: const Text(
+                        'Crear',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -60,6 +60,15 @@ class _TerceraPagState extends State<TerceraPag> {
 
   @override
   Widget build(BuildContext context) {
+    final buttonStyle = ElevatedButton.styleFrom(
+      foregroundColor: Colors.white, backgroundColor: Colors.black,
+      padding: const EdgeInsets.symmetric(vertical: 15.0),
+      minimumSize: const Size(200, 50),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.0),
+      ),
+    );
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -79,7 +88,11 @@ class _TerceraPagState extends State<TerceraPag> {
       ),
       body: Container(
         decoration: const BoxDecoration(
-          color: Colors.white,
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFFE8EAF6), Color(0xFF7986CB)],
+          ),
         ),
         child: Center(
           child: Column(
@@ -99,138 +112,85 @@ class _TerceraPagState extends State<TerceraPag> {
                                 as ImageProvider),
                     backgroundColor: Colors.white,
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      shape: BoxShape.circle,
-                    ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.black,
+                        shape: BoxShape.circle,
+                      ),
                       child: IconButton(
                         icon: const Icon(Icons.camera_alt, color: Colors.white),
                         onPressed: _getImage,
                       ),
-                    
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 30),
-              RawMaterialButton(
-                fillColor: Colors.black,
-                elevation: 0.0,
-                padding: const EdgeInsets.symmetric(
-                    vertical: 15.0, horizontal: 20.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.cloud_upload),
+                label: const Text(
+                  'Upload Image',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+                style: buttonStyle,
                 onPressed: _uploadImage,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Icon(Icons.cloud_upload, color: Colors.white),
-                    SizedBox(width: 10),
-                    Text(
-                      'Upload Image',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
               ),
               const SizedBox(height: 20.0),
-              RawMaterialButton(
-                fillColor: Colors.black,
-                elevation: 0.0,
-                padding: const EdgeInsets.symmetric(
-                    vertical: 15.0, horizontal: 20.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.person),
+                label: const Text(
+                  'Informacion Personal',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+                style: buttonStyle,
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => PersonalInfo()),
                   );
                 },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Icon(Icons.person, color: Colors.white),
-                    SizedBox(width: 10),
-                    Text(
-                      'Informacion Personal',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Roboto',
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
               ),
               const SizedBox(height: 20.0),
-              RawMaterialButton(
-                fillColor: Colors.black,
-                elevation: 0.0,
-                padding: const EdgeInsets.symmetric(
-                    vertical: 15.0, horizontal: 20.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.notifications),
+                label: const Text(
+                  'Notificaciones',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+                style: buttonStyle,
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                        builder: (context) => const NotificationPage()),
+                    MaterialPageRoute(builder: (context) => const NotificationPage()),
                   );
                 },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Icon(Icons.notifications, color: Colors.white),
-                    SizedBox(width: 10),
-                    Text(
-                      'Notificaciones',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Roboto',
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
               ),
               const SizedBox(height: 20.0),
-              RawMaterialButton(
-                fillColor: Colors.black,
-                elevation: 0.0,
-                padding: const EdgeInsets.symmetric(
-                    vertical: 15.0, horizontal: 20.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.calendar_today),
+                label: const Text(
+                  'Agendar Cita',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+                style: buttonStyle,
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => const Citas()),
                   );
                 },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Icon(Icons.calendar_today, color: Colors.white),
-                    SizedBox(width: 10),
-                    Text(
-                      'Agendar Cita',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Roboto',
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
               ),
               const Spacer(),
             ],

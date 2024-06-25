@@ -1,7 +1,7 @@
 import 'package:appdevfinal/TerceraPage.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
 
 class Citas extends StatefulWidget {
   const Citas({super.key});
@@ -24,118 +24,151 @@ class _CitasState extends State<Citas> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => const TerceraPag())
             );
           },
         ),
+        title: const Text(
+          'Agendar Cita',
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Spacer(),
-              Container(
-                width: 400,
-                padding: const EdgeInsets.all(9),
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 231, 230, 230),
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Nombre del Paciente',
-                  border: InputBorder.none,
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Por favor ingrese el nombre del paciente';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  _nombrePaciente = value!;
-                },
-              ),
+      extendBodyBehindAppBar: true,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFE8EAF6), Color(0xFF7986CB)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
-          SizedBox(height: 30),
-          Container(
-                width: 400,
-                padding: const EdgeInsets.all(9),
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 231, 230, 230),
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Fecha de la Cita',
-                  border: InputBorder.none,
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Por favor ingrese la fecha de la cita';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  _fechaCita = value!;
-                },
-              ),
-          ),
-          SizedBox(height: 30),
-          Container(
-                width: 400,
-                padding: const EdgeInsets.all(9),
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 231, 230, 230),
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Descripción de la Cita',
-                  border: InputBorder.none,
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Por favor ingrese la descripción de la cita';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  _descripcionCita = value!;
-                },
-              ),
-          ),
-          SizedBox(height: 30),
-          RawMaterialButton(
-                    fillColor: const Color(0xFF145647), 
+        ),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  // Aquí se reemplaza el Icon por la imagen
+                  Image.asset(
+                    'assets/images/agend.png',
+                    width: 280, // Puedes ajustar el tamaño de la imagen
+                    height: 280,
+                  ),
+                  const SizedBox(height: 20),
+                  Container(
+                    width: 400,
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 231, 230, 230).withOpacity(0.9),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    child: TextFormField(
+                      cursorColor: Colors.black,
+                      style: const TextStyle(color: Colors.black),
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.person, color: Colors.black),
+                        labelText: 'Nombre del Paciente',
+                        labelStyle: TextStyle(color: Colors.black),
+                        border: InputBorder.none,
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Por favor ingrese el nombre del paciente';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        _nombrePaciente = value!;
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Container(
+                    width: 400,
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 231, 230, 230).withOpacity(0.9),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    child: TextFormField(
+                      cursorColor: Colors.black,
+                      style: const TextStyle(color: Colors.black),
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.calendar_today, color: Colors.black),
+                        labelText: 'Fecha de la Cita',
+                        labelStyle: TextStyle(color: Colors.black),
+                        border: InputBorder.none,
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Por favor ingrese la fecha de la cita';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        _fechaCita = value!;
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Container(
+                    width: 400,
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 231, 230, 230).withOpacity(0.9),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    child: TextFormField(
+                      cursorColor: Colors.black,
+                      style: const TextStyle(color: Colors.black),
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.description, color: Colors.black),
+                        labelText: 'Descripción de la Cita',
+                        labelStyle: TextStyle(color: Colors.black),
+                        border: InputBorder.none,
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Por favor ingrese la descripción de la cita';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        _descripcionCita = value!;
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  RawMaterialButton(
+                    fillColor: Colors.black, 
                     elevation: 0.0,
                     padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 60),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _formKey.currentState!.save();
-                      _registrarCita();
-                    }
-                  },
-                  child: const Text(
-                    'Registrar Cita',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14.0,
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        _formKey.currentState!.save();
+                        _registrarCita();
+                      }
+                    },
+                    child: const Text(
+                      'Registrar Cita',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-              
-              Spacer(),
-            ],
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -146,7 +179,7 @@ class _CitasState extends State<Citas> {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       String uid = user.uid;
-      databaseReference.child('citas').child(uid).set({
+      databaseReference.child('citas').child(uid).push().set({
         'paciente': _nombrePaciente,
         'fecha': _fechaCita,
         'descripcion': _descripcionCita,

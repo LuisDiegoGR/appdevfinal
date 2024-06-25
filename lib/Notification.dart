@@ -24,77 +24,49 @@ class _NotificationPageState extends State<NotificationPage> {
           },
         ),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Notificaciones',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontFamily: 'Roboto'
+      extendBodyBehindAppBar: true, // Extiende el cuerpo detrás de la AppBar
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFE8EAF6), Color(0xFF7986CB)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Agregar la imagen dev.png
+                Image.asset(
+                  'assets/images/dev.png',
+                  width: 250,
+                  height: 250,
                 ),
-              ),
-              const SizedBox(height: 24),
-              Container(
-                width: 350,
-                height: 200,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFE6E6E6),
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: const Center(
-                  child: Text(
-                    'Title Notification',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                const SizedBox(height: 24),
+                // Mensaje de mantenimiento
+                const Text(
+                  'Página en Mantenimiento',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                )
-              ),
-              const SizedBox(height: 24),
-              Container(
-                width: 350,
-                height: 200,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFE6E6E6),
-                  borderRadius: BorderRadius.circular(30),
+                  textAlign: TextAlign.center,
                 ),
-                child: const Center(
-                  child: Text(
-                    'Title Notification',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                const SizedBox(height: 16),
+                const Text(
+                  'Estamos trabajando para mejorar. Por favor, regrese pronto.',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
                   ),
-                )
-              ),
-              const SizedBox(height: 24),
-              Container(
-                width: 350,
-                height: 200,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFE6E6E6),
-                  borderRadius: BorderRadius.circular(30),
+                  textAlign: TextAlign.center,
                 ),
-                child: const Center(
-                  child: Text(
-                    'Title Notification',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

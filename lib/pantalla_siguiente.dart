@@ -130,6 +130,7 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                 child: TextField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
+                  cursorColor: Colors.black,
                   decoration: const InputDecoration(
                     hintText: 'name@example.com',
                     prefixIcon: Icon(Icons.mail, color: Color(0xFF333333)),
@@ -149,6 +150,7 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                   controller: _passwordController,
                   keyboardType: TextInputType.text,
                   obscureText: !_passwordVisible,
+                  cursorColor: Colors.black,
                   decoration: InputDecoration(
                     hintText: 'Password',
                     prefixIcon: const Icon(Icons.lock, color: Color(0xFF333333)),
@@ -199,7 +201,7 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                     child: const Text(
                       'Forgot Password?',
                       style: TextStyle(
-                        color: Color(0xFF333333),
+                        color: Color.fromARGB(255, 0, 0, 0),
                         fontSize: 16,
                       ),
                     ),
