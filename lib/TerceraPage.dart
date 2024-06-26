@@ -72,133 +72,144 @@ class _TerceraPagState extends State<TerceraPag> {
       shadowColor: Colors.black.withOpacity(0.3),
     );
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
+    return WillPopScope(
+      onWillPop: () async {
+        // Mismo comportamiento que el botón de la AppBar
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const InicioApp()),
+          (Route<dynamic> route) => false,
+        );
+        return false; // Evita el comportamiento predeterminado del botón de retroceso
+      },
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const InicioApp()),
+                (Route<dynamic> route) => false,
+              );
+            },
           ),
-          onPressed: () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const InicioApp()),
-              (Route<dynamic> route) => false,
-            );
-          },
         ),
-      ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFFE8EAF6), Color(0xFF7986CB)],
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color(0xFFE8EAF6), Color(0xFF7986CB)],
+            ),
           ),
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Spacer(),
-              Stack(
-                children: [
-                  CircleAvatar(
-                    radius: 80,
-                    backgroundImage: _image != null
-                        ? FileImage(_image!)
-                        : (FirebaseAuth.instance.currentUser?.photoURL != null
-                            ? NetworkImage(
-                                FirebaseAuth.instance.currentUser!.photoURL!)
-                            : const AssetImage('assets/images/Placeholder.jpg')
-                                as ImageProvider),
-                    backgroundColor: Colors.white,
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.black,
-                        shape: BoxShape.circle,
-                      ),
-                      child: IconButton(
-                        icon: const Icon(Icons.camera_alt, color: Colors.white),
-                        onPressed: _getImage,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Spacer(),
+                Stack(
+                  children: [
+                    CircleAvatar(
+                      radius: 80,
+                      backgroundImage: _image != null
+                          ? FileImage(_image!)
+                          : (FirebaseAuth.instance.currentUser?.photoURL != null
+                              ? NetworkImage(
+                                  FirebaseAuth.instance.currentUser!.photoURL!)
+                              : const AssetImage('assets/images/Placeholder.jpg')
+                                  as ImageProvider),
+                      backgroundColor: Colors.white,
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.black,
+                          shape: BoxShape.circle,
+                        ),
+                        child: IconButton(
+                          icon: const Icon(Icons.camera_alt, color: Colors.white),
+                          onPressed: _getImage,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 30),
-              ElevatedButton.icon(
-                icon: const Icon(Icons.cloud_upload),
-                label: const Text(
-                  'Upload Image',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  ],
                 ),
-                style: buttonStyle,
-                onPressed: _uploadImage,
-              ),
-              const SizedBox(height: 20.0),
-              ElevatedButton.icon(
-                icon: const Icon(Icons.person),
-                label: const Text(
-                  'Informacion Personal',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                const SizedBox(height: 30),
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.cloud_upload),
+                  label: const Text(
+                    'Upload Image',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
+                  style: buttonStyle,
+                  onPressed: _uploadImage,
                 ),
-                style: buttonStyle,
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => PersonalInfo()),
-                  );
-                },
-              ),
-              const SizedBox(height: 20.0),
-              ElevatedButton.icon(
-                icon: const Icon(Icons.notifications),
-                label: const Text(
-                  'Notificaciones',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                const SizedBox(height: 20.0),
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.person),
+                  label: const Text(
+                    'Informacion Personal',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
+                  style: buttonStyle,
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => PersonalInfo()),
+                    );
+                  },
                 ),
-                style: buttonStyle,
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const NotificationPage()),
-                  );
-                },
-              ),
-              const SizedBox(height: 20.0),
-              ElevatedButton.icon(
-                icon: const Icon(Icons.calendar_today),
-                label: const Text(
-                  'Agendar Cita',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                const SizedBox(height: 20.0),
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.notifications),
+                  label: const Text(
+                    'Notificaciones',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
+                  style: buttonStyle,
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => const NotificationPage()),
+                    );
+                  },
                 ),
-                style: buttonStyle,
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const Citas()),
-                  );
-                },
-              ),
-              const Spacer(),
-            ],
+                const SizedBox(height: 20.0),
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.calendar_today),
+                  label: const Text(
+                    'Agendar Cita',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  style: buttonStyle,
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => const Citas()),
+                    );
+                  },
+                ),
+                const Spacer(),
+              ],
+            ),
           ),
         ),
       ),
