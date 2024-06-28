@@ -47,138 +47,70 @@ class _PageEstimulacionState extends State<PageEstimulacion> with SingleTickerPr
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const Informacion1()),
-            );
-          },
+      extendBodyBehindAppBar: true,
+      body: Stack(
+        children: [
+      Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
         ),
-      ),
-      body: SingleChildScrollView(
+        child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              const SizedBox(height: 80),
               SlideTransition(
                 position: _offsetAnimation,
                 child: FadeTransition(
                   opacity: _fadeAnimation,
                   child: const Text(
                     'Tecnicas de valoracion inicial en el recien nacido',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, fontFamily: 'Roboto'),
                     textAlign: TextAlign.center,
                   ),
                 ),
               ),
-              const SizedBox(height: 5),
-              SlideTransition(
-                position: _offsetAnimation,
-                child: FadeTransition(
-                  opacity: _fadeAnimation,
-                  child: const Text(
-                    'APGAR',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 33, 9, 250)),
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-              ),
+              const SizedBox(height: 23),
+                                  SlideTransition(
+                      position: _offsetAnimation,
+                      child: FadeTransition(
+                        opacity: _fadeAnimation,
+                        child: const Text(
+                          'Esta escala se aplica al recién nacido al minuto de haber nacido y a los 5 minutos, evaluando la frecuencia cardiaca, respiración, reflejos, tono muscular y color. De esta manera se cuantifican los signos de depresión neonatal.',
+                          style: TextStyle(fontSize: 18),
+                          textAlign: TextAlign.justify,
+                        ),
+                      ),
+                    ),
+              const SizedBox(height: 23),
+                                  SlideTransition(
+                      position: _offsetAnimation,
+                      child: FadeTransition(
+                        opacity: _fadeAnimation,
+                        child: const Text(
+                          'Un puntaje  de 0 a 3 en a los 5 minutos se correlaciona con mortalidad neonatal en grandes poblaciones sin predecir disfunción neurológica.',
+                          style: TextStyle(fontSize: 18),
+                          textAlign: TextAlign.justify,
+                        ),
+                      ),
+                    ),
               const SizedBox(height: 23),
               SlideTransition(
-                position: _offsetAnimation,
-                child: FadeTransition(
-                  opacity: _fadeAnimation,
-                  child: RichText(
-                    textAlign: TextAlign.justify,
-                    text: const TextSpan(
-                      style: TextStyle(fontSize: 20),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'Esta escala se aplica',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
+                      position: _offsetAnimation,
+                      child: FadeTransition(
+                        opacity: _fadeAnimation,
+                        child: const Text(
+                          'Un bajo puntaje de APGAR a los minutos conlleva mayor riesgo de parálisis cerebral, Si el puntaje a los 5 minutos es de 7 o más, es poco probable que la hipoxia isquémica periparto causara encefalopatía neonatal.',
+                          style: TextStyle(fontSize: 18),
+                          textAlign: TextAlign.justify,
                         ),
-                        TextSpan(
-                          text: ' al recién nacido al minuto de haber nacido y a los 5 minutos, evaluando la frecuencia cardiaca, respiración, reflejos, tono muscular y color. De esta manera se cuantifican los signos de depresión neonatal. ',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 23),
-              SlideTransition(
-                position: _offsetAnimation,
-                child: FadeTransition(
-                  opacity: _fadeAnimation,
-                  child: RichText(
-                    textAlign: TextAlign.justify,
-                    text: const TextSpan(
-                      style: TextStyle(fontSize: 20),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'Un puntaje',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        TextSpan(
-                          text: ' de 0 a 3 en a los 5 minutos se correlaciona con mortalidad neonatal en grandes poblaciones sin predecir disfunción neurológica.',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 23),
-              SlideTransition(
-                position: _offsetAnimation,
-                child: FadeTransition(
-                  opacity: _fadeAnimation,
-                  child: RichText(
-                    textAlign: TextAlign.justify,
-                    text: const TextSpan(
-                      style: TextStyle(fontSize: 20),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'Un bajo puntaje',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        TextSpan(
-                          text: ' de APGAR a los minutos conlleva mayor riesgo de parálisis cerebral, Si el puntaje a los 5 minutos es de 7 o más, es poco probable que la hipoxia isquémica periparto causara encefalopatía neonatal',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 32),
-              SlideTransition(
-                position: _offsetAnimation,
-                child: FadeTransition(
-                  opacity: _fadeAnimation,
-                ),
-              ),
               SizedBox(height: 40),
               RawMaterialButton(
-                fillColor: Colors.blue,
+                fillColor: Colors.black,
                 padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25),
@@ -196,10 +128,26 @@ class _PageEstimulacionState extends State<PageEstimulacion> with SingleTickerPr
                   ),
                 ),
               ),
+              const SizedBox(height: 150),
             ],
           ),
         ),
       ),
+      ),
+      Positioned(
+            top: 40,
+            left: 16,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+              onPressed: () {
+Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const Informacion1()),
+            );
+              },
+            ),
+          ),
+      ],
+    ),
     );
   }
 }
@@ -207,3 +155,8 @@ class _PageEstimulacionState extends State<PageEstimulacion> with SingleTickerPr
 void main() => runApp(const MaterialApp(
   home: PageEstimulacion(),
 ));
+
+
+//Un bajo puntaje de APGAR a los minutos conlleva mayor riesgo de parálisis cerebral, Si el puntaje a los 5 minutos es de 7 o más, es poco probable que la hipoxia isquémica periparto causara encefalopatía neonatal
+//Un puntaje  de 0 a 3 en a los 5 minutos se correlaciona con mortalidad neonatal en grandes poblaciones sin predecir disfunción neurológica.
+//Esta escala se aplica al recién nacido al minuto de haber nacido y a los 5 minutos, evaluando la frecuencia cardiaca, respiración, reflejos, tono muscular y color. De esta manera se cuantifican los signos de depresión neonatal.

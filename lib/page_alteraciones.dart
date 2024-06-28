@@ -157,7 +157,7 @@ class _PageAlteracionesState extends State<PageAlteraciones> with SingleTickerPr
                 child: FadeTransition(
                   opacity: _fadeAnimation,
                   child: RawMaterialButton(
-                    fillColor: Colors.blue,
+                    fillColor: Colors.black,
                     padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25),

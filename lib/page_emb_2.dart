@@ -47,27 +47,20 @@ class _PageEmb2State extends State<PageEmb2> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-      slivers: [
-      SliverAppBar(
-        pinned: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => PageEmbarazo())
-            );
-          },
-        ),
-      ),
-     SliverToBoxAdapter(
+      extendBodyBehindAppBar: true,
+      body: Stack(
+        children: [
+     Container(
+           decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+        child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              const SizedBox(height: 50),
               SlideTransition(
                 position: _offsetAnimation,
                 child: FadeTransition(
@@ -92,7 +85,7 @@ class _PageEmb2State extends State<PageEmb2> with SingleTickerProviderStateMixin
                         TextSpan(
                           text: 'Antecedentes de embarazos previos',
                           style: TextStyle(
-                            color: Colors.green,
+                            color: Colors.black,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -116,7 +109,7 @@ class _PageEmb2State extends State<PageEmb2> with SingleTickerProviderStateMixin
                   child: const Text(
                     'Características propias de la madre',
                     style: TextStyle(
-                      color: Colors.green,
+                      color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
@@ -217,7 +210,7 @@ class _PageEmb2State extends State<PageEmb2> with SingleTickerProviderStateMixin
                   child: const Text(
                     'En este momento se tienen que realizar acciones preventivas como:',
                     style: TextStyle(
-                      color: Colors.green,
+                      color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
@@ -280,7 +273,7 @@ class _PageEmb2State extends State<PageEmb2> with SingleTickerProviderStateMixin
                 child: FadeTransition(
                   opacity: _fadeAnimation,
                   child: RawMaterialButton(
-                    fillColor: Colors.green,
+                    fillColor: Colors.black,
                     elevation: 0.0,
                     padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 100),
                     shape: RoundedRectangleBorder(
@@ -306,8 +299,23 @@ class _PageEmb2State extends State<PageEmb2> with SingleTickerProviderStateMixin
           ),
         ),
       ),
-      ],
+      ),
+      Positioned(
+            top: 40,
+            left: 16,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+              onPressed: () {
+Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => PageEmbarazo())
+            );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+
+

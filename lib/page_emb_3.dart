@@ -47,26 +47,19 @@ class _PageEmb3State extends State<PageEmb3> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  CustomScrollView(
-      slivers: [
-      SliverAppBar(
-        pinned: true,
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const PageEmb2())
-            );
-          },
-        ),
-      ),
-      SliverToBoxAdapter(
+      body:  Stack(
+      children: [
+      Container(
+        decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              const SizedBox(height: 35),
               SlideTransition(
                 position: _offsetAnimation,
                 child: FadeTransition(
@@ -307,6 +300,19 @@ class _PageEmb3State extends State<PageEmb3> with SingleTickerProviderStateMixin
           ),
         ),
       ),
+      ),
+      Positioned(
+            top: 40,
+            left: 16,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+              onPressed: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const PageEmb2())
+            );
+              },
+            ),
+          ),
       ],
       ),
     );
