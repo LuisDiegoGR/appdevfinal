@@ -45,7 +45,7 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
         'Warning',
         'Ingresa una contraseña',
         type: AnimatedSnackBarType.warning,
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
       ).show(context);
     } else if (password.length < 6) {
       AnimatedSnackBar.rectangle(

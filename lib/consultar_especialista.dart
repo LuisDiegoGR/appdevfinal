@@ -1,40 +1,78 @@
+import 'package:appdevfinal/InicioApp.dart';
 import 'package:flutter/material.dart';
 
 class ConsultarEspecialista extends StatefulWidget {
-  const ConsultarEspecialista({super.key});
+  const ConsultarEspecialista({Key? key}) : super(key: key);
 
   @override
   _ConsultarEspecialistaState createState() => _ConsultarEspecialistaState();
 }
 
-class _ConsultarEspecialistaState extends State<ConsultarEspecialista> {
+class _ConsultarEspecialistaState extends State<ConsultarEspecialista> with SingleTickerProviderStateMixin {
   final TextEditingController _textController = TextEditingController();
-  final List<Map<String, dynamic>> _messages = []; 
+  final List<Map<String, dynamic>> _messages = [];
   bool _showDoctorAvailability = true;
-
-  void _sendMessage(String message) {
-    setState(() {
-      _messages.insert(0, {'text': message, 'isUser': true}); 
-    });
-    _textController.clear();
-
-    Future.delayed(const Duration(seconds: 1), () {
-      setState(() {
-        _messages.insert(0, {
-          'text': 'Respuesta de la Doctora Maria Eugenia: $message',
-          'isUser': false
-        });
-      });
-    });
-  }
+  late AnimationController _controller;
+  late Animation<Offset> _offsetAnimation;
+  late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
     super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+
+    _offsetAnimation = Tween<Offset>(
+      begin: const Offset(0.0, -1.0),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    ));
+
+    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(_controller);
+
+    _controller.forward();
+
     Future.delayed(const Duration(seconds: 5), () {
-      setState(() {
-        _showDoctorAvailability = false;
-      });
+      if (mounted) {
+        setState(() {
+          _showDoctorAvailability = false;
+        });
+      }
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _controller.forward(from: 0.0); // Reinicia la animación desde el inicio
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _sendMessage(String message) {
+    setState(() {
+      _messages.insert(0, {'text': message, 'isUser': true});
+    });
+    _textController.clear();
+
+    Future.delayed(const Duration(seconds: 1), () {
+      if (mounted) {
+        setState(() {
+          _messages.insert(0, {
+            'text': 'Respuesta de la Doctora Maria Eugenia: $message',
+            'isUser': false
+          });
+        });
+      }
     });
   }
 
@@ -90,74 +128,137 @@ class _ConsultarEspecialistaState extends State<ConsultarEspecialista> {
     );
   }
 
+  Future<bool> _onWillPop() async {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const InicioApp()),
+      (Route<dynamic> route) => false,
+    );
+    return false; // Evita el comportamiento predeterminado del botón de retroceso
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          AnimatedOpacity(
-            duration: const Duration(seconds: 2),
-            opacity: _showDoctorAvailability ? 1.0 : 0.0,
-            curve: Curves.easeInOut,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                padding: const EdgeInsets.all(12),
-                margin: const EdgeInsets.only(top: 20, left: 10, right: 10),
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Text(
-                  'Especialista médico disponible de lunes a viernes de 14:00 a 15:00',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color(0xFFE8EAF6), Color(0xFF7986CB)],
                 ),
               ),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              reverse: true, 
-              itemCount: _messages.length,
-              itemBuilder: (BuildContext context, int index) {
-                final message = _messages[index];
-                final isUser = message['isUser'];
-                return _buildMessage(message, isUser);
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: TextField(
-                    controller: _textController,
-                    decoration: InputDecoration(
-                      labelText: 'Consulta tus dudas',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
+              child: Column(
+                children: <Widget>[
+                  SafeArea(
+                    child: Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+                          onPressed: () {
+                            Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(builder: (context) => const InicioApp()),
+                              (Route<dynamic> route) => false,
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  SlideTransition(
+                    position: _offsetAnimation,
+                    child: FadeTransition(
+                      opacity: _fadeAnimation,
+                      child: AnimatedOpacity(
+                        duration: const Duration(seconds: 2),
+                        opacity: _showDoctorAvailability ? 1.0 : 0.0,
+                        curve: Curves.easeInOut,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            padding: const EdgeInsets.all(12),
+                            margin: const EdgeInsets.only(top: 20, left: 10, right: 10),
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 0, 0, 0),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Text(
+                              'Especialista médico disponible de lunes a viernes de 14:00 a 15:00',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 8),
-                IconButton(
-                  icon: const Icon(Icons.send, color: Colors.blue),
-                  onPressed: () {
-                    if (_textController.text.isNotEmpty) {
-                      _sendMessage(_textController.text);
-                    }
-                  },
-                ),
-              ],
+                  Expanded(
+                    child: ListView.builder(
+                      reverse: true,
+                      itemCount: _messages.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final message = _messages[index];
+                        final isUser = message['isUser'];
+                        return _buildMessage(message, isUser);
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: TextField(
+                            controller: _textController,
+                            cursorColor: Colors.black,
+                            style: const TextStyle(color: Colors.black),
+                            decoration: InputDecoration(
+                              labelText: 'Consulta tus dudas',
+                              labelStyle: const TextStyle(color: Colors.black),
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        IconButton(
+                          icon: const Icon(Icons.send, color: Colors.black),
+                          onPressed: () {
+                            if (_textController.text.isNotEmpty) {
+                              _sendMessage(_textController.text);
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+            Center(
+              child: Container(
+                width: 250,
+                height: 250,
+                child: Image.asset(
+                  'assets/images/ride.gif',
+                  width: 250,
+                  height: 250,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
