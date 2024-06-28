@@ -21,6 +21,7 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
   late Animation<Offset> _offsetAnimation2;
   late Animation<Offset> _offsetAnimationButton1;
   late Animation<Offset> _offsetAnimationButton2;
+  late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
@@ -62,7 +63,15 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
       curve: Curves.easeInOut,
     ));
 
+    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(_controller);
+
     _controller.forward();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _controller.forward(from: 0.0); // Reinicia la animación desde el inicio
   }
 
   @override
@@ -92,7 +101,7 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
             iconSize: 30.0,
             onPressed: () {
               if (mounted) {
-                Navigator.of(context).pushReplacement(
+                Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const TerceraPag()),
                 );
               }
@@ -114,51 +123,57 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
                   const SizedBox(height: 10),
                   SlideTransition(
                     position: _offsetAnimation1,
-                    child: _buildCustomContainer(
-                      context,
-                      'assets/images/DocGirl.png',
-                      'Consultar Especialista',
-                      Alignment.centerLeft,
-                      -30,
-                      Alignment.centerLeft,
-                      Alignment.centerLeft,
-                      150,
-                      -50.0,
-                      110.0,
-                      -100.0,
-                      -20.0,
-                      () {
-                        if (mounted) {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => const ConsultarEspecialista()),
-                          );
-                        }
-                      },
+                    child: FadeTransition(
+                      opacity: _fadeAnimation,
+                      child: _buildCustomContainer(
+                        context,
+                        'assets/images/DocGirl.png',
+                        'Consultar Especialista',
+                        Alignment.centerLeft,
+                        -30,
+                        Alignment.centerLeft,
+                        Alignment.centerLeft,
+                        150,
+                        -50.0,
+                        110.0,
+                        -100.0,
+                        -20.0,
+                        () {
+                          if (mounted) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => const ConsultarEspecialista()),
+                            );
+                          }
+                        },
+                      ),
                     ),
                   ),
                   const SizedBox(height: 30),
                   SlideTransition(
                     position: _offsetAnimation2,
-                    child: _buildCustomContainer(
-                      context,
-                      'assets/images/DocMan.png',
-                      'Informacion Pediatrica',
-                      Alignment.centerRight,
-                      -70.0,
-                      Alignment.centerRight,
-                      Alignment.centerRight,
-                      -170,
-                      100.0,
-                      -120.0,
-                      0.0,
-                      -20.0,
-                      () {
-                        if (mounted) {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => const Informacion1()),
-                          );
-                        }
-                      },
+                    child: FadeTransition(
+                      opacity: _fadeAnimation,
+                      child: _buildCustomContainer(
+                        context,
+                        'assets/images/DocMan.png',
+                        'Informacion Pediatrica',
+                        Alignment.centerRight,
+                        -70.0,
+                        Alignment.centerRight,
+                        Alignment.centerRight,
+                        -170,
+                        100.0,
+                        -120.0,
+                        0.0,
+                        -20.0,
+                        () {
+                          if (mounted) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => const Informacion1()),
+                            );
+                          }
+                        },
+                      ),
                     ),
                   ),
                 ],
@@ -170,58 +185,64 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
             left: MediaQuery.of(context).size.width / 2 - 20,
             child: SlideTransition(
               position: _offsetAnimationButton1,
-              child: ElevatedButton(
-                onPressed: () {
-                  if (mounted) {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => const ConsultarEspecialista()),
-                    );
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+              child: FadeTransition(
+                opacity: _fadeAnimation,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (mounted) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => const ConsultarEspecialista()),
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                ),
-                child: const Text(
-                  'Ir',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
+                  child: const Text(
+                    'Ir',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
             ),
           ),
           Positioned(
-            top: MediaQuery.of(context).size.height / 2 -(-125),
-            left: MediaQuery.of(context).size.width / 3-30,
+            top: MediaQuery.of(context).size.height / 2 - (-125),
+            left: MediaQuery.of(context).size.width / 3 - 30,
             child: SlideTransition(
               position: _offsetAnimationButton2,
-              child: ElevatedButton(
-                onPressed: () {
-                  if (mounted) {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => const Informacion1()),
-                    );
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+              child: FadeTransition(
+                opacity: _fadeAnimation,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (mounted) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => const Informacion1()),
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                ),
-                child: const Text(
-                  'Ir',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
+                  child: const Text(
+                    'Ir',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -287,7 +308,10 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
             top: -10 + imageVerticalOffset,
             left: alignment == Alignment.centerLeft ? -80 + imageOffset : null,
             right: alignment == Alignment.centerRight ? -100 + imageOffset : null,
-            child: _buildImage(imagePath),
+            child: FadeTransition(
+              opacity: _fadeAnimation,
+              child: _buildImage(imagePath),
+            ),
           ),
         ],
       ),
@@ -306,3 +330,7 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
     );
   }
 }
+
+void main() => runApp(const MaterialApp(
+  home: InicioApp(),
+));

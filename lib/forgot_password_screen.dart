@@ -82,6 +82,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  Image.asset(
+                    'assets/images/forget.png',
+                    height: 250,
+                  ),
+                  const SizedBox(height: 40),
                   const Text(
                     'Restablece tu Contraseña',
                     style: TextStyle(

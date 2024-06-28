@@ -87,123 +87,131 @@ class _CitasRebState extends State<CitasReb> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Color(0xFFE8EAF6), Color(0xFF7986CB)],
-              ),
-            ),
-          ),
-          Column(
-            children: [
-              AppBar(
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                leading: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios),
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => const AdminPage()),
-                    );
-                  },
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const AdminPage()),
+        );
+        return false; // Retorna false para evitar el comportamiento predeterminado del botón de retroceso.
+      },
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color(0xFFE8EAF6), Color(0xFF7986CB)],
                 ),
               ),
-              SizedBox(
-                width: 250,
-                height: 250,
-                child: Image.asset('assets/images/doctora.png'),
-              ),
-              Expanded(
-                child: _isLoading
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : _citas.isEmpty
-                        ? const SizedBox.shrink()
-                        : SingleChildScrollView(
-                            child: ListView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: _citas.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                if (index < 0 ||
-                                    index >= _citas.length ||
-                                    index >= _keys.length) {
-                                  return const SizedBox.shrink();
-                                }
-                                Map<dynamic, dynamic> cita = _citas[index];
-                                String key = _keys[index];
-                                return Padding(
-                                  padding: const EdgeInsets.all(25),
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25.0),
-                                    ),
-                                    elevation: 5,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Paciente: ${cita['paciente'] ?? 'Desconocido'}',
-                                            style: const TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
+            ),
+            Column(
+              children: [
+                AppBar(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  leading: IconButton(
+                    icon: const Icon(Icons.arrow_back_ios),
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => const AdminPage()),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: 250,
+                  height: 250,
+                  child: Image.asset('assets/images/doctora.png'),
+                ),
+                Expanded(
+                  child: _isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : _citas.isEmpty
+                          ? const SizedBox.shrink()
+                          : SingleChildScrollView(
+                              child: ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: _citas.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  if (index < 0 ||
+                                      index >= _citas.length ||
+                                      index >= _keys.length) {
+                                    return const SizedBox.shrink();
+                                  }
+                                  Map<dynamic, dynamic> cita = _citas[index];
+                                  String key = _keys[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.all(25),
+                                    child: Card(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(25.0),
+                                      ),
+                                      elevation: 5,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Paciente: ${cita['paciente'] ?? 'Desconocido'}',
+                                              style: const TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
-                                          ),
-                                          const SizedBox(height: 8),
-                                          Text('Fecha: ${cita['fecha'] ?? 'Desconocida'}'),
-                                          const SizedBox(height: 4),
-                                          Text('Descripción: ${cita['descripcion'] ?? 'Sin descripción'}'),
-                                          const SizedBox(height: 16),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            children: [
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                  color: Colors.red.withOpacity(0.2),
-                                                  shape: BoxShape.circle,
+                                            const SizedBox(height: 8),
+                                            Text('Fecha: ${cita['fecha'] ?? 'Desconocida'}'),
+                                            const SizedBox(height: 4),
+                                            Text('Descripción: ${cita['descripcion'] ?? 'Sin descripción'}'),
+                                            const SizedBox(height: 16),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.end,
+                                              children: [
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.red.withOpacity(0.2),
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: IconButton(
+                                                    icon: const Icon(Icons.delete, color: Colors.red),
+                                                    onPressed: () {
+                                                      _deleteCita(key);
+                                                    },
+                                                  ),
                                                 ),
-                                                child: IconButton(
-                                                  icon: const Icon(Icons.delete, color: Colors.red),
-                                                  onPressed: () {
-                                                    _deleteCita(key);
-                                                  },
+                                                const SizedBox(width: 16),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.green.withOpacity(0.2),
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: IconButton(
+                                                    icon: const Icon(Icons.check, color: Colors.green),
+                                                    onPressed: () {
+                                                      _acceptCita(key, cita);
+                                                    },
+                                                  ),
                                                 ),
-                                              ),
-                                              const SizedBox(width: 16),
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                  color: Colors.green.withOpacity(0.2),
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: IconButton(
-                                                  icon: const Icon(Icons.check, color: Colors.green),
-                                                  onPressed: () {
-                                                    _acceptCita(key, cita);
-                                                  },
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              },
+                                  );
+                                },
+                              ),
                             ),
-                          ),
-              ),
-            ],
-          ),
-        ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

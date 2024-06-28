@@ -16,9 +16,46 @@ class TerceraPag extends StatefulWidget {
   State<TerceraPag> createState() => _TerceraPagState();
 }
 
-class _TerceraPagState extends State<TerceraPag> {
+class _TerceraPagState extends State<TerceraPag> with SingleTickerProviderStateMixin {
   final ImagePicker _picker = ImagePicker();
   File? _image;
+  late AnimationController _controller;
+  late Animation<double> _fadeAnimation;
+  late Animation<Offset> _slideAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    );
+
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeIn,
+      ),
+    );
+
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.2),
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeInOut,
+      ),
+    );
+
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   Future<void> _getImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -74,13 +111,12 @@ class _TerceraPagState extends State<TerceraPag> {
 
     return WillPopScope(
       onWillPop: () async {
-        // Mismo comportamiento que el botón de la AppBar
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const InicioApp()),
           (Route<dynamic> route) => false,
         );
-        return false; // Evita el comportamiento predeterminado del botón de retroceso
+        return false;
       },
       child: Scaffold(
         extendBodyBehindAppBar: true,
@@ -110,105 +146,111 @@ class _TerceraPagState extends State<TerceraPag> {
             ),
           ),
           child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Spacer(),
-                Stack(
+            child: FadeTransition(
+              opacity: _fadeAnimation,
+              child: SlideTransition(
+                position: _slideAnimation,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircleAvatar(
-                      radius: 80,
-                      backgroundImage: _image != null
-                          ? FileImage(_image!)
-                          : (FirebaseAuth.instance.currentUser?.photoURL != null
-                              ? NetworkImage(
-                                  FirebaseAuth.instance.currentUser!.photoURL!)
-                              : const AssetImage('assets/images/Placeholder.jpg')
-                                  as ImageProvider),
-                      backgroundColor: Colors.white,
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.black,
-                          shape: BoxShape.circle,
+                    const Spacer(),
+                    Stack(
+                      children: [
+                        CircleAvatar(
+                          radius: 80,
+                          backgroundImage: _image != null
+                              ? FileImage(_image!)
+                              : (FirebaseAuth.instance.currentUser?.photoURL != null
+                                  ? NetworkImage(
+                                      FirebaseAuth.instance.currentUser!.photoURL!)
+                                  : const AssetImage('assets/images/Placeholder.jpg')
+                                      as ImageProvider),
+                          backgroundColor: Colors.white,
                         ),
-                        child: IconButton(
-                          icon: const Icon(Icons.camera_alt, color: Colors.white),
-                          onPressed: _getImage,
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: Colors.black,
+                              shape: BoxShape.circle,
+                            ),
+                            child: IconButton(
+                              icon: const Icon(Icons.camera_alt, color: Colors.white),
+                              onPressed: _getImage,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 30),
+                    ElevatedButton.icon(
+                      icon: const Icon(Icons.cloud_upload),
+                      label: const Text(
+                        'Upload Image',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
+                      style: buttonStyle,
+                      onPressed: _uploadImage,
                     ),
+                    const SizedBox(height: 20.0),
+                    ElevatedButton.icon(
+                      icon: const Icon(Icons.person),
+                      label: const Text(
+                        'Informacion Personal',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      style: buttonStyle,
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => PersonalInfo()),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 20.0),
+                    ElevatedButton.icon(
+                      icon: const Icon(Icons.notifications),
+                      label: const Text(
+                        'Notificaciones',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      style: buttonStyle,
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => const NotificationPage()),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 20.0),
+                    ElevatedButton.icon(
+                      icon: const Icon(Icons.calendar_today),
+                      label: const Text(
+                        'Agendar Cita',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      style: buttonStyle,
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => const Citas()),
+                        );
+                      },
+                    ),
+                    const Spacer(),
                   ],
                 ),
-                const SizedBox(height: 30),
-                ElevatedButton.icon(
-                  icon: const Icon(Icons.cloud_upload),
-                  label: const Text(
-                    'Upload Image',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  style: buttonStyle,
-                  onPressed: _uploadImage,
-                ),
-                const SizedBox(height: 20.0),
-                ElevatedButton.icon(
-                  icon: const Icon(Icons.person),
-                  label: const Text(
-                    'Informacion Personal',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  style: buttonStyle,
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => PersonalInfo()),
-                    );
-                  },
-                ),
-                const SizedBox(height: 20.0),
-                ElevatedButton.icon(
-                  icon: const Icon(Icons.notifications),
-                  label: const Text(
-                    'Notificaciones',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  style: buttonStyle,
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => const NotificationPage()),
-                    );
-                  },
-                ),
-                const SizedBox(height: 20.0),
-                ElevatedButton.icon(
-                  icon: const Icon(Icons.calendar_today),
-                  label: const Text(
-                    'Agendar Cita',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  style: buttonStyle,
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => const Citas()),
-                    );
-                  },
-                ),
-                const Spacer(),
-              ],
+              ),
             ),
           ),
         ),
