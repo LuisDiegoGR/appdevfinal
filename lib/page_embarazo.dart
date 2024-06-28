@@ -67,7 +67,19 @@ class _PageEmbarazoState extends State<PageEmbarazo> with SingleTickerProviderSt
                         child: const Text(
                           'Antes del Embarazo',
                           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.right,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    SlideTransition(
+                      position: _offsetAnimation,
+                      child: FadeTransition(
+                        opacity: _fadeAnimation,
+                        child: Image.asset(
+                          'assets/images/pareja.png',
+                          width: 300,
+                          height: 300,
                         ),
                       ),
                     ),
