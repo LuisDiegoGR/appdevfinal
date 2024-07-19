@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: const Color(0xFF145647),
       ),
-      home: SplashScreen(), 
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -39,26 +39,42 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
   @override
   void initState() {
     super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    );
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    _controller.forward();
     _initialize();
   }
 
   Future<void> _initialize() async {
     await Future.delayed(const Duration(seconds: 3));
     _initNotifications();
+    _controller.reverse();
+    await Future.delayed(const Duration(seconds: 1));
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => HomePage()),
     );
   }
 
-  
   void _initNotifications() {
     final pushProvider = PushNotificationProvider();
     pushProvider.initNotifications();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -66,22 +82,25 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Container(
-          width: 100,
-          height: 100,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF7986CB).withOpacity(0.5),
-                spreadRadius: 10,
-                blurRadius: 20,
-                offset: const Offset(0, 0),
-              ),
-            ],
-          ),
-          child: const CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Color.fromARGB(255, 0, 0, 0)),
+        child: FadeTransition(
+          opacity: _animation,
+          child: Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF7986CB).withOpacity(0.5),
+                  spreadRadius: 10,
+                  blurRadius: 20,
+                  offset: const Offset(0, 0),
+                ),
+              ],
+            ),
+            child: const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Color.fromARGB(255, 0, 0, 0)),
+            ),
           ),
         ),
       ),
@@ -89,7 +108,32 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    );
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,44 +141,57 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'HRAEI',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+            FadeTransition(
+              opacity: _animation,
+              child: const Text(
+                'HRAEI',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-            const Text(
-              'Rehabilitacion Pediatrica',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+            const SizedBox(height: 10),
+            FadeTransition(
+              opacity: _animation,
+              child: const Text(
+                'Rehabilitacion Pediatrica',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             const SizedBox(height: 20),
-            Image.asset(
-              'assets/images/tre.png',
-              width: 200,
+            FadeTransition(
+              opacity: _animation,
+              child: Image.asset(
+                'assets/images/tre.png',
+                width: 200,
+              ),
             ),
             const SizedBox(height: 40),
-            RawMaterialButton(
-              fillColor: Color.fromARGB(255, 0, 0, 0),
-              elevation: 0.0,
-              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 100.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(1.0),
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const PantallaSiguiente()),
-                );
-              },
-              child: const Text(
-                'Comenzar',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.0,
+            FadeTransition(
+              opacity: _animation,
+              child: RawMaterialButton(
+                fillColor: const Color.fromARGB(255, 0, 0, 0),
+                elevation: 0.0,
+                padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 100.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(1.0),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const PantallaSiguiente()),
+                  );
+                },
+                child: const Text(
+                  'Comenzar',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.0,
+                  ),
                 ),
               ),
             ),
