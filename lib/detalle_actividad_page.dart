@@ -1,3 +1,5 @@
+import 'package:appdevfinal/Citas.dart';
+import 'package:appdevfinal/consultar_especialista.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:quickalert/quickalert.dart';
@@ -38,6 +40,9 @@ class _DetalleActividadPageState extends State<DetalleActividadPage> {
         title: 'Atencion al desarrollo',
         text: 'El desarrollo se esta viendo afectado consulta un especialista',
         confirmBtnText: 'Consulta',
+        onConfirmBtnTap: () => Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const Citas()),
+        ),
       );
     } else {
       QuickAlert.show(
@@ -46,198 +51,340 @@ class _DetalleActividadPageState extends State<DetalleActividadPage> {
         title: 'alerta de desarrollo',
         text: 'Hay áreas de desarrollo que necesitan atención. Por favor, agenda una cita.',
         confirmBtnText: 'Consulta',
+        onConfirmBtnTap: () => Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const ConsultarEspecialista()),
+        ),
       );
     }
+  }
+
+  Widget _buildSlidableCategory(String title, String description, int value, ValueChanged<int> onChanged) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+        Text(
+          description,
+          style: const TextStyle(color: Colors.black87, fontSize: 16),
+        ),
+        const SizedBox(height: 10),
+        GestureDetector(
+          onHorizontalDragUpdate: (details) {
+            setState(() {
+              double newValue = (details.localPosition.dx / MediaQuery.of(context).size.width * 4).clamp(0, 3);
+              onChanged(newValue.toInt());
+            });
+          },
+          child: Container(
+            height: 60,
+            decoration: BoxDecoration(
+              color: Color.fromARGB(255, 114, 161, 241).withOpacity(0.3),
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Stack(
+              children: [
+                AnimatedPositioned(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                  left: (value / 3) * (MediaQuery.of(context).size.width - 93),
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Center(
+                      child: Text(
+                        value.toString(),
+                        style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ).animate().move(duration: const Duration(milliseconds: 300), curve: Curves.easeInOut),
+        const SizedBox(height: 24),
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.actividad),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              RichText(
-                textAlign: TextAlign.center,
-                text: const TextSpan(
-                  style: TextStyle(fontSize: 20),
-                  children: <TextSpan> [
-                    TextSpan(text: 'Lenguaje:',
-                    style: TextStyle(
-                      color: Colors.green,
-                      fontWeight: FontWeight.bold,
+      body: Container(
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 231, 231, 231),
+        ),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
-                    ),
-                    TextSpan(text: ' Llora, ríe, emite sonidos',
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                    ),
-                  ],
-                ),
-              ),
-              Slider(
-                value: lenguajePuntaje.toDouble(),
-                min: 0,
-                max: 3,
-                divisions: 3,
-                label: lenguajePuntaje.toString(),
-                activeColor: Colors.green,
-                thumbColor: Colors.grey,
-                onChanged: (double value) {
-                  setState(() {
-                    lenguajePuntaje = value.toInt();
-                  });
-                },
-              ),
-              const SizedBox(height: 15),
-              Image.asset(
-                'assets/images/bebe-recien-nacido.png',
-                 width: 300,
-                 height: 300,
-              ),
-              const SizedBox(height: 15),
-              RichText(
-                textAlign: TextAlign.center,
-                text: const TextSpan(
-                  style: TextStyle(fontSize: 20),
-                  children: <TextSpan> [
-                    TextSpan(text: 'Social:',
-                    style: TextStyle(
-                      color: Colors.green,
-                      fontWeight: FontWeight.bold,
+                      SizedBox(height: 30),
+                      Text(
+                        widget.actividad,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    TextSpan(text: ' Mira la cara, sonríe espontáneamente',
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                    ),
-                  ],
-                ),
-              ),
-              Slider(
-                value: socialPuntaje.toDouble(),
-                min: 0,
-                max: 3,
-                divisions: 3,
-                label: socialPuntaje.toString(),
-                activeColor: Colors.green,
-                thumbColor: Colors.grey,
-                onChanged: (double value) {
-                  setState(() {
-                    socialPuntaje = value.toInt();
-                  });
-                },
-              ),
-              const SizedBox(height: 24),
-              RichText(
-                textAlign: TextAlign.center,
-                text: const TextSpan(
-                  style: TextStyle(fontSize: 20),
-                  children: <TextSpan> [
-                    TextSpan(text: 'Coordinación:',
-                    style: TextStyle(
-                      color: Colors.green,
-                      fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    TextSpan(text: ' Sigue con la mirada objetos móviles, busca con la mirada la fuente del sonido, mueve la cabeza y los ojos en busca del sonido. ',
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                    ),
-                  ],
-                ),
-              ),
-              Slider(
-                value: coordinacionPuntaje.toDouble(),
-                min: 0,
-                max: 3,
-                divisions: 3,
-                label: coordinacionPuntaje.toString(),
-                activeColor: Colors.green,
-                thumbColor: Colors.grey,
-                onChanged: (double value) {
-                  setState(() {
-                    coordinacionPuntaje = value.toInt();
-                  });
-                },
-              ),
-              const SizedBox(height: 24),
-              RichText(
-                textAlign: TextAlign.center,
-                text: const TextSpan(
-                  style: TextStyle(fontSize: 20),
-                  children: <TextSpan> [
-                    TextSpan(text: 'Motora:',
-                    style: TextStyle(
-                      color: Colors.green,
-                      fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    TextSpan(text: ' Boca abajo, levanta 45 grados la cabeza, tracciona hasta sentarse y mantiene erguida y firme la cabeza.',
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                    ),
-                  ],
-                ),
-              ),
-              Slider(
-                value: motoraPuntaje.toDouble(),
-                min: 0,
-                max: 3,
-                divisions: 3,
-                label: motoraPuntaje.toString(),
-                activeColor: Colors.green,
-                thumbColor: Colors.grey,
-                onChanged: (double value) {
-                  setState(() {
-                    motoraPuntaje = value.toInt();
-                  });
-                },
-              ),
-              const SizedBox(height: 80),
-                Image.asset(
-                  'assets/images/system-regular-56-warning.gif',
-                  width: 70,
-                  height: 70,
-                ).animate().fadeIn(),
-                const SizedBox(height: 20),
-                const Text(
-                  'Datos de alarma: No responde a estímulos fuertes, no sigue con la vista las cosas que se mueven, no se lleva las manos a la boca, no puede sostener la cabeza en alto cuando empuja el cuerpo hacia arriba estando boca abajo. ',
-                  style: TextStyle(fontSize: 18),
-                ).animate().fadeIn(delay: const Duration(milliseconds: 500),
-              ),
-              const SizedBox(height: 80),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, 
-                  backgroundColor: Colors.green, 
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  textStyle: const TextStyle(fontSize: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30), 
+                    ],
                   ),
-                ),
-                onPressed: mostrarResultado,
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text('Evaluar'), 
-                  ],
-                ),
+                  SizedBox(height: 20),
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Ponderacion',
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                            ),
+                            textAlign: TextAlign.center
+                          ),
+                          ListTile(
+                            leading: Container(
+                              width: 35,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                color: Colors.green.withOpacity(0.2),
+                                shape: BoxShape.circle, 
+                                
+                              ),
+                              child: const Icon(Icons.check,
+                                  color: Colors.green,
+                                  size: 28,
+                                ),                     
+                             ),
+                            title: RichText(
+                              textAlign: TextAlign.left,
+                              text: const TextSpan(
+                                style: TextStyle(fontSize: 20),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: '3 ',
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 65, 65, 65),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: ' Lo hace',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          ListTile(
+                            leading: Container(
+                              width: 35,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                color: Colors.yellow.withOpacity(0.2),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.lightbulb,
+                                color: Colors.yellow,
+                                size: 28,
+                              ),
+                            ),
+                            title: RichText(
+                              textAlign: TextAlign.left,
+                              text: const TextSpan(
+                                style: TextStyle(fontSize: 20),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: '2 ',
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 65, 65, 65),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: ' Casualmente',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          ListTile(
+                            leading: Container(
+                              width: 35,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                color: Colors.orange.withOpacity(0.2),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.lightbulb,
+                                color: Colors.orange,
+                                size: 28,
+                              ),
+                            ),
+                            title: RichText(
+                              textAlign: TextAlign.left,
+                              text: const TextSpan(
+                                style: TextStyle(fontSize: 20),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: '1 ',
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 65, 65, 65),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: ' A veces',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          ListTile(
+                            leading: Container(
+                              width: 35,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                color: Colors.red.withOpacity(0.2),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.close,
+                                color: Colors.red,
+                                size: 28,
+                              ),
+                            ),
+                            title: RichText(
+                              textAlign: TextAlign.left,
+                              text: const TextSpan(
+                                style: TextStyle(fontSize: 20),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: '0 ',
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 65, 65, 65),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: ' Nunca',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  _buildSlidableCategory(
+                    'Lenguaje:',
+                    'Llora, ríe, emite sonidos',
+                    lenguajePuntaje,
+                    (value) {
+                      setState(() {
+                        lenguajePuntaje = value;
+                      });
+                    },
+                  ),
+                  _buildSlidableCategory(
+                    'Social:',
+                    'Mira la cara, sonríe espontáneamente',
+                    socialPuntaje,
+                    (value) {
+                      setState(() {
+                        socialPuntaje = value;
+                      });
+                    },
+                  ),
+                  _buildSlidableCategory(
+                    'Coordinación:',
+                    'Sigue con la mirada objetos móviles, busca con la mirada la fuente del sonido, mueve la cabeza y los ojos en busca del sonido. ',
+                    coordinacionPuntaje,
+                    (value) {
+                      setState(() {
+                        coordinacionPuntaje = value;
+                      });
+                    },
+                  ),
+                  _buildSlidableCategory(
+                    'Motora:',
+                    'Boca abajo, levanta 45 grados la cabeza, tracciona hasta sentarse y mantiene erguida y firme la cabeza.',
+                    motoraPuntaje,
+                    (value) {
+                      setState(() {
+                        motoraPuntaje = value;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 48),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: mostrarResultado,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                        textStyle: const TextStyle(fontSize: 18),
+                      ),
+                      child: const Text(
+                        'Evaluar',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
     );
   }
 }
+
+//'Lenguaje:'
+//' Llora, ríe, emite sonidos'
+//'Social:'
+//' Mira la cara, sonríe espontáneamente'
+//'Coordinación:'
+//' Sigue con la mirada objetos móviles, busca con la mirada la fuente del sonido, mueve la cabeza y los ojos en busca del sonido. '
+//'Motora:'
+//' Boca abajo, levanta 45 grados la cabeza, tracciona hasta sentarse y mantiene erguida y firme la cabeza.'
