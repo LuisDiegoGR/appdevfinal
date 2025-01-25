@@ -54,7 +54,7 @@ dependencies:
   overlapped_carousel: ^1.0.2
   carousel_slider: ^4.2.1
   animated_snack_bar: ^0.4.0
-
+  connectivity: ^3.0.6
 
 dev_dependencies:
   flutter_test:

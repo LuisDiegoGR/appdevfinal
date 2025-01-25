@@ -1,7 +1,10 @@
 import 'package:appdevfinal/pantalla_siguiente.dart';
 import 'package:appdevfinal/src/providers/push_notifications_provider.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
+import 'sin_inter.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -134,6 +137,21 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     super.dispose();
   }
 
+  Future<void> _checkConnectivityAndNavigate() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.none) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SinInterScreen()),
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const PantallaSiguiente()),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -180,12 +198,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(1.0),
                 ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const PantallaSiguiente()),
-                  );
-                },
+                onPressed: _checkConnectivityAndNavigate,
                 child: const Text(
                   'Comenzar',
                   style: TextStyle(
