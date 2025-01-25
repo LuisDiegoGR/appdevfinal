@@ -19,11 +19,13 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
   final TextEditingController _passwordController = TextEditingController();
   bool _passwordVisible = false;
 
-  static Future<User?> loginUsingEmailPassword({required String email, required String password}) async {
+  static Future<User?> loginUsingEmailPassword(
+      {required String email, required String password}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
     try {
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
       user = userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
@@ -100,7 +102,7 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
           icon: Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
       ),
       body: Center(
@@ -153,7 +155,8 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                   cursorColor: Colors.black,
                   decoration: InputDecoration(
                     hintText: 'Password',
-                    prefixIcon: const Icon(Icons.lock, color: Color(0xFF333333)),
+                    prefixIcon:
+                        const Icon(Icons.lock, color: Color(0xFF333333)),
                     border: InputBorder.none,
                     suffixIcon: GestureDetector(
                       onTap: () {
@@ -163,12 +166,15 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                       },
                       child: AnimatedSwitcher(
                         duration: const Duration(milliseconds: 200),
-                        transitionBuilder: (Widget child, Animation<double> animation) {
-                          return ScaleTransition(scale: animation, child: child);
+                        transitionBuilder:
+                            (Widget child, Animation<double> animation) {
+                          return ScaleTransition(
+                              scale: animation, child: child);
                         },
                         child: _passwordVisible
                             ? const Icon(Icons.visibility, key: Key('visible'))
-                            : const Icon(Icons.visibility_off, key: Key('invisible')),
+                            : const Icon(Icons.visibility_off,
+                                key: Key('invisible')),
                       ),
                     ),
                   ),
@@ -180,7 +186,8 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => const CreateAccn()),
+                        MaterialPageRoute(
+                            builder: (context) => const CreateAccn()),
                       );
                     },
                     child: const Text(
@@ -195,7 +202,8 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const ForgotPasswordScreen()),
+                        MaterialPageRoute(
+                            builder: (context) => const ForgotPasswordScreen()),
                       );
                     },
                     child: const Text(
@@ -213,39 +221,53 @@ class _PantallaSiguiente extends State<PantallaSiguiente> {
                 fillColor: Color.fromARGB(255, 0, 0, 0),
                 elevation: 0.0,
                 padding: const EdgeInsets.symmetric(
-                    vertical: 10.0, horizontal: 100.0),
+                    vertical: 15.0, horizontal: 100.0),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(1.0),
+                  borderRadius: BorderRadius.circular(15),
                 ),
                 onPressed: () async {
-                  User? user = await loginUsingEmailPassword(
-                    email: _emailController.text,
-                    password: _passwordController.text,
-                  );
-                  if (user != null) {
-                    FirebaseFirestore.instance
-                        .collection('users')
-                        .doc(user.uid)
-                        .get()
-                        .then((DocumentSnapshot documentSnapshot) {
+                  try {
+                    User? user = await loginUsingEmailPassword(
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                    );
+
+                    if (user != null) {
+                      print("Usuario autenticado: ${user.uid}");
+                      DocumentSnapshot documentSnapshot =
+                          await FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(user.uid)
+                              .get();
+
                       if (documentSnapshot.exists) {
-                        String? role = (documentSnapshot.data() as Map<String, dynamic>)['role'];
+                        print(
+                            "Documento del usuario encontrado: ${documentSnapshot.data()}");
+                        String? role = (documentSnapshot.data()
+                            as Map<String, dynamic>)['role'];
 
                         if (role == 'admin') {
                           Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) => const AdminPage()),
+                            MaterialPageRoute(
+                                builder: (context) => const AdminPage()),
                           );
                         } else if (role == 'patient') {
                           Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) => const InicioApp()),
+                            MaterialPageRoute(
+                                builder: (context) => const InicioApp()),
                           );
+                        } else {
+                          print('Rol desconocido: $role');
                         }
                       } else {
-                        print('El documento del usuario no existe');
+                        print(
+                            'El documento del usuario no existe en Firestore');
                       }
-                    }).catchError((error) {
-                      print('Error al obtener el rol del usuario: $error');
-                    });
+                    } else {
+                      print('Error: usuario no autenticado.');
+                    }
+                  } catch (error) {
+                    print('Error en el inicio de sesión: $error');
                   }
                   ContinueDart2(context);
                   ContinueDart(context);

@@ -11,7 +11,7 @@ class Citas extends StatefulWidget {
 }
 
 class _CitasState extends State<Citas> {
-  final databaseReference = FirebaseDatabase.instance.reference();
+  final databaseReference = FirebaseDatabase.instance.ref();
   final _formKey = GlobalKey<FormState>();
   String _nombrePaciente = '';
   String _fechaCita = '';
@@ -72,7 +72,8 @@ class _CitasState extends State<Citas> {
                       width: 400,
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 231, 230, 230).withOpacity(0.9),
+                        color: const Color.fromARGB(255, 231, 230, 230)
+                            .withOpacity(0.9),
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                       child: TextFormField(
@@ -100,7 +101,8 @@ class _CitasState extends State<Citas> {
                       width: 400,
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 231, 230, 230).withOpacity(0.9),
+                        color: const Color.fromARGB(255, 231, 230, 230)
+                            .withOpacity(0.9),
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                       child: TextFormField(
@@ -128,7 +130,8 @@ class _CitasState extends State<Citas> {
                       width: 400,
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 231, 230, 230).withOpacity(0.9),
+                        color: const Color.fromARGB(255, 231, 230, 230)
+                            .withOpacity(0.9),
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                       child: TextFormField(
@@ -153,9 +156,10 @@ class _CitasState extends State<Citas> {
                     ),
                     const SizedBox(height: 30),
                     RawMaterialButton(
-                      fillColor: Colors.black, 
+                      fillColor: Colors.black,
                       elevation: 0.0,
-                      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 60),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 60),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),

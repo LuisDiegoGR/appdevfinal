@@ -39,7 +39,8 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -99,7 +100,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               ],
             ),
             child: const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Color.fromARGB(255, 0, 0, 0)),
+              valueColor:
+                  AlwaysStoppedAnimation<Color>(Color.fromARGB(255, 0, 0, 0)),
             ),
           ),
         ),
@@ -113,7 +115,8 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -176,14 +179,16 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               child: RawMaterialButton(
                 fillColor: const Color.fromARGB(255, 0, 0, 0),
                 elevation: 0.0,
-                padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 100.0),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 10.0, horizontal: 100.0),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(1.0),
+                  borderRadius: BorderRadius.circular(15),
                 ),
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const PantallaSiguiente()),
+                    MaterialPageRoute(
+                        builder: (context) => const PantallaSiguiente()),
                   );
                 },
                 child: const Text(

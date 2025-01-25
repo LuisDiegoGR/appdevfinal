@@ -2,10 +2,9 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'TerceraPage.dart';
-import 'consultar_especialista.dart';
 import 'informacion1.dart';
+import 'package:appdevfinal/user_list.dart';
 
 class InicioApp extends StatefulWidget {
   const InicioApp({super.key});
@@ -16,69 +15,6 @@ class InicioApp extends StatefulWidget {
 
 class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
   File? _image;
-  late AnimationController _controller;
-  late Animation<Offset> _offsetAnimation1;
-  late Animation<Offset> _offsetAnimation2;
-  late Animation<Offset> _offsetAnimationButton1;
-  late Animation<Offset> _offsetAnimationButton2;
-  late Animation<double> _fadeAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(seconds: 1),
-      vsync: this,
-    );
-
-    _offsetAnimation1 = Tween<Offset>(
-      begin: const Offset(-1.0, 0.0),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    ));
-
-    _offsetAnimation2 = Tween<Offset>(
-      begin: const Offset(1.0, 0.0),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    ));
-
-    _offsetAnimationButton1 = Tween<Offset>(
-      begin: const Offset(-1.0, 0.0),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    ));
-
-    _offsetAnimationButton2 = Tween<Offset>(
-      begin: const Offset(1.0, 0.0),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    ));
-
-    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(_controller);
-
-    _controller.forward();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _controller.forward(from: 0.0); // Reinicia la animación desde el inicio
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +28,8 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
                 ? FileImage(_image!)
                 : (FirebaseAuth.instance.currentUser?.photoURL != null
                     ? NetworkImage(FirebaseAuth.instance.currentUser!.photoURL!)
-                    : const AssetImage('assets/images/Placeholder.jpg') as ImageProvider),
+                    : const AssetImage('assets/images/Placeholder.jpg')
+                        as ImageProvider),
           ),
         ),
         actions: [
@@ -108,229 +45,126 @@ class _InicioAppState extends State<InicioApp> with TickerProviderStateMixin {
             },
           )
         ],
-        backgroundColor: Colors.white.withOpacity(0.8),
-        elevation: 15.0,
-        shadowColor: Colors.black.withOpacity(0.9),
+        backgroundColor: Color(0xFFFFFFFF),
+        elevation: 0,
       ),
-      body: Stack(
-        children: [
-          Center(
-            child: SingleChildScrollView(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFFFFFFFF), // Blanco puro
+              Color.fromARGB(255, 233, 233, 233), // Gris oscuro
+            ], // Colores del degradado
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const SizedBox(height: 10),
-                  SlideTransition(
-                    position: _offsetAnimation1,
-                    child: FadeTransition(
-                      opacity: _fadeAnimation,
-                      child: _buildCustomContainer(
-                        context,
-                        'assets/images/DocGirl.png',
-                        'Consultar Especialista',
-                        Alignment.centerLeft,
-                        -30,
-                        Alignment.centerLeft,
-                        Alignment.centerLeft,
-                        150,
-                        -50.0,
-                        110.0,
-                        -100.0,
-                        -20.0,
-                        () {
-                          if (mounted) {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => const ConsultarEspecialista()),
-                            );
-                          }
-                        },
+                  const SizedBox(height: 20),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    elevation: 8,
+                    color: Colors.white,
+                    shadowColor: Colors.black.withOpacity(0.5),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/images/doctora.png',
+                            width: 150,
+                          ),
+                          RawMaterialButton(
+                            fillColor: Color.fromARGB(255, 46, 46, 46),
+                            elevation: 0.0,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 100),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const UserListScreen()));
+                            },
+                            child: const Text(
+                              'Consultar Especialista',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: 30),
-                  SlideTransition(
-                    position: _offsetAnimation2,
-                    child: FadeTransition(
-                      opacity: _fadeAnimation,
-                      child: _buildCustomContainer(
-                        context,
-                        'assets/images/DocMan.png',
-                        'Informacion Pediatrica',
-                        Alignment.centerRight,
-                        -70.0,
-                        Alignment.centerRight,
-                        Alignment.centerRight,
-                        -170,
-                        100.0,
-                        -120.0,
-                        0.0,
-                        -20.0,
-                        () {
-                          if (mounted) {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => const Informacion1()),
-                            );
-                          }
-                        },
+                  SizedBox(height: 20),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    color: Colors.white,
+                    elevation: 8,
+                    shadowColor: Colors.black.withOpacity(0.5),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/images/citas.png',
+                            width: 150,
+                          ),
+                          RawMaterialButton(
+                            fillColor: Color.fromARGB(255, 46, 46, 46),
+                            elevation: 0.0,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 100.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const Informacion1()));
+                            },
+                            child: const Text(
+                              'Informacion Pediatrica',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
+                  const SizedBox(height: 55),
                 ],
               ),
             ),
           ),
-          Positioned(
-            top: MediaQuery.of(context).size.height / 3 - 60,
-            left: MediaQuery.of(context).size.width / 2 - 20,
-            child: SlideTransition(
-              position: _offsetAnimationButton1,
-              child: FadeTransition(
-                opacity: _fadeAnimation,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (mounted) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const ConsultarEspecialista()),
-                      );
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  ),
-                  child: const Text(
-                    'Ir',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: MediaQuery.of(context).size.height / 2 - (-125),
-            left: MediaQuery.of(context).size.width / 3 - 30,
-            child: SlideTransition(
-              position: _offsetAnimationButton2,
-              child: FadeTransition(
-                opacity: _fadeAnimation,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (mounted) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const Informacion1()),
-                      );
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  ),
-                  child: const Text(
-                    'Ir',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCustomContainer(
-    BuildContext context,
-    String imagePath,
-    String text,
-    Alignment alignment,
-    double imageOffset,
-    Alignment textAlignment,
-    Alignment buttonAlignment,
-    double buttonOffset,
-    double topPadding,
-    double textHorizontalOffset,
-    double imageVerticalOffset,
-    double buttonVerticalOffset,
-    Function() onPressed,
-  ) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-            margin: EdgeInsets.only(top: 50 + topPadding),
-            decoration: BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 60),
-                Align(
-                  alignment: textAlignment,
-                  child: Transform.translate(
-                    offset: Offset(textHorizontalOffset, -50),
-                    child: Text(
-                      text,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Roboto',
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-              ],
-            ),
-          ),
-          Positioned(
-            top: -10 + imageVerticalOffset,
-            left: alignment == Alignment.centerLeft ? -80 + imageOffset : null,
-            right: alignment == Alignment.centerRight ? -100 + imageOffset : null,
-            child: FadeTransition(
-              opacity: _fadeAnimation,
-              child: _buildImage(imagePath),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildImage(String imagePath) {
-    return Container(
-      width: 420,
-      height: 420,
-      padding: const EdgeInsets.all(8.0),
-      child: Image.asset(
-        imagePath,
-        fit: BoxFit.contain,
+        ),
       ),
     );
   }
 }
-
-void main() => runApp(const MaterialApp(
-  home: InicioApp(),
-));

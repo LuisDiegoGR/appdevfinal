@@ -16,7 +16,8 @@ class TerceraPag extends StatefulWidget {
   State<TerceraPag> createState() => _TerceraPagState();
 }
 
-class _TerceraPagState extends State<TerceraPag> with SingleTickerProviderStateMixin {
+class _TerceraPagState extends State<TerceraPag>
+    with SingleTickerProviderStateMixin {
   final ImagePicker _picker = ImagePicker();
   File? _image;
   late AnimationController _controller;
@@ -142,7 +143,10 @@ class _TerceraPagState extends State<TerceraPag> with SingleTickerProviderStateM
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Color(0xFFE8EAF6), Color(0xFF7986CB)],
+              colors: [
+                Color(0xFFFFFFFF), // Blanco puro
+                Color.fromARGB(255, 171, 255, 209),
+              ],
             ),
           ),
           child: Center(
@@ -160,10 +164,12 @@ class _TerceraPagState extends State<TerceraPag> with SingleTickerProviderStateM
                           radius: 80,
                           backgroundImage: _image != null
                               ? FileImage(_image!)
-                              : (FirebaseAuth.instance.currentUser?.photoURL != null
-                                  ? NetworkImage(
-                                      FirebaseAuth.instance.currentUser!.photoURL!)
-                                  : const AssetImage('assets/images/Placeholder.jpg')
+                              : (FirebaseAuth.instance.currentUser?.photoURL !=
+                                      null
+                                  ? NetworkImage(FirebaseAuth
+                                      .instance.currentUser!.photoURL!)
+                                  : const AssetImage(
+                                          'assets/images/Placeholder.jpg')
                                       as ImageProvider),
                           backgroundColor: Colors.white,
                         ),
@@ -176,7 +182,8 @@ class _TerceraPagState extends State<TerceraPag> with SingleTickerProviderStateM
                               shape: BoxShape.circle,
                             ),
                             child: IconButton(
-                              icon: const Icon(Icons.camera_alt, color: Colors.white),
+                              icon: const Icon(Icons.camera_alt,
+                                  color: Colors.white),
                               onPressed: _getImage,
                             ),
                           ),
@@ -209,7 +216,8 @@ class _TerceraPagState extends State<TerceraPag> with SingleTickerProviderStateM
                       style: buttonStyle,
                       onPressed: () {
                         Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => PersonalInfo()),
+                          MaterialPageRoute(
+                              builder: (context) => PersonalInfo()),
                         );
                       },
                     ),
@@ -226,7 +234,8 @@ class _TerceraPagState extends State<TerceraPag> with SingleTickerProviderStateM
                       style: buttonStyle,
                       onPressed: () {
                         Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => const NotificationPage()),
+                          MaterialPageRoute(
+                              builder: (context) => const NotificationPage()),
                         );
                       },
                     ),
@@ -243,7 +252,8 @@ class _TerceraPagState extends State<TerceraPag> with SingleTickerProviderStateM
                       style: buttonStyle,
                       onPressed: () {
                         Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => const Citas()),
+                          MaterialPageRoute(
+                              builder: (context) => const Citas()),
                         );
                       },
                     ),
